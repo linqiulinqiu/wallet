@@ -275,5 +275,6 @@ $(document).ready(function(){
     wcbtn.on('click', function(){
         connect(wcbtn)
     })
+    $('div#connect-title').text('Chain Bridge ('+window._plotbridge.x_symbol+')')
 })
 
