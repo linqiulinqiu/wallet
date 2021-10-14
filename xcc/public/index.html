@@ -1,22 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>BSC Bridge</title>
-        <link rel="stylesheet" href="css/app.css" />
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    </head>
 
-    <body>
-        <div class="row" id="init-switch">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>BSC Bridge</title>
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+</head>
+<style>
+    div,
+    p,
+    button {
+        margin: 0;
+        padding: 0;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    #init-switch {
+        width: 100%;
+    }
+
+    #init-switch .language {
+        width: 500px;
+        margin: 50px 0px 0px 200px;
+    }
+
+    #init-switch .language .lang-en,
+    .lang-zh {
+        width: 100px;
+        height: 30px;
+        background-color: lavenderblush;
+        border: none;
+    }
+
+    #init-switch .language .lang-en {
+        background-color: lightblue;
+    }
+
+    #init-switch .contain {
+        width: 700px;
+        height: 400px;
+        margin: 100px auto 0px;
+        background-color: lightcyan;
+        padding: 50px;
+    }
+
+    #init-switch .contain .choose {
+        font: 25px "微软雅黑";
+        font-weight: bold;
+        margin: 50px 0px;
+        text-align: center;
+    }
+
+    #init-switch .contain #swich-xcc,
+    #swich-xch {
+        width: 150px;
+        height: 100px;
+        font-size: 30px;
+        color: black;
+        text-align: center;
+        border: none;
+        margin: 0px 0px 50px 133px;
+    }
+
+    #swich-xcc {
+        background-color: pink;
+    }
+
+    #swich-xch {
+        background-color: #abcdef;
+    }
+
+    #init-switch .introduction {
+        font: 18px "微软雅黑";
+        font-weight: bold;
+        height: 50px;
+        line-height: 50px;
+        text-indent: 2em;
+    }
+</style>
+
+<body>
+    <div class="row" id="init-switch">
+        <div class="language">
+            <button class="lang-zh">中文简体</button>
+            <button class="lang-en">English</button>
+        </div>
+        <div class="contain">
+            <p class="choose">Please select the currency you need</p>
             <button class="button is-primary" id="switch-xcc" type="button">Chives</button>
             <button class="button is-primary" id="switch-xch" type="button">Chia</button>
+            <p class="introduction">If you choose a different currency,
+                you will jump to the corresponding operation interface.</p>
         </div>
-        <script type="text/template" id="main-content">
-            <div class="container">
+    </div>
+    <!-- <div class="row" id="init-switch">
+        <button class="button is-primary" id="switch-xcc" type="button">Chives</button>
+        <button class="button is-primary" id="switch-xch" type="button">Chia</button>
+    </div> -->
+    <script type="text/template" id="main-content">
+        <div class="container">
         <div class="row">
             <div class="md-12" style="min-height: 40px"></div>
         </div>
@@ -98,7 +187,7 @@
         </div>
     </footer>
         </script>
-        <script src="js/app.js"></script>
-    </body>
+    <script src="js/app.js"></script>
+</body>
 
 </html>
