@@ -1,1 +1,99 @@
-../../xcc/public/index.html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>BSC Bridge</title>
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="md-12" style="min-height: 40px"></div>
+        </div>
+        <div class="block">
+            <div class="card" id="wallet-connect">
+                <div id='connect-title' class="card-header">Chain Bridge (XCC)</div>
+                <div class="card-content">
+                    <button class="button is-primary" id="wallet-connect" type="button">Connect Wallet</button>
+                </div>
+                <div id='token-balance' hidden>
+                    <p>Token Balance:<span id='token-balance'></span></p>
+                </div>
+                <div id='note-msg' class="notification is-warning" hidden>
+                    <p id='note-msg-text'></p>
+                </div>
+            </div>
+        </div>
+        <div class="block">
+            <div class="card" id="xch-deposit-addr" style="display:none">
+                <div class="card-header">XCH deposit address</div>
+                <div class="card-content">
+                    <button class="button is-primary" id="xch-deposit-addr" type="button">Obtain Address</button>
+                </div>
+                <div id='note-msg' class="notification is-warning" hidden>
+                    <p id='note-msg-text'></p>
+                </div>
+                <div>
+                    <a
+                        href='https://pancake.kiemtienonline360.com/#/add/BNB/0x440F0669525104C15304ac55106AE40B4612A725'>Provide
+                        Liquidity to Pancake</a>
+                </div>
+            </div>
+        </div>
+        <div class="block">
+            <div class="card" id="xch-deposits" style="display:none">
+                <div class="card-header">XCH deposit history</div>
+                <div class="card-content">
+                    <button class="button is-info" id="load" type="button">Load</button>
+                    <div class="box">
+                        <table class="table is-striped" id="list"></table>
+                    </div>
+                    <div class="box">Total: <span id="total"></span></div>
+                </div>
+            </div>
+        </div>
+        <div class="block">
+            <div class="card" id="xch-withdraw-addr" style="display:none">
+                <div class="card-header">XCH withdraw address</div>
+                <div class="card-content">
+                    <input class='input' type='text' id='xch-withdraw-addr' />
+                    <button class="button is-primary" id="xch-withdraw-addr" type="button">Bind Address</button>
+                </div>
+                <div id='note-msg' class="notification is-warning" hidden>
+                    <p id='note-msg-text'></p>
+                </div>
+            </div>
+            <div class="card" id="xch-burn" style="display:none">
+                <div class="card-header">XCH Withdraw</div>
+                <div class="card-content">
+                    <input class='input' type='number' id='xch-burn-amount' />
+                    <button class="button is-primary" id="xch-burn" type="button">Withdraw</button>
+                </div>
+                <div id='note-msg' class="notification is-warning" hidden>
+                    <p id='note-msg-text'></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="block">
+            <div class="message">
+                <div class="message-header">Contact us</div>
+                <div class="message-body">
+                    <a class="btn btn-xs btn-dark m-3" href="#!"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-xs btn-dark m-3" href="#!"><i class="fab fa-telegram"></i></a>
+                    <a class="btn btn-xs btn-dark m-3" href="#!"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

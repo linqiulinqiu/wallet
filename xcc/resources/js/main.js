@@ -10,7 +10,8 @@ const token_abi = require('./token-abi.json')
 // const contract_addr = '0x1D51a66b67103d2716f47B762a6c7b8298bFad04'
 
 const contract_addr = window._plotbridge.contract_addr
-var xaddr_prefix = window._plotbridge.xaddr_prefix
+const xaddr_prefix = window._plotbridge.xaddr_prefix
+const xsymbol = window._plotbridge.x_symbol
 
 var bsc = {
     addr:''
@@ -275,6 +276,7 @@ $(document).ready(function(){
     wcbtn.on('click', function(){
         connect(wcbtn)
     })
-    $('div#connect-title').text('Chain Bridge ('+window._plotbridge.x_symbol+')')
+    $('div#connect-title').text('Chain Bridge (' + xsymbol + ')')
+    $('div#dep-addr').text('(' + xsymbol + ')deposit address')
 })
 
