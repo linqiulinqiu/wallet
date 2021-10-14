@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>BSC Bridge</title>
+        <link rel="stylesheet" href="css/app.css" />
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    </head>
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>BSC Bridge</title>
-    <link rel="stylesheet" href="css/app.css" />
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-</head>
-
-<body>
-    <div class="container">
+    <body>
+        <div class="row" id="init-switch">
+            <button class="button is-primary" id="switch-xcc" type="button">Chives</button>
+            <button class="button is-primary" id="switch-xch" type="button">Chia</button>
+        </div>
+        <script type="text/template" id="main-content">
+            <div class="container">
         <div class="row">
             <div class="md-12" style="min-height: 40px"></div>
         </div>
         <div class="block">
             <div class="card" id="wallet-connect">
-                <div id='connect-title' class="card-header">Chain Bridge (XCC)</div>
+                <div class="card-header"><%= connect_title %></div>
                 <div class="card-content">
                     <button class="button is-primary" id="wallet-connect" type="button">Connect Wallet</button>
                 </div>
@@ -32,7 +36,7 @@
         </div>
         <div class="block">
             <div class="card" id="xch-deposit-addr" style="display:none">
-                <div class="card-header" id="dep-addr">XCH deposit address</div>
+                <div class="card-header"><%= x_dep_addr %></div>
                 <div class="card-content">
                     <button class="button is-primary" id="xch-deposit-addr" type="button">Obtain Address</button>
                 </div>
@@ -93,7 +97,8 @@
             </div>
         </div>
     </footer>
-    <script src="js/app.js"></script>
-</body>
+        </script>
+        <script src="js/app.js"></script>
+    </body>
 
 </html>

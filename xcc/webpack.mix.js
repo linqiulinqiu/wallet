@@ -17,7 +17,8 @@ mix.webpackConfig({
             "crypto": require.resolve("crypto-browserify"),
             "stream": require.resolve("stream-browserify") 
         }
-    }
+    },
+    devtool: false
 /*    plugins: [
         new BundleAnalyzerPlugin({
             analyzerHost: '127.0.0.1'
@@ -26,6 +27,6 @@ mix.webpackConfig({
     */
 });
 
-mix.js('resources/js/app.js', 'public/js')
+mix.js('resources/js/app.js', 'public/js/')
     .sass('resources/sass/app.scss', 'public/css')
     .sourceMaps();
