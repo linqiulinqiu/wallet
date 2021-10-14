@@ -24,14 +24,33 @@
         width: 100%;
     }
 
+    .main .language {
+        width: 500px;
+        margin: 50px 0px 0px 200px;
+    }
+
+    .main .language .lang-en,
+    .lang-zh {
+        width: 100px;
+        height: 30px;
+        background-color: lavenderblush;
+        border: none;
+    }
+
+    .main .language .lang-en {
+        background-color: lightblue;
+    }
+
     .main .contain {
         width: 700px;
-        height: 800px;
-        margin: 300px auto;
+        height: 400px;
+        margin: 100px auto 0px;
+        background-color: lightcyan;
+        padding: 50px;
     }
 
     .main .contain .choose {
-        font-size: 25px;
+        font: 25px "微软雅黑";
         font-weight: bold;
         margin: 50px 0px;
         text-align: center;
@@ -57,7 +76,7 @@
     }
 
     .main .introduction {
-        font-size: 18px;
+        font: 18px "微软雅黑";
         font-weight: bold;
         height: 50px;
         line-height: 50px;
@@ -67,6 +86,10 @@
 
 <body link="black" vlink="blue" alink="green">
     <div class="main">
+        <div class="language">
+            <button class="lang-zh">中文简体</button>
+            <button class="lang-en">English</button>
+        </div>
         <div class="contain">
             <p class="choose">Please select the currency you need</p>
             <button class="xcc">
@@ -80,7 +103,37 @@
         </div>
     </div>
 
-
 </body>
+<script>
+    const btnZh = document.querySelector('.lang-zh')
+    const btnEn = document.querySelector('.lang-en')
+    const choose = document.querySelector('.choose')
+    const introduction = document.querySelector('.introduction')
+    console.log(btnZh)
+    btnZh.onclick = function () {
+        choose.innerHTML = '请选择你所需要的货币'
+        introduction.innerHTML = '根据你的选择,将会跳转到相应的页面'
+        btnZh.style.backgroundColor = "lightblue"
+        btnEn.style.backgroundColor = "lavenderblush"
+    }
+    btnEn.onclick = function () {
+        btnEn.style.backgroundColor = "lightblue"
+        choose.innerHTML = 'Please select the currency you need'
+        introduction.innerHTML =
+            "If you choose a different currency,you will jump to the corresponding operation interface."
+        btnZh.style.backgroundColor = "lavenderblush"
+    }
+    // $(document).ready(function () {
+    //     $('button.lang-zh').click(function () {
+    //         // 执行语言切换为中文
+    //         $(".choose").text = "请选择你所需要的货币"
+
+    //     })
+    //     $("button.lang-en").click(function () {
+    //         // 语言切换为英语
+    //     })
+
+    // })
+</script>
 
 </html>
