@@ -6,45 +6,7 @@ const $ = require('cash-dom')
 const _ = require('lodash');
 const Polyglot = require('node-polyglot')
 
-//语言转换
-const dicts = {
-    en: {
-        'connect_wallet':'Connect Wallet',
-        'connect_title':'Chain Connect (%{x_symbol})',
-        'x_dep_addr': '%{x_symbol} deposit address',
-        'x_network_select': 'The Plot Network',
-        'x_introduction': 'introduction',
-        'x_banlance': 'Token Balance:',
-        'x_obtain': 'Obtain Address',
-        'x_pancake': 'Provide Liquidity to Pancake',
-        'x_xch_dep_his': '%{x_symbol} deposit history',
-        'x_load': 'Load',
-        'x_total': 'Total:',
-        'x_xch_with_addr': '%{x_symbol} withdraw address',
-        'x_bind_addr': 'Bind Address',
-        'x_xch_with': '%{x_symbol} Withdraw',
-        'x_withdraw': 'Withdraw',
-        'x_contact': 'Contact us'
-    },
-    zh: {
-        'connect_wallet':'连接钱包',
-        'connect_title':'连接 (%{x_symbol})',
-        'x_dep_addr': '%{x_symbol} 存入地址',
-        'x_network_select': 'Plot网络选择',
-        'x_introduction': '说明',
-        'x_banlance': '代币余额:',
-        'x_obtain': '获取地址',
-        'x_pancake': 'Provide Liquidity to Pancake',
-        'x_xch_dep_his':'%{x_symbol}存储历史',
-        'x_load': '登录',
-        'x_total': '总计',
-        'x_xch_with_addr': '%{x_symbol} 取款地址',
-        'x_bind_addr': '绑定地址',
-        'x_xch_with':'%{x_symbol} 取款',
-        'x_withdraw': '取款',
-        'x_contact':'联系我们'
-    }
-}
+const dicts = require('./lang-dicts').default
 
 const axios = require('axios')
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
@@ -60,7 +22,6 @@ var xch = {
 }
 
 function puzzle_hash_to_address(puzzle_hash, prefix) {
-    console.log('puzzle', puzzle_hash)
     if (puzzle_hash.indexOf("0x") == 0) {
 
         puzzle_hash = puzzle_hash.substring(2);
@@ -179,7 +140,6 @@ async function load_xch_withdraw_addr(baddr, prefix){
         btn.on('click', async function (){
             btn.off('click')
             const xhex = xchHex(input.val())
-            console.log('xhex',xhex)
             if(xhex){
                 try {
                     const res = await bsc.ctr.bindXout(xhex)
@@ -227,7 +187,6 @@ async function load_xch_deposit_addr(baddr, prefix){
                 const bnb = ethers.constants.WeiPerEther.div(2000)
                 try {
                     const res = await bsc.ctr.bindXin({ value: bnb })
-                    console.log(res)
                     await wait_tx_done(notemsg.find('p'))
                     load_xch_addr(baddr, prefix)
                 }catch(e){
@@ -314,15 +273,17 @@ function init(cfg){
     if(!cfg.lang||!(cfg.lang in dicts)){
         cfg.lang = 'en'
     }
-    console.log('init with', cfg)
     const polyglot = new Polyglot({phrases:dicts[cfg.lang]})
     Object.keys(dicts[cfg.lang]).map(function(k,idx){ arg_dict[k] = polyglot.t(k,cfg)})
-    const main_content = _.template($('#main-content').html())
-    $('div#body').html(main_content(arg_dict))
+    try{
+        const main_content = _.template($('#main-content').html())
+        $('div#body').html(main_content(arg_dict))
+    }catch(e){
+        console.log('template err:',e)
+    }
     if('contract_addr' in cfg){
         const wcbtn = $('button#wallet-connect')
         wcbtn.on('click', function(){
-            console.log('wcbtn click')
             connect(wcbtn, cfg)
         })
         $('div.container').show()
