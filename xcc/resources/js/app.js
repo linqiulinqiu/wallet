@@ -6,12 +6,18 @@ const $ = require('cash-dom')
 const _ = require('lodash');
 const Polyglot = require('node-polyglot')
 
-const en_dict = {
+const dicts = {
+    en: {
+        'connect_wallet':'Connect Wallet',
         'connect_title':'Chain Connect (%{x_symbol})',
         'x_dep_addr':'%{x_symbol} deposit address'
+    },
+    zh: {
+        'connect_wallet':'连接钱包',
+        'connect_title':'连接 (%{x_symbol})',
+        'x_dep_addr':'%{x_symbol} 存入地址'
+    }
 }
-
-const polyglot = new Polyglot({phrases:en_dict})
 
 const axios = require('axios')
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
@@ -278,32 +284,51 @@ async function connect(wbtn, cfg){
 
 function init(cfg){
     const arg_dict = {}
-    Object.keys(en_dict).map(function(k,idx){ arg_dict[k] = polyglot.t(k,cfg)})
+    if(!cfg.lang||!(cfg.lang in dicts)){
+        cfg.lang = 'en'
+    }
+    console.log('init with', cfg)
+    const polyglot = new Polyglot({phrases:dicts[cfg.lang]})
+    Object.keys(dicts[cfg.lang]).map(function(k,idx){ arg_dict[k] = polyglot.t(k,cfg)})
     const main_content = _.template($('#main-content').html())
-    $('body').prepend(main_content(arg_dict))
-
-    const wcbtn = $('button#wallet-connect')
-    wcbtn.on('click', function(){
-        console.log('wcbtn click')
-        connect(wcbtn, cfg)
+    $('div#body').html(main_content(arg_dict))
+    if('contract_addr' in cfg){
+        const wcbtn = $('button#wallet-connect')
+        wcbtn.on('click', function(){
+            console.log('wcbtn click')
+            connect(wcbtn, cfg)
+        })
+        $('div.container').show()
+        $('footer').show()
+    }else{
+        $('div.container').hide()
+        $('footer').hide()
+    }
+    $('#switch-xcc').on('click',function(){
+        cfg.xaddr_prefix = 'xcc'
+        cfg.x_symbol = 'XCC'
+        cfg.contract_addr = '0x440F0669525104C15304ac55106AE40B4612A725'
+        init(cfg)
+    })
+    $('#switch-xch').on('click',function(){
+        cfg.xaddr_prefix = 'xch'
+        cfg.x_symbol = 'XCH'
+	    cfg.contract_addr = '0x1D51a66b67103d2716f47B762a6c7b8298bFad04'
+        init(cfg)
     })
 }
 
 $(document).ready(function(){
-    $('#switch-xcc').on('click',function(){
-        $('#init-switch').hide()
-        init({
-            xaddr_prefix : 'xcc',
-            x_symbol: 'XCC',
-            contract_addr : '0x440F0669525104C15304ac55106AE40B4612A725'
-        })
+    var cfg = {
+        lang : 'en'
+    }
+    init(cfg)
+    $('button#lang-zh').on('click', function(){
+        cfg.lang = 'zh'
+        init(cfg)
     })
-    $('#switch-xch').on('click',function(){
-        $('#init-switch').hide()
-        init({
-            xaddr_prefix : 'xch',
-            x_symbol: 'XCH',
-	        contract_addr : '0x1D51a66b67103d2716f47B762a6c7b8298bFad04'
-        })
+    $('button#lang-en').on('click', function(){
+        cfg.lang = 'en'
+        init(cfg)
     })
 })

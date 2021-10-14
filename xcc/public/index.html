@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>BSC Bridge</title>
-    <link rel="stylesheet" href="css/app.css" />
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-</head>
-<style>
-    div,
-    p,
-    button {
-        margin: 0;
-        padding: 0;
-    }
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>BSC Bridge</title>
+        <link rel="stylesheet" href="css/app.css" />
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    </head>
+    <style>
+div,
+p,
+button {
+    margin: 0;
+    padding: 0;
+}
 
     a {
         text-decoration: none;
@@ -84,27 +84,24 @@
         line-height: 50px;
         text-indent: 2em;
     }
-</style>
+    </style>
 
-<body>
-    <div class="row" id="init-switch">
-        <div class="language">
-            <button class="lang-zh">中文简体</button>
-            <button class="lang-en">English</button>
+    <body>
+        <div class="row" id="language">
+            <button class="button is-primary" id="lang-zh">中文简体</button>
+            <button class="button is-primary" id="lang-en">English</button>
         </div>
-        <div class="contain">
-            <p class="choose">Please select the currency you need</p>
-            <button class="button is-primary" id="switch-xcc" type="button">Chives</button>
-            <button class="button is-primary" id="switch-xch" type="button">Chia</button>
-            <p class="introduction">If you choose a different currency,
-                you will jump to the corresponding operation interface.</p>
+        <div id="body"></div>
+        <script type="text/template" id="main-content">
+            <div class="row" id="init-switch">
+            <div class="contain">
+                <p class="choose">Please select the currency you need</p>
+                <button class="button is-primary" id="switch-xcc" type="button">Chives</button>
+                <button class="button is-primary" id="switch-xch" type="button">Chia</button>
+                <p class="introduction">If you choose a different currency,
+                    you will jump to the corresponding operation interface.</p>
+            </div>
         </div>
-    </div>
-    <!-- <div class="row" id="init-switch">
-        <button class="button is-primary" id="switch-xcc" type="button">Chives</button>
-        <button class="button is-primary" id="switch-xch" type="button">Chia</button>
-    </div> -->
-    <script type="text/template" id="main-content">
         <div class="container">
         <div class="row">
             <div class="md-12" style="min-height: 40px"></div>
@@ -113,7 +110,7 @@
             <div class="card" id="wallet-connect">
                 <div class="card-header"><%= connect_title %></div>
                 <div class="card-content">
-                    <button class="button is-primary" id="wallet-connect" type="button">Connect Wallet</button>
+                    <button class="button is-primary" id="wallet-connect" type="button"><%= connect_wallet %></button>
                 </div>
                 <div id='token-balance' hidden>
                     <p>Token Balance:<span id='token-balance'></span></p>
@@ -187,7 +184,7 @@
         </div>
     </footer>
         </script>
-    <script src="js/app.js"></script>
-</body>
+        <script src="js/app.js"></script>
+    </body>
 
 </html>

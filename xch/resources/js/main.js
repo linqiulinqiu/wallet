@@ -1,1 +1,0 @@
-../../../xcc/resources/js/main.js
