@@ -1,5 +1,7 @@
 const dicts = {
     en: {
+        'add_token':'Add %{x_symbol} Token',
+        'add_network':'Add BSC Network',
         'connect_wallet':'Connect Wallet',
         'connect_title':'Chain Connect (%{x_symbol})',
         'x_dep_addr': '%{x_symbol} deposit address',
@@ -18,6 +20,8 @@ const dicts = {
         'x_contact': 'Contact us'
     },
     zh: {
+        'add_token':'Add %{x_symbol} Token',
+        'add_network':'Add BSC Network',
         'connect_wallet':'连接钱包',
         'connect_title':'连接 (%{x_symbol})',
         'x_dep_addr': '%{x_symbol} 存入地址',

@@ -234,7 +234,7 @@ async function load_xch_deposits(addr, prefix){
     dest.find('#total').text(ethers.utils.formatUnits(total,decimals))
 }
 
-async function load_token_balance(){
+async function load_token_balance(cfg){
     const div = $('div#token-balance')
     const span = div.find('span#token-balance')
     const balance = await bsc_token_balance()
@@ -242,6 +242,29 @@ async function load_token_balance(){
     div.show()
     const btxt = ethers.utils.formatUnits(balance,decimals)
     span.text(btxt)
+}
+
+async function add_token(cfg){
+    try {
+        const options = {
+            address: cfg.contract_addr,
+            symbol: cfg.x_symbol,
+            decimals: await bsc_token_decimals(),
+            image: cfg.image
+        }
+        const wasAdded = await ethereum.request({
+            method: 'wallet_watchAsset',
+            params: {
+                type: 'ERC20',
+                options: options
+            }
+        })
+        if (!wasAdded){
+            alert('token add failed')
+        }
+    }catch(e){
+        console.log('error when add token',e)
+    }
 }
 
 async function connect(wbtn, cfg){
@@ -256,8 +279,13 @@ async function connect(wbtn, cfg){
         bsc.addr = await bsc.signer.getAddress()
         bsc.ctr = new ethers.Contract(cfg.contract_addr, token_abi, bsc.signer)
         wbtn.text(bsc.addr)
-        await load_token_balance()
+        await load_token_balance(cfg)
         await load_xch_addr(bsc.addr, cfg.xaddr_prefix)
+        $('button#add-token').on('click', function(){
+            add_token(cfg)
+        })
+        $('button#add-token').parent().show()
+        
     }else{
         bsc.addr = ''
         msg.find('p').text('Wrong network! Please switch to Binance Smart Chain (Test)')
@@ -295,13 +323,17 @@ function init(cfg){
     $('#switch-xcc').on('click',function(){
         cfg.xaddr_prefix = 'xcc'
         cfg.x_symbol = 'XCC'
+        cfg.image = ''
         cfg.contract_addr = '0x440F0669525104C15304ac55106AE40B4612A725'
+        token_decimals = 0
         init(cfg)
     })
     $('#switch-xch').on('click',function(){
         cfg.xaddr_prefix = 'xch'
         cfg.x_symbol = 'XCH'
+        cfg.image = 'https://www.chia.net/img/chia_logo.svg'
 	    cfg.contract_addr = '0x1D51a66b67103d2716f47B762a6c7b8298bFad04'
+        token_decimals = 0
         init(cfg)
     })
 }

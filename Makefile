@@ -6,6 +6,7 @@ dev:
 prod:
 	cd src; make prod; cd ..
 
-
+run:
+	cd app.plotbridge.net; sudo caddy file-server; cd ..
 
 
