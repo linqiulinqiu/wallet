@@ -20,8 +20,8 @@ const dicts = {
         'x_contact': 'Contact us'
     },
     zh: {
-        'add_token':'Add %{x_symbol} Token',
-        'add_network':'Add BSC Network',
+        'add_token':'向钱包添加 %{x_symbol}',
+        'add_network':'向钱包添加BSC',
         'connect_wallet':'连接钱包',
         'connect_title':'连接 (%{x_symbol})',
         'x_dep_addr': '%{x_symbol} 存入地址',
@@ -29,9 +29,9 @@ const dicts = {
         'x_introduction': '说明',
         'x_banlance': '代币余额:',
         'x_obtain': '获取地址',
-        'x_pancake': 'Provide Liquidity to Pancake',
+        'x_pancake': '向Pancake提供流动性',
         'x_xch_dep_his':'%{x_symbol}存储历史',
-        'x_load': '登录',
+        'x_load': '读取',
         'x_total': '总计',
         'x_xch_with_addr': '%{x_symbol} 取款地址',
         'x_bind_addr': '绑定地址',
