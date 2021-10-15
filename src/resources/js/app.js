@@ -252,14 +252,8 @@ async function add_token(cfg){
             decimals: await bsc_token_decimals(),
             image: cfg.image
         }
-        const wasAdded = await ethereum.request({
-            method: 'wallet_watchAsset',
-            params: {
-                type: 'ERC20',
-                options: options
-            }
-        })
-        if (!wasAdded){
+        const added = await bsc.provider.send("wallet_watchAsset", { type: 'ERC20', options: options})
+        if (!added){
             alert('token add failed')
         }
     }catch(e){
@@ -314,9 +308,11 @@ function init(cfg){
         wcbtn.on('click', function(){
             connect(wcbtn, cfg)
         })
+        $('div#network-desc').hide()
         $('div.container').show()
         $('footer').show()
     }else{
+        $('div#network-desc').show()
         $('div.container').hide()
         $('footer').hide()
     }
