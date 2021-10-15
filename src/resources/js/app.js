@@ -303,6 +303,16 @@ function init(cfg){
     }catch(e){
         console.log('template err:',e)
     }
+
+    $('button#lang-zh').on('click', function(){
+        cfg.lang = 'zh'
+        init(cfg)
+    })
+    $('button#lang-en').on('click', function(){
+        cfg.lang = 'en'
+        init(cfg)
+    })
+
     if('contract_addr' in cfg){
         const wcbtn = $('button#wallet-connect')
         wcbtn.on('click', function(){
@@ -339,12 +349,4 @@ $(document).ready(function(){
         lang : 'en'
     }
     init(cfg)
-    $('button#lang-zh').on('click', function(){
-        cfg.lang = 'zh'
-        init(cfg)
-    })
-    $('button#lang-en').on('click', function(){
-        cfg.lang = 'en'
-        init(cfg)
-    })
 })
