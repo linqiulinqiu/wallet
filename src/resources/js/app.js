@@ -261,11 +261,49 @@ async function add_token(cfg){
     }
 }
 
+async function switch_network(){
+    try {
+      await bsc.provider.send( 'wallet_switchEthereumChain',[{ chainId: '0x61' }])
+    } catch (switchError) {
+      const ChainNotExist = 4902
+      // This error code indicates that the chain has not been added to MetaMask.
+      if (switchError.code === ChainNotExist) {
+        try {
+          await bsc.provider.send(
+            'wallet_addEthereumChain',
+            [{  
+                chainId: '0x61', 
+                chainName: 'Binance Smart Chain (Testnet)',
+                nativeCurrency: {
+                    name: 'TBNB',
+                    symbol: 'TBNB',
+                    decimals: 18
+                },
+                rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545',
+                blockExplorerUrl: 'https://testnet.bscscan.com',
+            }])
+        } catch (addError) {
+            alert('Add Network Error',addError)
+        }
+      }else{
+          console.log('switch chain error', switchError)
+      }
+    }
+}
+
 async function connect(wbtn, cfg){
     wbtn.attr('disabled', true)
-    bsc.provider = new ethers.providers.Web3Provider(window.ethereum)
+    bsc.provider = new ethers.providers.Web3Provider(window.ethereum, "any")
     const network = await bsc.provider.getNetwork()
     const msg = $('div#note-msg')
+    bsc.provider.on('network', (newNetwork, oldNetwork)=>{
+        if(oldNetwork){
+            window.location.reload()
+        }
+    })
+    if(network.chainId!=97){
+        await switch_network()
+    }
     if (network.chainId==97 && network.name=='bnbt'){
         wbtn.off('click')
         await bsc.provider.send("eth_requestAccounts", [])
