@@ -342,11 +342,11 @@ function init(cfg){
         console.log('template err:',e)
     }
 
-    $('button#lang-zh').on('click', function(){
+    $('option#lang-zh').on('click', function(){
         cfg.lang = 'zh'
         init(cfg)
     })
-    $('button#lang-en').on('click', function(){
+    $('option#lang-en').on('click', function(){
         cfg.lang = 'en'
         init(cfg)
     })

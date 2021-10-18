@@ -17,7 +17,8 @@ const dicts = {
         'x_bind_addr': 'Bind Address',
         'x_xch_with': '%{x_symbol} Withdraw',
         'x_withdraw': 'Withdraw',
-        'x_contact': 'Contact us'
+        'x_contact': 'Contact us',
+        'x_links': 'Links'
     },
     zh: {
         'add_token':'向钱包添加 %{x_symbol}',
@@ -37,7 +38,8 @@ const dicts = {
         'x_bind_addr': '绑定地址',
         'x_xch_with':'%{x_symbol} 取款',
         'x_withdraw': '取款',
-        'x_contact':'联系我们'
+        'x_contact': '联系我们',
+        'x_links':'链接'
     }
 }
 

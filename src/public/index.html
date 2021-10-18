@@ -66,107 +66,159 @@
 <body>
     <div id="body"></div>
     <script type="text/template" id="main-content">
+        <!-- 头部部分 -->
         <div class="row" id="page-tray">
-            <div class="columns">
-                <div class="column"></div>
-                <div class="column">
-                    <button class="button is-primary" id="lang-zh">中文简体</button>
-                    <button class="button is-primary" id="lang-en">English</button>
+            <div class="columns is-multiline is-desktop">
+                <!-- logo部分 -->
+                <div class="column is-offset-1"> logo </div>
+
+
+                <!-- 增加代币部分 style="visibility: hidden;" -->
+                <div class="row column is-offset-7 is-s1" id="add-tok" style="visibility: hidden">
+                    <button class="button is-info" id="add-token" type="button"><%= add_token%></button>
                 </div>
-                <div class="column">
-                    <button class="button is-primary" id="switch-xcc" type="button">Chives</button>
-                    <button class="button is-primary" id="switch-xch" type="button">Chia</button>
-                </div>
-            </div>
-        </div>
-        <div class="row" id="network-desc">
-            <div class="contain">
-                <p class="choose"><%= x_network_select %></p>
-                <p class="introduction"><%= x_introduction %></p>
-            </div>
-        </div>
-        <div class="container">
-        <div class="row" style="display:none">
-            <button class="button is-info" id="add-token" type="button"><%= add_token%></button>
-        </div>
-        <div class="block">
-            <div class="card" id="wallet-connect">
-                <div class="card-header"><%= connect_title %></div>
-                <div class="card-content">
-                    <button class="button is-primary" id="wallet-connect" type="button"><%= connect_wallet %></button>
-                </div>
-                <div id='token-balance' hidden>
-                    <p><%= x_banlance %><span id='token-balance'></span></p>
-                </div>
-                <div id='note-msg' class="notification is-warning" hidden>
-                    <p id='note-msg-text'></p>
-                </div>
-            </div>
-        </div>
-        <div class="block">
-            <div class="card" id="xch-deposit-addr" style="display:none">
-                <div class="card-header"><%= x_dep_addr %></div>
-                <div class="card-content">
-                    <button class="button is-primary" id="xch-deposit-addr" type="button"><%= x_obtain %></button>
-                </div>
-                <div id='note-msg' class="notification is-warning" hidden>
-                    <p id='note-msg-text'></p>
-                </div>
-                <div>
-                    <a
-                        href='https://pancake.kiemtienonline360.com/#/add/BNB/0x440F0669525104C15304ac55106AE40B4612A725'>
-                        <%= x_pancake %></a>
-                </div>
-            </div>
-        </div>
-        <div class="block">
-            <div class="card" id="xch-deposits" style="display:none">
-                <div class="card-header"><%= x_xch_dep_his %></div>
-                <div class="card-content">
-                    <button class="button is-info" id="load" type="button"><%= x_load %></button>
-                    <div class="box">
-                        <table class="table is-striped" id="list"></table>
+
+
+                <!-- 语言选择部分 -->
+                <div class="column ">
+                    <div class="control">
+                        <div class="select is-primary is-rounded is-small">
+                            <select class="is-hovered" id='setlanguage'>
+                                <option value="setting">set language</option>
+                                <option value="English" id="lang-en">English</option>
+                                <option value="Chinese" id="lang-zh">中文(简体)</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="box"><%= x_total %><span id="total"></span></div>
+                </div>
+
+
+                <!-- 选择按钮部分 -->
+                <div class="column is-full" style="text-align:center">
+                    <button class="button is-primary " id="switch-xcc" type="button"> chives </button>
+                    <button class="button is-primary" id="switch-xch" type="button"> chia </button>
                 </div>
             </div>
         </div>
-        <div class="block">
-            <div class="card" id="xch-withdraw-addr" style="display:none">
-                <div class="card-header"><% x_xch_with_addr %></div>
-                <div class="card-content">
-                    <input class='input' type='text' id='xch-withdraw-addr' />
-                    <button class="button is-primary" id="xch-withdraw-addr" type="button">Bind Address</button>
-                </div>
-                <div id='note-msg' class="notification is-warning" hidden>
-                    <p id='note-msg-text'></p>
-                </div>
-            </div>
-            <div class="card" id="xch-burn" style="display:none">
-                <div class="card-header"><%= x_xch_with %></div>
-                <div class="card-content">
-                    <input class='input' type='number' id='xch-burn-amount' />
-                    <button class="button is-primary" id="xch-burn" type="button"><%= x_withdraw %></button>
-                </div>
-                <div id='note-msg' class="notification is-warning" hidden>
-                    <p id='note-msg-text'></p>
+        <!-- 页面介绍 -->
+        <div class="columns is-desktop" id="network-desc">
+            <div class="column is-half" style="margin:0px auto;text-align:center">
+                <div class="card">
+                    <div class="card-header-title is-centered"><%= x_network_select %></div>
+                    <div class="card-content">
+                        <p> <%= x_introduction %></p>
+                        <p>1</p>
+                        <p>2</p>
+                        <p>3</p>
+                        <p>4</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <footer>
-        <div class="block">
-            <div class="message">
-                <div class="message-header"><%= x_contact %></div>
-                <div class="message-body">
-                    <a class="btn btn-xs btn-dark m-3" href="#!"><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-xs btn-dark m-3" href="#!"><i class="fab fa-telegram"></i></a>
-                    <a class="btn btn-xs btn-dark m-3" href="#!"><i class="fab fa-discord"></i></a>
+        <!-- 主体部分 -->
+        <div class="container">
+            <div class="block ">
+                <!-- 链接钱包 -->
+                <div class="card" id="wallet-connect">
+                    <div class="card-header-title is-centered"><%= connect_title %></div>
+                    <div class="card-content">
+                        <button class="button is-primary" id="wallet-connect"
+                            type="button"><%= connect_wallet %></button>
+                    </div>
+                    <!-- 余额显示 -->
+                    <div id='token-balance' hidden>
+                        <p><%= x_banlance %><span id='token-balance'></span></p>
+                    </div>
+                    <div id='note-msg' class="notification is-warning" hidden>
+                        <p id='note-msg-text'></p>
+                    </div>
+                </div>
+            </div>
+            <!-- 存款地址部分 -->
+            <div class="block">
+                <div class="card" id="xch-deposit-addr" style="display:none">
+                    <div class="card-header-title is-centered"><%= x_dep_addr %></div>
+                    <div class="card-content">
+                        <button class="button is-primary" id="xch-deposit-addr" type="button"><%= x_obtain %></button>
+                        <button id="imgsize">copy
+                            <!-- <figure class="image is-10x10">
+                                <img src="../assets/img/copy1.jpeg" alt="复制copy">
+                                <img src="" alt="复制">
+                            </figure> -->
+                        </button>
+                    </div>
+                    <!-- <div id='note-msg' class="notification is-warning" hidden>
+                        <p id='note-msg-text'></p>
+                    </div> -->
+                </div>
+            </div>
+            <!-- 链接其他网页部分 -->
+            <div class="block">
+                <div class="card" id="x_links" style="display:none">
+                    <div class="card-header-title is-centered"><%= x_links %></div>
+                    <div class="card-content">
+                        <a
+                            href='https://pancake.kiemtienonline360.com/#/add/BNB/0x440F0669525104C15304ac55106AE40B4612A725'>
+                            <%= x_pancake %></a>
+                    </div>
+                </div>
+            </div>
+            <!-- 历史记录部分 -->
+            <div class="block">
+                <div class="card" id="xch-deposits" style="display:none">
+                    <div class="card-header-title is-centered"><%= x_xch_dep_his %></div>
+                    <div class="card-content">
+                        <button class="button is-info" id="load" type="button"><%= x_load %></button>
+                        <div class="box">
+                            <table class="table is-striped" id="list"></table>
+                        </div>
+                        <div class="box"><%= x_total %><span id="total"></span></div>
+                    </div>
+                </div>
+            </div>
+            <!-- 取款地址部分 -->
+            <!-- 绑定地址 -->
+            <div class="block">
+                <div class="card" id="xch-withdraw-addr" style="display:none">
+                    <div class="card-header-title is-centered"><% x_xch_with_addr %></div>
+                    <div class="card-content">
+                        <input class='input' type='text' id='xch-withdraw-addr' />
+                        <button class="button is-primary" id="xch-withdraw-addr" type="button">Bind Address</button>
+                    </div>
+                    <div id='note-msg' class="notification is-warning" hidden>
+                        <p id='note-msg-text'></p>
+                    </div>
+                </div>
+                <!-- 取款数额 -->
+                <div class="card" id="xch-burn" style="display:none">
+                    <div class="card-header-title is-centered"><%= x_xch_with %></div>
+                    <div class="card-content">
+                        <input class='input' type='number' id='xch-burn-amount' />
+                        <button class="button is-primary" id="xch-burn" type="button"><%= x_withdraw %></button>
+                    </div>
+                    <div id='note-msg' class="notification is-warning" hidden>
+                        <p id='note-msg-text'></p>
+                    </div>
                 </div>
             </div>
         </div>
-    </footer>
-        </script>
+        <!-- 联系我们 -->
+        <div class="toUp">
+            <a href="#">返回顶部</a>
+        </div>
+        <footer>
+            <div class="block">
+                <div class="message">
+                    <div class="message-header"><%= x_contact %></div>
+                    <div class="message-body">
+                        <a class="btn btn-xs btn-dark m-3" href="#!"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-xs btn-dark m-3" href="#!"><i class="fab fa-telegram"></i></a>
+                        <a class="btn btn-xs btn-dark m-3" href="#!"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </script>
     <script src="js/app.js"></script>
 </body>
 
