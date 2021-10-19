@@ -30,36 +30,40 @@
 </style>
 
 <body>
-    <!-- 头部部分 -->
-    <div class="row" id="page-tray">
-        <div class="columns is-multiline is-desktop">
-            <!-- logo部分 -->
-            <div class="column is-offset-1"> logo </div>
-            <div class="column" id="version"></div>
-            <!-- 增加代币部分 style="visibility: hidden;" -->
-            <div class="row column is-offset-7 is-s1" id="add-tok" style="visibility: hidden">
-                <button class="button is-info" id="add-token" type="button"><%= add_token%></button>
-            </div>
-            <!-- 语言选择部分 -->
-            <div class="column">
-                <div class="select is-primary is-rounded is-small">
-                    <select id='setlanguage'>
-                        <option value="setting">set language</option>
-                        <option value="English" id="lang-en">English</option>
-                        <option value="Chinese" id="lang-zh">中文(简体)</option>
-                    </select>
-                </div>
-            </div>
-            <!-- 选择按钮部分 -->
-            <div class="column is-full" style="text-align:center">
-                <button class="button is-primary " id="switch-xcc" type="button"> chives </button>
-                <button class="button is-primary" id="switch-xch" type="button"> chia </button>
-            </div>
-        </div>
-    </div>
 
     <div id="body"></div>
     <script type="text/template" id="main-content">
+        <!-- 头部部分 -->
+        <div class="row" id="page-tray">
+            <div class="columns is-multiline is-desktop">
+                <!-- logo部分 -->
+                <div class="column is-offset-1"> logo </div>
+                <div class="column" id="version"></div>
+                <!-- 增加代币部分 style="visibility: hidden;" -->
+                <div class="row column is-offset-7 is-s1" id="add-tok" style="visibility: hidden">
+                    <button class="button is-info" id="add-token" type="button"><%= add_token%></button>
+                </div>
+                <!-- 语言选择部分 -->
+                <div class="column">
+                    <div class="select is-primary is-rounded is-small">
+                        <select id='setlanguage'>
+                            <option value="setting">set language</option>
+                            <option value="English" id="lang-en">English</option>
+                            <option value="Chinese" id="lang-zh">中文(简体)</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- 选择按钮部分 -->
+                <div class="column is-full" style="text-align:center">
+                    <button class="button is-primary " id="switch-xcc" type="button"> chives </button>
+                    <button class="button is-primary" id="switch-xch" type="button"> chia </button>
+                </div>
+            </div>
+        </div>
+        <div class="notification is-warning" id="alert" style="display:none">
+            <button class="delete"></button>
+            <p></p>
+        </div>
         <!-- 页面介绍 -->
         <div class="columns is-desktop" id="network-desc">
             <div class="column is-half" style="margin:0px auto;text-align:center">
@@ -105,8 +109,8 @@
                             <button class="button is-primary" id="xch-deposit-addr"
                                 type="button"><%= x_obtain %></button>
                             <article class="message is-primary" id="xch-deposit-addr" style="display:none">
-                              <div class="message-body">
-                              </div>
+                                <div class="message-body">
+                                </div>
                             </article>
                         </div>
                         <div id='note-msg' class="notification is-warning" hidden>

@@ -196,20 +196,30 @@ async function load_xch_deposit_addr(baddr, prefix) {
         if (free_addrs.toNumber() > 0) {
             btn.text('Obtain Address')
             btn.on('click', async function () {
-                const bindf = bsc.ctr.filters.bindXin(baddr)
+                const bindf = bsc.ctr.filters.BindXin()
                 btn.off('click')
                 const bnb = ethers.constants.WeiPerEther.div(2000)
                 try {
                     const res = await bsc.ctr.bindXin({
                         value: bnb
                     })
-                    bsc.ctr.on(bindf, (from, to, amount, evt)=>{
-                        console.log('event', from, to , amount, evt)
-                        load_xch_deposit_addr(baddr, prefix)
+                    bsc.ctr.on(bindf, (from, to, amount, evt) => {
+                        if (ethers.utils.getAddress(from) == ethers.utils.getAddress(baddr)) {
+                            load_xch_deposit_addr(baddr, prefix)
+                            //TODO: remove the filter
+                        }
                     })
                 } catch (e) {
-                    notemsg.find('p').text(e.message)
-                    notemsg.show()
+                    const dest = $('div#alert')
+                    var text = e.message
+                    if ('data' in e) {
+                        if ('message' in e.data) {
+                            text = e.data.message
+                        }
+                    }
+                    dest.find('p').text(text)
+                    dest.show()
+                    console.log('err', e)
                 }
             })
         } else {
