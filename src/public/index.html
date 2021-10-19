@@ -38,14 +38,13 @@
                 <!-- logo部分 -->
                 <div class="column is-offset-1" id="logo-b"><a href="https://app.plotbridge.net/"></a></div>
                 <!-- 增加代币部分 style="visibility: hidden;" -->
-                <div class="row column is-offset-5 is-s1" id="add-tok" style="visibility: visible">
+                <div class="row column is-offset-5 is-s1" id="add-tok" style="display: none">
                     <button class="button is-info" id="add-token" type="button"><%= add_token%></button>
                 </div>
                 <!-- 语言选择部分 -->
-                <div class="column">
-                    <div class="select is-primary is-rounded is-normal">
+                <div class="column is-offset-11">
+                    <div class="select is-primary  is-rounded is-normal">
                         <select id='setlanguage'>
-                            <option value="setting">set language</option>
                             <option value="English" id="lang-en">English</option>
                             <option value="Chinese" id="lang-zh">中文(简体)</option>
                         </select>

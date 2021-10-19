@@ -6,7 +6,7 @@ const {
     address_to_puzzle_hash,
     encode_puzzle_hash,
     hex_to_bytes
-} = require("./lib/chia-utils")
+} = require("./lib/chia-utils.js")
 const $ = require('cash-dom')
 
 const _ = require('lodash');
@@ -359,7 +359,7 @@ async function connect(wbtn, cfg) {
         wbtn.removeAttr('disabled')
     }
 }
-
+// setting language
 function init(cfg) {
     const arg_dict = {}
     if (!cfg.lang || !(cfg.lang in dicts)) {
