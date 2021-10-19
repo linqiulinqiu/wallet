@@ -19,13 +19,11 @@
         width: 100px;
     }
 
-    #xch-deposit-addr #note-msg::after {
-        content: "click and copy it";
-        visibility: hidden;
-    }
-
-    #xch-deposit-addr #note-msg:hover #note-msg::after::after {
-        visibility: visible;
+    #logo-b {
+        width: 256px;
+        height: 128px;
+        background: url(./assets/img/b.gif) no-repeat center;
+        background-size: 115% 170%;
     }
 </style>
 
@@ -35,17 +33,17 @@
     <script type="text/template" id="main-content">
         <!-- 头部部分 -->
         <div class="row" id="page-tray">
-            <div class="columns is-multiline is-desktop">
+            <div class="columns is-multiline">
+                <div class="column is-full" id="version"></div>
                 <!-- logo部分 -->
-                <div class="column is-offset-1"> logo </div>
-                <div class="column" id="version"></div>
+                <div class="column is-offset-1" id="logo-b"><a href="https://app.plotbridge.net/"></a></div>
                 <!-- 增加代币部分 style="visibility: hidden;" -->
-                <div class="row column is-offset-7 is-s1" id="add-tok" style="visibility: hidden">
+                <div class="row column is-offset-5 is-s1" id="add-tok" style="visibility: visible">
                     <button class="button is-info" id="add-token" type="button"><%= add_token%></button>
                 </div>
                 <!-- 语言选择部分 -->
                 <div class="column">
-                    <div class="select is-primary is-rounded is-small">
+                    <div class="select is-primary is-rounded is-normal">
                         <select id='setlanguage'>
                             <option value="setting">set language</option>
                             <option value="English" id="lang-en">English</option>
@@ -80,10 +78,10 @@
             </div>
         </div>
         <!-- 主体部分 -->
-        <div class="container">
+        <div class="container" id="container">
             <div class="block ">
                 <!-- 链接钱包 -->
-                <div class="column is-offset-2 is-4">
+                <div class="column is-offset-2 is-5">
                     <div class="card" id="wallet-connect">
                         <div class="card-header-title is-centered"><%= connect_title %></div>
                         <div class="card-content">
@@ -102,11 +100,11 @@
             </div>
             <!-- 存款地址部分 -->
             <div class="block">
-                <div class="column is-4 is-offset-6">
+                <div class="column is-5 is-offset-6">
                     <div class="card" id="xch-deposit-addr" style="display:none">
                         <div class="card-header-title is-centered"><%= x_dep_addr %></div>
                         <div class="card-content">
-                            <button class="button is-primary" id="xch-deposit-addr"
+                            <button class="button is-primary is-multiline" id="xch-deposit-addr"
                                 type="button"><%= x_obtain %></button>
                             <article class="message is-primary" id="xch-deposit-addr" style="display:none">
                                 <div class="message-body">
@@ -122,9 +120,9 @@
                 </div>
             </div>
             <!-- 链接其他网页部分 -->
-            <div class="block">
-                <div class="column is-4 is-offset-2">
-                    <div class="card" id="x_links" style="display:none">
+            <div class="block" id="link-other">
+                <div class="column is-5 is-offset-2">
+                    <div class="card" id="x_links">
                         <div class="card-header-title is-centered"><%= x_links %></div>
                         <div class="card-content">
                             <a
@@ -135,12 +133,12 @@
                 </div>
             </div>
             <!-- 历史记录部分 -->
-            <div class="block">
-                <div class="column">
-                    <div class="card" id="xch-deposits" style="display:none">
+            <div class="block is-multiline" id="load-his">
+                <div class="column is-5">
+                    <div class="card is-multiline" id="xch-deposits" style="display:none">
                         <div class="card-header-title is-centered"><%= x_xch_dep_his %></div>
                         <div class="card-content">
-                            <button class="button is-info" id="load" type="button"><%= x_load %></button>
+                            <button class="button is-info is-multiline" id="load" type="button"><%= x_load %></button>
                             <div class="box">
                                 <table class="table is-striped" id="list"></table>
                             </div>
@@ -152,7 +150,7 @@
             <!-- 取款地址部分 -->
             <!-- 绑定地址 -->
             <div class="block">
-                <div class="column is-4 is-offset-6">
+                <div class="column is-5 is-offset-6">
                     <div class="card" id="xch-withdraw-addr" style="display:none">
                         <div class="card-header-title is-centered"><% x_xch_with_addr %></div>
                         <div class="card-content">
