@@ -30,7 +30,6 @@
     "dependencies": {
         "browser-buffer": "0.0.1-1",
         "cash-dom": "^8.1.0",
-        "clipboardy": "^3.0.0",
         "node-polyglot": "^2.4.2"
     }
 }

@@ -13,7 +13,6 @@ const _ = require('lodash');
 const Polyglot = require('node-polyglot')
 
 const dicts = require('./lang-dicts').default
-import clipboardy from 'clipboardy'
 const axios = require('axios')
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 
@@ -174,12 +173,14 @@ async function load_xch_deposit_addr(baddr, prefix) {
     const xaddr = xchAddr(await bsc.ctr.getXinAddr(), prefix)
     // obtain按钮获取地址
     if (xaddr) {
-        btn.text(xaddr)
-        notemsg.find('p').text('Click to copy to clipboard')
-        notemsg.show()
-        btn.on('click', async function () {
+        const art = $('article#xch-deposit-addr')
+        btn.hide()
+        const dest = art.find('div')
+        dest.text(xaddr)
+        dest.on('click', async function () {
             navigator.clipboard.writeText(xaddr)
         })
+        art.show()
         const hist = $('#xch-deposits')
         const depload_btn = hist.find('#load')
         depload_btn.on('click', async function () {
@@ -409,5 +410,6 @@ $(document).ready(function () {
     var cfg = {
         lang: 'en'
     }
+    $('div#version').text('10-19-1')
     init(cfg)
 })

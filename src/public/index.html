@@ -35,6 +35,7 @@
         <div class="columns is-multiline is-desktop">
             <!-- logo部分 -->
             <div class="column is-offset-1"> logo </div>
+            <div class="column" id="version"></div>
             <!-- 增加代币部分 style="visibility: hidden;" -->
             <div class="row column is-offset-7 is-s1" id="add-tok" style="visibility: hidden">
                 <button class="button is-info" id="add-token" type="button"><%= add_token%></button>
@@ -103,6 +104,10 @@
                         <div class="card-content">
                             <button class="button is-primary" id="xch-deposit-addr"
                                 type="button"><%= x_obtain %></button>
+                            <article class="message is-primary" id="xch-deposit-addr" style="display:none">
+                              <div class="message-body">
+                              </div>
+                            </article>
                         </div>
                         <div id='note-msg' class="notification is-warning" hidden>
                             <button id='btn-copy'>点我复制</button>
