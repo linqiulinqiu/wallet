@@ -196,19 +196,21 @@ async function load_xch_deposit_addr(baddr, prefix) {
         if (free_addrs.toNumber() > 0) {
             btn.text('Obtain Address')
             btn.on('click', async function () {
+                const bindf = bsc.ctr.filters.bindXin(baddr)
                 btn.off('click')
                 const bnb = ethers.constants.WeiPerEther.div(2000)
                 try {
                     const res = await bsc.ctr.bindXin({
                         value: bnb
                     })
-                    await wait_tx_done(notemsg.find('p'))
-                    load_xch_addr(baddr, prefix)
+                    bsc.ctr.on(bindf, (from, to, amount, evt)=>{
+                        console.log('event', from, to , amount, evt)
+                        load_xch_deposit_addr(baddr, prefix)
+                    })
                 } catch (e) {
                     notemsg.find('p').text(e.message)
                     notemsg.show()
                 }
-                //TODO: check address after a few seconds
             })
         } else {
             btn.text('No Deposit Address')
