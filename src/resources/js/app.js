@@ -1,20 +1,26 @@
 window.Buffer = require('browser-buffer')
-const { ethers } = require('ethers')
-const { address_to_puzzle_hash, encode_puzzle_hash, hex_to_bytes } = require("./lib/chia-utils")
+const {
+    ethers
+} = require('ethers')
+const {
+    address_to_puzzle_hash,
+    encode_puzzle_hash,
+    hex_to_bytes
+} = require("./lib/chia-utils")
 const $ = require('cash-dom')
 
 const _ = require('lodash');
 const Polyglot = require('node-polyglot')
 
 const dicts = require('./lang-dicts').default
-
+import clipboardy from 'clipboardy'
 const axios = require('axios')
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 
 const token_abi = require('./token-abi.json')
 
 var bsc = {
-    addr:''
+    addr: ''
 }
 
 var xch = {
@@ -32,10 +38,10 @@ function puzzle_hash_to_address(puzzle_hash, prefix) {
 
 Date.prototype.format = function (fmt) {
     var o = {
-        "M+": this.getMonth() + 1, 
-        "d+": this.getDate(), 
-        "h+": this.getHours(), 
-        "m+": this.getMinutes(), 
+        "M+": this.getMonth() + 1,
+        "d+": this.getDate(),
+        "h+": this.getHours(),
+        "m+": this.getMinutes(),
         "s+": this.getSeconds(),
     };
     if (/(y+)/.test(fmt)) {
@@ -50,19 +56,21 @@ Date.prototype.format = function (fmt) {
     return fmt
 }
 
-function epoch_str(epoch){
-    const date = new Date(epoch*1000)
+function epoch_str(epoch) {
+    const date = new Date(epoch * 1000)
     return date.format('yyyy-MM-dd hh:mm')
 }
 
 async function msleep(milisec) {
     return new Promise(resolve => {
-        setTimeout(() => { resolve('') }, milisec)
+        setTimeout(() => {
+            resolve('')
+        }, milisec)
     })
 }
 
-async function btn_countdown(btn, cnt, orig_caption){
-    for(var i=cnt; i>0;i--){
+async function btn_countdown(btn, cnt, orig_caption) {
+    for (var i = cnt; i > 0; i--) {
         await msleep(1000)
         btn.text(i)
     }
@@ -71,7 +79,7 @@ async function btn_countdown(btn, cnt, orig_caption){
     btn.removeAttr('disabled')
 }
 
-async function bsc_token_balance(){
+async function bsc_token_balance() {
     const res = await bsc.ctr.balanceOf(bsc.addr)
     return res
 }
@@ -85,22 +93,22 @@ async function bsc_token_decimals() {
     return token_decimals
 }
 
-function xchAddr(xhex, prefix){
-    if(ethers.utils.stripZeros(xhex).length==0){
+function xchAddr(xhex, prefix) {
+    if (ethers.utils.stripZeros(xhex).length == 0) {
         return false
     }
     return puzzle_hash_to_address(xhex, prefix)
 }
 
-function xchHex(xaddr){
+function xchHex(xaddr) {
     const xhex = address_to_puzzle_hash(xaddr)
-    if(ethers.utils.stripZeros(xhex).length==0){
+    if (ethers.utils.stripZeros(xhex).length == 0) {
         return false
     }
     return xhex
 }
 
-async function wait_tx_done(note){
+async function wait_tx_done(note) {
     note.text('Waiting for Transaction complete')
     await msleep(2000)
     note.text('Waiting for Transaction complete.')
@@ -111,7 +119,7 @@ async function wait_tx_done(note){
     await msleep(2000)
 }
 
-async function load_xch_withdraw_addr(baddr, prefix){
+async function load_xch_withdraw_addr(baddr, prefix) {
     const card = $('div#xch-withdraw-addr')
     const notemsg = card.find('div#note-msg')
     const btn = card.find('button#xch-withdraw-addr')
@@ -119,37 +127,37 @@ async function load_xch_withdraw_addr(baddr, prefix){
     btn.off('click')
     const xaddr = xchAddr(await bsc.ctr.getXoutAddr(), prefix)
     const decimals = await bsc_token_decimals()
-    if(xaddr){
+    if (xaddr) {
         btn.text('Already Bind')
         input.val(xaddr)
-        input.attr('disabled',true)
+        input.attr('disabled', true)
         const bdiv = $('div#xch-burn')
         bdiv.show()
-        bdiv.find('button#xch-burn').on('click', async function(){
+        bdiv.find('button#xch-burn').on('click', async function () {
             const amount = ethers.utils.parseUnits(bdiv.find('input#xch-burn-amount').val(), decimals)
             const balance = await bsc_token_balance()
-            if(amount.lte(balance)){
+            if (amount.lte(balance)) {
                 await bsc.ctr.burn(amount)
                 //TODO: wait till tx done
                 await load_token_balance()
-            }else{
+            } else {
                 alert('Insufficient token balance')
             }
         })
-    }else{
-        btn.on('click', async function (){
+    } else {
+        btn.on('click', async function () {
             btn.off('click')
             const xhex = xchHex(input.val())
-            if(xhex){
+            if (xhex) {
                 try {
                     const res = await bsc.ctr.bindXout(xhex)
                     await wait_tx_done(notemsg.find('p'))
                     load_xch_addr(baddr, prefix)
-                }catch(e){
+                } catch (e) {
                     notemsg.find('p').text(e.message)
                     notemsg.show()
                 }
-            }else{
+            } else {
                 notemsg.text('invalid address')
             }
         })
@@ -157,94 +165,100 @@ async function load_xch_withdraw_addr(baddr, prefix){
     card.show()
 }
 
-async function load_xch_deposit_addr(baddr, prefix){
+async function load_xch_deposit_addr(baddr, prefix) {
     const card = $('div#xch-deposit-addr')
     const notemsg = card.find('div#note-msg')
     card.show()
     const btn = $('button#xch-deposit-addr')
     btn.off('click')
     const xaddr = xchAddr(await bsc.ctr.getXinAddr(), prefix)
-    if(xaddr){
+    // obtain按钮获取地址
+    if (xaddr) {
         btn.text(xaddr)
-        notemsg.find('p').text(xaddr)
+        notemsg.find('p').text('Click to copy to clipboard')
         notemsg.show()
+        btn.on('click', async function () {
+            navigator.clipboard.writeText(xaddr)
+        })
         const hist = $('#xch-deposits')
         const depload_btn = hist.find('#load')
-        depload_btn.on('click',async function(){
+        depload_btn.on('click', async function () {
             depload_btn.attr('disabled', true)
             const orig_caption = depload_btn.text()
             depload_btn.text('...')
             await load_xch_deposits(xaddr, prefix)
-            await btn_countdown(depload_btn,5,orig_caption)
+            await btn_countdown(depload_btn, 5, orig_caption)
         })
         hist.show()
-    }else{
+    } else {
         const free_addrs = await bsc.ctr.getFreeXinAddrCount()
-        if(free_addrs.toNumber()>0){
+        if (free_addrs.toNumber() > 0) {
             btn.text('Obtain Address')
-            btn.on('click',async function(){
+            btn.on('click', async function () {
                 btn.off('click')
                 const bnb = ethers.constants.WeiPerEther.div(2000)
                 try {
-                    const res = await bsc.ctr.bindXin({ value: bnb })
+                    const res = await bsc.ctr.bindXin({
+                        value: bnb
+                    })
                     await wait_tx_done(notemsg.find('p'))
                     load_xch_addr(baddr, prefix)
-                }catch(e){
+                } catch (e) {
                     notemsg.find('p').text(e.message)
                     notemsg.show()
                 }
                 //TODO: check address after a few seconds
             })
-        }else{
+        } else {
             btn.text('No Deposit Address')
         }
     }
 }
 
-async function load_xch_addr(baddr, prefix){
+async function load_xch_addr(baddr, prefix) {
     await load_xch_deposit_addr(baddr, prefix)
     await load_xch_withdraw_addr(baddr, prefix)
 }
 
-async function load_xch_deposits(addr, prefix){
+async function load_xch_deposits(addr, prefix) {
     const dest = $('#xch-deposits')
     const list = dest.find('#list')
     list.html('Loading ...')
-    const resp = await axios.get('https://xchscan.com/api/account/txns?address='+addr)
+    const resp = await axios.get('https://xchscan.com/api/account/txns?address=' + addr)
     const txns = resp.data.txns
     const deps = []
     var total = ethers.BigNumber.from(0)
     const decimals = await bsc_token_decimals()
-    for(var i in txns){
+    for (var i in txns) {
         const tx = txns[i]
-        if(tx.to==addr){
-            const amount = ethers.utils.formatUnits(tx.amount,decimals)
+        if (tx.to == addr) {
+            const amount = ethers.utils.formatUnits(tx.amount, decimals)
             const dep = [epoch_str(tx.timestamp), tx.block.height, tx.id, tx.from, amount]
             total = total.add(tx.amount)
             deps.push(dep.join('</td><td>'))
         }
     }
-    if (deps.length==0){
+    if (deps.length == 0) {
         list.html('No transaction found')
-    }else{
+    } else {
         list.html(
-            '<thead><tr><th>Time</th><th>Height</th><th>ID</th><th>From</th><th>Amount</th></tr></thead><tbody><tr><td>'+ 
-            deps.join('</td></tr><tr><td>')+'</td></tr></tbody>')
+            '<thead><tr><th>Time</th><th>Height</th><th>ID</th><th>From</th><th>Amount</th></tr></thead><tbody><tr><td>' +
+            deps.join('</td></tr><tr><td>') + '</td></tr></tbody>')
     }
-    dest.find('#total').text(ethers.utils.formatUnits(total,decimals))
+    dest.find('#total').text(ethers.utils.formatUnits(total, decimals))
 }
 
-async function load_token_balance(cfg){
+async function load_token_balance(cfg) {
     const div = $('div#token-balance')
     const span = div.find('span#token-balance')
     const balance = await bsc_token_balance()
     const decimals = await bsc_token_decimals()
     div.show()
-    const btxt = ethers.utils.formatUnits(balance,decimals)
+    const btxt = ethers.utils.formatUnits(balance, decimals)
     span.text(btxt)
 }
 
-async function add_token(cfg){
+async function add_token(cfg) {
     try {
         const options = {
             address: cfg.contract_addr,
@@ -252,59 +266,64 @@ async function add_token(cfg){
             decimals: await bsc_token_decimals(),
             image: cfg.image
         }
-        const added = await bsc.provider.send("wallet_watchAsset", { type: 'ERC20', options: options})
-        if (!added){
+        const added = await bsc.provider.send("wallet_watchAsset", {
+            type: 'ERC20',
+            options: options
+        })
+        if (!added) {
             alert('token add failed')
         }
-    }catch(e){
-        console.log('error when add token',e)
+    } catch (e) {
+        console.log('error when add token', e)
     }
 }
 
-async function switch_network(){
+async function switch_network() {
     try {
-      await bsc.provider.send( 'wallet_switchEthereumChain',[{ chainId: '0x61' }])
+        await bsc.provider.send('wallet_switchEthereumChain', [{
+            chainId: '0x61'
+        }])
     } catch (switchError) {
-      const ChainNotExist = 4902
-      // This error code indicates that the chain has not been added to MetaMask.
-      if (switchError.code === ChainNotExist) {
-        try {
-          await bsc.provider.send(
-            'wallet_addEthereumChain',
-            [{  
-                chainId: '0x61', 
-                chainName: 'Binance Smart Chain (Testnet)',
-                nativeCurrency: {
-                    name: 'TBNB',
-                    symbol: 'TBNB',
-                    decimals: 18
-                },
-                rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545',
-                blockExplorerUrl: 'https://testnet.bscscan.com',
-            }])
-        } catch (addError) {
-            alert('Add Network Error',addError)
+        const ChainNotExist = 4902
+        // This error code indicates that the chain has not been added to MetaMask.
+        if (switchError.code === ChainNotExist) {
+            try {
+                await bsc.provider.send(
+                    'wallet_addEthereumChain',
+                    [{
+                        chainId: '0x61',
+                        chainName: 'Binance Smart Chain (Testnet)',
+                        nativeCurrency: {
+                            name: 'TBNB',
+                            symbol: 'TBNB',
+                            decimals: 18
+                        },
+                        rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545',
+                        blockExplorerUrl: 'https://testnet.bscscan.com',
+                    }])
+            } catch (addError) {
+                alert('Add Network Error', addError)
+            }
+        } else {
+            console.log('switch chain error', switchError)
         }
-      }else{
-          console.log('switch chain error', switchError)
-      }
     }
 }
 
-async function connect(wbtn, cfg){
+async function connect(wbtn, cfg) {
     wbtn.attr('disabled', true)
     bsc.provider = new ethers.providers.Web3Provider(window.ethereum, "any")
     const network = await bsc.provider.getNetwork()
     const msg = $('div#note-msg')
-    bsc.provider.on('network', (newNetwork, oldNetwork)=>{
-        if(oldNetwork){
+    bsc.provider.on('network', (newNetwork, oldNetwork) => {
+        if (oldNetwork) {
             window.location.reload()
         }
     })
-    if(network.chainId!=97){
+    if (network.chainId != 97) {
         await switch_network()
     }
-    if (network.chainId==97 && network.name=='bnbt'){
+    if (network.chainId == 97 && network.name == 'bnbt') {
         wbtn.off('click')
         await bsc.provider.send("eth_requestAccounts", [])
         bsc.signer = bsc.provider.getSigner()
@@ -313,12 +332,12 @@ async function connect(wbtn, cfg){
         wbtn.text(bsc.addr)
         await load_token_balance(cfg)
         await load_xch_addr(bsc.addr, cfg.xaddr_prefix)
-        $('button#add-token').on('click', function(){
+        $('button#add-token').on('click', function () {
             add_token(cfg)
         })
         $('button#add-token').parent().show()
-        
-    }else{
+
+    } else {
         bsc.addr = ''
         msg.find('p').text('Wrong network! Please switch to Binance Smart Chain (Test)')
         msg.show()
@@ -328,63 +347,67 @@ async function connect(wbtn, cfg){
     }
 }
 
-function init(cfg){
+function init(cfg) {
     const arg_dict = {}
-    if(!cfg.lang||!(cfg.lang in dicts)){
+    if (!cfg.lang || !(cfg.lang in dicts)) {
         cfg.lang = 'en'
     }
-    const polyglot = new Polyglot({phrases:dicts[cfg.lang]})
-    Object.keys(dicts[cfg.lang]).map(function(k,idx){ arg_dict[k] = polyglot.t(k,cfg)})
-    try{
+    const polyglot = new Polyglot({
+        phrases: dicts[cfg.lang]
+    })
+    Object.keys(dicts[cfg.lang]).map(function (k, idx) {
+        arg_dict[k] = polyglot.t(k, cfg)
+    })
+    try {
         const main_content = _.template($('#main-content').html())
         $('div#body').html(main_content(arg_dict))
-    }catch(e){
-        console.log('template err:',e)
+    } catch (e) {
+        console.log('template err:', e)
     }
 
-    $('option#lang-zh').on('click', function(){
+    $('option#lang-zh').on('click', function () {
         cfg.lang = 'zh'
         init(cfg)
     })
-    $('option#lang-en').on('click', function(){
+    $('option#lang-en').on('click', function () {
         cfg.lang = 'en'
         init(cfg)
     })
 
-    if('contract_addr' in cfg){
+    if ('contract_addr' in cfg) {
         const wcbtn = $('button#wallet-connect')
-        wcbtn.on('click', function(){
+        wcbtn.on('click', function () {
             connect(wcbtn, cfg)
         })
         $('div#network-desc').hide()
         $('div.container').show()
         $('footer').show()
-    }else{
+    } else {
         $('div#network-desc').show()
         $('div.container').hide()
         $('footer').hide()
     }
-    $('#switch-xcc').on('click',function(){
+    $('#switch-xcc').on('click', function () {
         cfg.xaddr_prefix = 'xcc'
         cfg.x_symbol = 'XCC'
         cfg.image = ''
-        cfg.contract_addr = '0xbFB1Ca76BD3BF568450fA9cA1e368E00A96742E6'
+        cfg.contract_addr = '0x2077bFC955E9fBA076CA344cD72004C6c4a80a09'
         token_decimals = 0
         init(cfg)
     })
-    $('#switch-xch').on('click',function(){
+    $('#switch-xch').on('click', function () {
         cfg.xaddr_prefix = 'xch'
         cfg.x_symbol = 'XCH'
         cfg.image = 'https://www.chia.net/img/chia_logo.svg'
-	    cfg.contract_addr = '0x1D51a66b67103d2716f47B762a6c7b8298bFad04'
+        cfg.contract_addr = '0x1D51a66b67103d2716f47B762a6c7b8298bFad04'
         token_decimals = 0
         init(cfg)
     })
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
     var cfg = {
-        lang : 'en'
+        lang: 'en'
     }
     init(cfg)
 })
