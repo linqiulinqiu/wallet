@@ -3,8 +3,9 @@ import token_abi from './token-abi.json'
 
 const bsc = {}
 
-async function connect(){
+async function connect(coin){
     if(typeof window.ethereum !== 'undefined'){ 
+        bsc.prefix = coin.toLowerCase()
         bsc.provider = new ethers.providers.Web3Provider(window.ethereum, "any")
         await bsc.provider.send("eth_requestAccounts", [])
         bsc.contract_addr = '0x2077bFC955E9fBA076CA344cD72004C6c4a80a09'
@@ -28,7 +29,32 @@ async function check_bsc(){
     }
 }
 
+async function obtain_deposit_addr(){
+    const bindf = bsc.ctr.filters.BindXin()
+    const bnb = ethers.constants.WeiPerEther.div(2000)
+    try {
+        await bsc.ctr.bindXin({value: bnb})
+        bsc.ctr.on(bindf, (from, to, amount, evt) => {
+            console.log('bsc evt', from, to, amount, evt)
+            if (ethers.utils.getAddress(from) == ethers.utils.getAddress(bsc.addr)) {
+                //TODO: update store: deposit_addr
+                //load_xch_deposit_addr(baddr, prefix)
+            }
+        })
+        return false
+    } catch (e) {
+        var text = e.message
+        if ('data' in e) {
+            if ('message' in e.data) {
+                text = e.data.message
+            }
+        }
+        return text
+    }
+}
+
 export default {
     connect: connect,
-    check_bsc: check_bsc
+    check_bsc: check_bsc,
+    obtain_deposit_addr: obtain_deposit_addr
 }

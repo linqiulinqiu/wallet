@@ -16,11 +16,15 @@ export default {
   }),
   methods: {
       connect_wallet: async function (){
-        const addr = await wops.connect()
-        this.$store.commit('setBaddr', addr)
-        const bsc = await wops.check_bsc()
-        this.$store.commit('setFreeXins', bsc.free_xins)
-        this.$store.commit('setDepositAddr', bsc.deposit_addr)
+        const addr = await wops.connect(this.$store.state.coin)
+        if(addr){
+            this.$store.commit('setBaddr', addr)
+            const bsc = await wops.check_bsc()
+            this.$store.commit('setFreeXins', bsc.free_xins)
+            this.$store.commit('setDepositAddr', bsc.deposit_addr)
+          }else{
+              this.$message('Connect failed: make sure wallet works')
+          }
       }
   }
 }

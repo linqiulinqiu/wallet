@@ -25,7 +25,7 @@ export default {
   }),
   methods: {
       obtain_addr: async function (){
-          console.log('try obtain deposit addr')
+          this.$message('Obtain deposit addr')
       }
   }
 }
