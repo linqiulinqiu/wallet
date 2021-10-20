@@ -2,7 +2,7 @@ const dicts = {
     en: {
         'add_token': 'Add %{x_symbol} Token',
 
-        'x_warning': '',
+        'x_warning': '1111',
         'add_network': 'Add BSC Network',
         'connect_wallet': 'Connect Wallet',
         'connect_title': 'Chain Connect (%{x_symbol})',
@@ -29,7 +29,7 @@ const dicts = {
     zh: {
         'add_token': '向钱包添加 %{x_symbol}',
 
-        'x_warning': '',
+        'x_warning': 'aaa',
         'add_network': '向钱包添加BSC',
         'connect_wallet': '连接钱包',
         'connect_title': '连接 (%{x_symbol})',
