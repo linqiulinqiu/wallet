@@ -145,6 +145,9 @@ async function load_xch_withdraw_addr(baddr, prefix) {
         })
     } else {
         btn.on('click', async function () {
+            $('p#waitting').css({
+                opacity: 1
+            })
             btn.off('click')
             const xhex = xchHex(input.val())
             if (xhex) {
@@ -349,6 +352,9 @@ async function connect(wbtn, cfg) {
             add_token(cfg)
         })
         $('button#add-token').parent().show()
+        $('button#add-token').parent().css({
+            opacity: 1
+        })
 
     } else {
         bsc.addr = ''
@@ -422,6 +428,6 @@ $(document).ready(function () {
     var cfg = {
         lang: 'en'
     }
-    $('div#version').text('10-19-1')
+    $('div#version').text('10-20-1')
     init(cfg)
 })
