@@ -428,6 +428,6 @@ $(document).ready(function () {
     var cfg = {
         lang: 'en'
     }
-    $('div#version').text('10-20-1')
+    $('div#version').text('10-21-1')
     init(cfg)
 })
