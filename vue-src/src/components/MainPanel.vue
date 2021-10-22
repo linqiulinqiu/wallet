@@ -2,10 +2,10 @@
   <el-col :span='8'>
       <ConnectWallet v-if="!baddr" />
       <el-tabs v-else v-model="opMode">
-        <el-tab-pane label="Deposit" name="deposit-mode">
+        <el-tab-pane :label="$t('deposit')" name="deposit-mode">
           <DepositTab />
         </el-tab-pane>
-        <el-tab-pane label="Withdraw" name="withdraw-mode">
+        <el-tab-pane :label="$t('withdraw')" name="withdraw-mode">
           <WithdrawTab />
         </el-tab-pane>
       </el-tabs>

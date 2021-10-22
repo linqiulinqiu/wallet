@@ -1,6 +1,6 @@
 <template>
   <div class="connect-wallet">
-    <el-button type="success" round v-if="!baddr" @click="connect_wallet">Connect Wallet</el-button>
+    <el-button type="success" round v-if="!baddr" @click="connect_wallet">{{$t("connect-wallet")}}</el-button>
     <el-button v-if="baddr">{{baddr}}</el-button>
   </div> 
 </template>

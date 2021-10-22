@@ -4,6 +4,8 @@ import Vuex from 'vuex'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
+import i18n from './locales'
+
 import App from './App.vue'
 
 Vue.use(Vuex)
@@ -36,6 +38,7 @@ const store = new Vuex.Store({
 })
 
 new Vue({
-  render: h => h(App),
-  store: store,
+    i18n,
+    render: h => h(App),
+    store: store,
 }).$mount('#app')

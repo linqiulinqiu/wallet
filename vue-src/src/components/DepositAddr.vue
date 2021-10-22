@@ -4,7 +4,7 @@
           <p>{{deposit_addr}}</p>
         </div>
         <div v-else>
-          <el-button v-if="free_xins>0" @click="obtain_addr">Obtain Deposit Address</el-button>
+          <el-button v-if="free_xins>0" @click="obtain_addr">{{$t("obtain-deposit-address")}}</el-button>
           <p v-else-if="free_xins===0">No Deposit Address Available, Please wait a while</p>
           <p v-else>Checking available deposit address, Please wait a while</p>
         </div>
