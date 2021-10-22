@@ -406,6 +406,17 @@ function init(cfg) {
         $('div.container').hide()
         $('footer').hide()
     }
+
+    const pancake_prefix = 'https://pancake.kiemtienonline360.com/#/add/BNB/'
+    $('button#pancake-addlp').on('click', function () {
+        const url = pancake_prefix + cfg.contract_addr
+        if (!cfg.contract_addr) {
+            alert('please choose coin first')
+        } else {
+            window.open(url)
+            // open URL in new tab
+        }
+    })
     $('#switch-xcc').on('click', function () {
         cfg.xaddr_prefix = 'xcc'
         cfg.x_symbol = 'XCC'

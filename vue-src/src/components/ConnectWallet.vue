@@ -1,19 +1,8 @@
 <template>
-  <el-container>
-    <el-header>
-      <el-row type="flex" align="center" justify="center">
-        <el-col :span="12"><div>Deposit</div></el-col>
-        <el-col :span='12'><div>Withdraw</div></el-col>
-      </el-row>
-    </el-header>
-    <el-main>
-      <div class="connect-wallet">
-        <el-button type="success" round v-if="!baddr" @click="connect_wallet">Connect Wallet</el-button>
-        <el-button v-if="baddr">{{baddr}}</el-button>
-  </div>
-    </el-main>
-  </el-container>
-  
+  <div class="connect-wallet">
+    <el-button type="success" round v-if="!baddr" @click="connect_wallet">Connect Wallet</el-button>
+    <el-button v-if="baddr">{{baddr}}</el-button>
+  </div> 
 </template>
 
 <script>

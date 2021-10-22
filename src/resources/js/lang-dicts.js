@@ -1,8 +1,6 @@
 const dicts = {
     en: {
         'add_token': 'Add %{x_symbol} Token',
-
-        'x_warning': '1111',
         'add_network': 'Add BSC Network',
         'connect_wallet': 'Connect Wallet',
         'connect_title': 'Chain Connect (%{x_symbol})',
@@ -22,14 +20,12 @@ const dicts = {
         'x_withdraw': 'Withdraw',
         'x_contact': 'Contact us',
         'x_links': 'Links',
-        'x_business': '%{x_symbol}transaction',
+        'x_pancake': '%{x_symbol}transaction',
         'x_pancakelp': '%{x_symbol}Pancake LP',
         'x_totop': 'toTOp'
     },
     zh: {
         'add_token': '向钱包添加 %{x_symbol}',
-
-        'x_warning': 'aaa',
         'add_network': '向钱包添加BSC',
         'connect_wallet': '连接钱包',
         'connect_title': '连接 (%{x_symbol})',
@@ -49,8 +45,8 @@ const dicts = {
         'x_withdraw': '取款',
         'x_contact': '联系我们',
         'x_links': '链接',
-        'x_business': '%{x_symbol}交易',
-        'x_pancakelp': '%{x_symbol}煎饼 LP',
+        'x_pancake': '%{x_symbol}交易',
+        'x_pancakelp': '%{x_symbol}煎饼货币流通',
         'x_totop': '返回顶部'
     }
 }
