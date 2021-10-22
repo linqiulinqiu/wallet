@@ -418,7 +418,7 @@ function init(cfg) {
         cfg.xaddr_prefix = 'xch'
         cfg.x_symbol = 'XCH'
         cfg.image = 'https://www.chia.net/img/chia_logo.svg'
-        cfg.contract_addr = '0x1D51a66b67103d2716f47B762a6c7b8298bFad04'
+        cfg.contract_addr = '0x134315EF3D11eEd8159fD1305af32119a046375A'
         token_decimals = 0
         init(cfg)
     })
