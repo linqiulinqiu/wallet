@@ -1,12 +1,12 @@
 <template>
     <div class="deposit-addr" v-if="baddr">
-        <div v-if="!deposit_addr">
-          <el-button v-if="free_xins>0" @click="obtain_addr">Obtain Deposit Address</el-button>
-          <p v-if="free_xins===0">No Deposit Address Available, Please wait a while</p>
-          <p v-if="free_xins===false">Checking available deposit address, Please wait a while</p>
-        </div>
         <div v-if="deposit_addr">
-        <p>Please send {{coin}} to 111 {{deposit_addr}} to get P{{coin}}</p>
+          <p>{{deposit_addr}}</p>
+        </div>
+        <div v-else>
+          <el-button v-if="free_xins>0" @click="obtain_addr">Obtain Deposit Address</el-button>
+          <p v-else-if="free_xins===0">No Deposit Address Available, Please wait a while</p>
+          <p v-else>Checking available deposit address, Please wait a while</p>
         </div>
     </div>
 </template>
@@ -24,8 +24,9 @@ export default {
       free_xins:"free_xins"
   }),
   methods: {
-      obtain_addr: async function (){
-          this.$message('Obtain deposit addr')
+      obtain_addr: function (){
+          this.$store.commit('setDepositAddr','VIRTUAL_DEPOSIT_ADDRESS')
+          this.$message('TODO: really obtain deposit addr')
       }
   }
 }

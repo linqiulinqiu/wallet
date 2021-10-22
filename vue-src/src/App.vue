@@ -1,49 +1,10 @@
 <template>
   <div id="app">
     <el-container>
-      <el-header>
-        <el-row :gutter="20" type="flex" align="center">
-    <!-- logo部分 -->
-          <el-col :span='4' id="logo">
-            </el-col>
-    <!-- 余额部分 -->
-          <el-col :span='1'>版本号:10/22-1</el-col>
-          <el-col :span='1' :offset="13">
-            <div id="token-balance">
-              banlance: <span id="token-balance">余额</span></div>
-          </el-col>
-    <!-- 账户部分 -->
-          <el-col :span='3'>
-            <div id="user">user</div>
-          </el-col>
-    <!-- 语言部分 -->
-          <el-col :span='3'>
-            <el-select placeholder="set language" id='setLanguage'>
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              ></el-option>
-            </el-select>
-          </el-col>
-        </el-row>
-      </el-header>
-
+      <HeaderBar />
       <el-main class="mainBody">
         <el-row type="flex" align="center" justify="center">
-          <el-col :span='8'>
-  <!-- 链接钱包 -->
-          <ConnectWallet />
-  <!-- 存款地址 -->
-          <Tab />
-          <!-- <DepositAddr /> -->
-  <!-- 绑定地址 -->
-          <!-- <WithdrawAddr />  -->
-  <!-- 取款金额 -->
-          <!-- <WithdrawBurn /> -->
-          </el-col>
-          
+          <MainPanel />
         </el-row>
       </el-main>
 
@@ -60,34 +21,14 @@
 </template>
 
 <script>
-import ConnectWallet from './components/ConnectWallet.vue'
-// import DepositAddr from './components/DepositAddr.vue'
-// import WithdrawAddr from './components/WithdrawAddr.vue'
-// import WithdrawBurn from './components/WithdrawBurn.vue'
-
-import Tab from './components/Tab.vue'
+import HeaderBar from './components/HeaderBar.vue'
+import MainPanel from './components/MainPanel.vue'
 
 export default {
   name: 'App',
   components: {
-    ConnectWallet,
-    // DepositAddr,
-    // WithdrawAddr,
-    // WithdrawBurn,
-    Tab
-  },
-  // 语言设置
-  value:'100',
-  data(){
-    return{
-      options:[{
-        value:'language 1',
-        label:'English'
-      },{
-        value:'language 2',
-        label:'简体中文'
-      }]
-    }
+    HeaderBar,
+    MainPanel 
   }
 }
 </script>
