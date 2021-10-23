@@ -1,0 +1,14 @@
+{
+    "name": "plotbridge/puzzle-tools",
+    "description": "Tool/API for puzzlehash/address convert",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Simon",
+            "email": "dxl@plotbridge.com"
+        }
+    ],
+    "require": {
+        "brooksyang/chia-utils": "^1.0"
+    }
+}
