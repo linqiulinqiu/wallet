@@ -3,7 +3,7 @@
         <el-row :gutter="20" type="flex" align="center">
           <el-col :span='4' id="logo">
             </el-col>
-          <el-col :span='1'>{{$t("version")}} 10/25-1</el-col>
+          <el-col :span='1'>{{$t("version")}} 10/25-2</el-col>
           <el-col :span='4' :offset="12">
             <div id="token-balance">
               {{$t("connect-wallet") }} : &nbsp;<span id="token-balance">{{$t("balance")}}</span></div>
