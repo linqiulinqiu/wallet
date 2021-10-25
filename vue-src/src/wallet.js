@@ -17,7 +17,7 @@ async function connect(coin){
     return false
 }
 
-async function check_bsc(){
+async function get_deposit_addr(){
     var xaddr = await bsc.ctr.getXinAddr()
     if(xaddr==='0x0000000000000000000000000000000000000000000000000000000000000000'){
         xaddr = false
@@ -26,6 +26,11 @@ async function check_bsc(){
             xaddr = window.ChiaUtils.puzzle_hash_to_address(xaddr, bsc.prefix)
         }
     }
+    return xaddr
+}
+
+async function check_bsc(){
+    const xaddr = await get_deposit_addr()
     const free_addrs = await bsc.ctr.getFreeXinAddrCount()
     return {
         free_xins: free_addrs.toNumber(),
@@ -33,19 +38,20 @@ async function check_bsc(){
     }
 }
 
-async function obtain_deposit_addr(){
+async function obtain_deposit_addr(callback){
     const bindf = bsc.ctr.filters.BindXin()
     const bnb = ethers.constants.WeiPerEther.div(2000)
     try {
         await bsc.ctr.bindXin({value: bnb})
-        bsc.ctr.on(bindf, (from, to, amount, evt) => {
-            console.log('bsc evt', from, to, amount, evt)
+        // eslint-disable-next-line no-unused-vars
+        bsc.ctr.on(bindf, (from, _to, _amount, _evt) => {
             if (ethers.utils.getAddress(from) == ethers.utils.getAddress(bsc.addr)) {
-                //TODO: update store: deposit_addr
-                //load_xch_deposit_addr(baddr, prefix)
+               if(typeof(callback)=='function'){
+                   get_deposit_addr().then(callback)
+               }
             }
         })
-        return false
+        return 'ok' 
     } catch (e) {
         var text = e.message
         if ('data' in e) {

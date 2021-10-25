@@ -13,7 +13,7 @@
 
 <script>
 import { mapState } from 'vuex'
-//import wops from '../wallet'
+import wops from '../wallet'
 
 export default {
   name: 'ConnectWallet',
@@ -24,9 +24,14 @@ export default {
       free_xins:"free_xins"
   }),
   methods: {
-      obtain_addr: function (){
-          this.$store.commit('setDepositAddr','VIRTUAL_DEPOSIT_ADDRESS')
-          this.$message('TODO: really obtain deposit addr')
+      obtain_addr: async function (){
+          const commit = this.$store.commit
+          const msg = await wops.obtain_deposit_addr(function(xaddr){
+            commit('setDepositAddr',xaddr)
+          })
+          if(msg!='ok'){
+            this.$message(msg)
+          }
       }
   }
 }
