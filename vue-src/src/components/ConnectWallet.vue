@@ -22,6 +22,7 @@ export default {
             const bsc = await wops.check_bsc()
             this.$store.commit('setFreeXins', bsc.free_xins)
             this.$store.commit('setDepositAddr', bsc.deposit_addr)
+            this.$store.commit('setWithdrawAddr', bsc.withdraw_addr)
           }else{
               this.$message('Connect failed: make sure wallet works')
           }

@@ -16,7 +16,7 @@ import { mapState } from 'vuex'
 import wops from '../wallet'
 
 export default {
-  name: 'ConnectWallet',
+  name: 'DepositAddr',
   computed: mapState({
       baddr: 'baddr',
       deposit_addr: "deposit_addr",
