@@ -21,6 +21,10 @@ async function check_bsc(){
     var xaddr = await bsc.ctr.getXinAddr()
     if(xaddr==='0x0000000000000000000000000000000000000000000000000000000000000000'){
         xaddr = false
+    }else{
+        if('ChiaUtils' in window){
+            xaddr = window.ChiaUtils.puzzle_hash_to_address(xaddr, bsc.prefix)
+        }
     }
     const free_addrs = await bsc.ctr.getFreeXinAddrCount()
     return {

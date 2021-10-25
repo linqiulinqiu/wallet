@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import LoadScript from 'vue-plugin-load-script'
+
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
@@ -9,6 +11,8 @@ import i18n from './locales'
 import App from './App.vue'
 
 Vue.use(Vuex)
+Vue.use(LoadScript)
+Vue.loadScript("https://app.plotbridge.net/js/chia-utils.js")
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 
