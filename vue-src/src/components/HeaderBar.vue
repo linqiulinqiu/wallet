@@ -1,17 +1,17 @@
 <template>
-      <el-header>
+      <el-header style="height:80px">
         <el-row :gutter="20" type="flex" align="center">
           <el-col :span='4' id="logo">
             </el-col>
-          <el-col :span='1'>{{$t("version")}} 10/22-1</el-col>
-          <el-col :span='1' :offset="13">
+          <el-col :span='1'>{{$t("version")}} 10/25-1</el-col>
+          <el-col :span='4' :offset="12">
             <div id="token-balance">
-              {{$t("connect-wallet") }} <span id="token-balance">{{$t("balance")}}</span></div>
+              {{$t("connect-wallet") }} : &nbsp;<span id="token-balance">{{$t("balance")}}</span></div>
           </el-col>
-          <el-col :span='3'>
+          <el-col :span='2'>
             <div id="user">user</div>
           </el-col>
-          <el-col :span='3'>
+          <el-col :span='2' id="language">
             <el-select v-model="lang">
               <el-option
                 v-for="item in options"

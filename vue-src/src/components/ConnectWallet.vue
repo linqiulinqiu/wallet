@@ -9,11 +9,12 @@
 import { mapState } from 'vuex'
 import wops from '../wallet'
 
+
 export default {
   name: 'ConnectWallet',
   computed: mapState({
       baddr: 'baddr'
-  }),
+    }),
   methods: {
       connect_wallet: async function (){
         const addr = await wops.connect(this.$store.state.coin)
@@ -22,10 +23,18 @@ export default {
             const bsc = await wops.check_bsc()
             this.$store.commit('setFreeXins', bsc.free_xins)
             this.$store.commit('setDepositAddr', bsc.deposit_addr)
+            this.$store.commit('setWithdrawAddr', bsc.withdraw_addr)
           }else{
-              this.$message('Connect failed: make sure wallet works')
+              this.$message(this.$t('connect-faild'))
           }
       }
   }
 }
 </script>
+<style>
+.connect-wallet button{
+  width: 300px;
+  height: 60px;
+  font-size: 30px;
+}
+</style>

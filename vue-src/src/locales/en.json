@@ -1,8 +1,21 @@
 {
     "balance":"Balance",
     "connect-wallet":"Connect Wallet",
+    "deposit-addr":"Deposit XCH into this address, then PXCH will be distributed to your BSC wallet",
+    "transcation-fee":"Transaction Fee at 0.3% will be charged, minimal 0.01 XCH for each transaction",
     "deposit":"Deposit",
     "obtain-deposit-address":"Obtain Deposit Address",
+    "connect-failed":"Connect failed: make sure wallet works",
+    "no-depositAddr":"No Deposit Address Available, Please wait a while",
+    "check-depositAddr":"Checking available deposit address, Please wait a while",
     "version":"Version",
-    "withdraw":"Withdraw"
+    "withdraw":"Withdraw",
+    "send-token-for-withdrawal":"send token",
+    "input-x-wallet-for-withdraw":"x-wallet",
+    "bind-withdraw-address":"Bind withdraw address",
+    "receive-money":"You'll receive:",
+    "contact-us":"Contact us",
+    "links":"links:",
+    "xch-lp":"xch-liquidity",
+    "xcc-lp":"xcc-liquidity"
 }

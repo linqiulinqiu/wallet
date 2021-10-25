@@ -10,9 +10,9 @@
 
       <el-footer>
         <el-row>
-          <el-col :span='3'><div> contact us </div></el-col>
+          <el-col :span='3'><div> {{$t('contact-us')}}</div></el-col>
           <el-col :span='5' :offset="15">
-            <p>links:<a href="#">xcc lp</a><a href="">xch lp</a></p>
+            <p>{{$t('links')}}<a href="#">{{$t('xcc-lp')}}</a><a href="">{{$t('xch-lp')}}</a></p>
           </el-col>
         </el-row>
       </el-footer>
@@ -34,6 +34,10 @@ export default {
 </script>
 
 <style>
+  body{
+    margin: 0;
+    padding: 0;
+  }
   #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -41,22 +45,34 @@ export default {
     text-align: center;
     color: #2c3e50;
   }
-
-  div{
-    border: #2c3e50 1px solid;
-  }
-
   .el-header, .el-footer {
-    background-color: #B3C0D1;
+    width: 100%;
+    background-color: #668b66;
     color: #333;
     text-align: center;
   }
-  
-  
+  .el-header{
+    padding: 10px;
+  }
+ .el-footer{
+   margin-bottom: 0px;
+ } 
+  #token-balance,#user{
+    border: 1px solid #d1fcd1;
+    height: 40px;
+    line-height: 40px;
+    color: #d1fcd1;
+    margin-top: 10px;
+    border-radius: 5px;
+  }
+  #language{
+    margin-top: 10px;
+  }
   .el-main {
-    background-color: #E9EEF3;
+    /* background-color: #E9EEF3; */
     color: #333;
     text-align: center;
+    height: 810px;
   }
   /* logo */
   #logo{
@@ -67,6 +83,7 @@ export default {
   
   .mainBody>.el-row{
     height: 500px;
+    margin-top: 150px;
   }
   
 </style>

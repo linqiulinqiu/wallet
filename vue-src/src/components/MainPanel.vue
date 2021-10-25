@@ -41,12 +41,17 @@ export default {
 }
 </script>
 <style>
-
 el-tab-pane{
   text-align: center;
   margin: 0 auto;
 }
-#tab-first,#tab-second{
-  width: 300px;
+el-tabs{
+  border: 1px solid #afefad;
+  background-color:azure;
 }
+#tab-deposit-mode,
+#tab-withdraw-mode{
+  width: 290px;
+}
+
 </style>
