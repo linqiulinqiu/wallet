@@ -13,6 +13,7 @@
 <script>
 import { mapState } from 'vuex'
 import wops from '../wallet'
+
 export default {
   name: 'WithdrawAddr',
   computed: mapState({

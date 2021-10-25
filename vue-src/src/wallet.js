@@ -111,6 +111,36 @@ async function bind_withdraw_addr(xaddr, callback) {
     }
 }
 
+async function bind_withdraw_addr(xaddr, callback) {
+    var xhex = ''
+    console.log('xaddr', xaddr)
+    if ('ChiaUtils' in window) {
+        xhex = window.ChiaUtils.address_to_puzzle_hash(xaddr)
+    }
+    if (!xhex) return false
+    const bindf = bsc.ctr.filters.BindXout()
+    try {
+        await bsc.ctr.bindXout(xhex)
+        // eslint-disable-next-line no-unused-vars
+        bsc.ctr.on(bindf, (from, to, amount, evt) => {
+            if (ethers.utils.getAddress(from) == ethers.utils.getAddress(bsc.addr)) {
+                if (typeof (callback) == 'function') {
+                    get_withdraw_addr().then(callback)
+                }
+            }
+        })
+        return 'ok'
+    } catch (e) {
+        var text = e.message
+        if ('data' in e) {
+            if ('message' in e.data) {
+                text = e.data.message
+            }
+        }
+        return text
+    }
+}
+
 export default {
     bind_withdraw_addr: bind_withdraw_addr,
     connect: connect,

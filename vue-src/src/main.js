@@ -35,6 +35,9 @@ const store = new Vuex.Store({
         setDepositAddr(state, addr) {
             state.deposit_addr = addr
         },
+        setWithdrawAddr(state, addr) {
+            state.withdraw_addr = addr
+        },
         setCoin(state, coin) {
             state.coin = coin
         }
