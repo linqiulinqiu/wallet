@@ -38,6 +38,9 @@ const store = new Vuex.Store({
         setWithdrawAddr(state, addr) {
             state.withdraw_addr = addr
         },
+        setXbalance(state, xb) {
+            state.xbalance = xb
+        },
         setCoin(state, coin) {
             state.coin = coin
         }

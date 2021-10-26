@@ -13,7 +13,8 @@ import wops from '../wallet'
 export default {
   name: 'ConnectWallet',
   computed: mapState({
-      baddr: 'baddr'
+      baddr: 'baddr',
+      xbalance: 'xbalance'
     }),
   methods: {
       connect_wallet: async function (){
@@ -25,6 +26,7 @@ export default {
                 this.$store.commit('setFreeXins', bsc.free_xins)
                 this.$store.commit('setDepositAddr', bsc.deposit_addr)
                 this.$store.commit('setWithdrawAddr', bsc.withdraw_addr)
+                this.$store.commit('setXbalance', bsc.xbalance)
             }else{
                 this.$message(this.$t('connect-faild'))
             }

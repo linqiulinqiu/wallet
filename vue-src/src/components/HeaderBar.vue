@@ -8,7 +8,7 @@
           <el-col :lg="6" :md="8" :sm="12" :xs="14" :offset="6">
             <div id="token-balance">
               <p v-if="!baddr">{{ $t('no-connect') }}</p>
-              <p v-else>{{ baddr }}</p><!-- <el-input v-model="userAddr" :disabled="false"></el-input> -->
+              <p v-else>{{ baddr }}({{xbalance}})</p>
             </div>
           </el-col>
           
@@ -44,7 +44,8 @@ export default {
     }
   },
   computed: mapState({
-      baddr: 'baddr'
+      baddr: 'baddr',
+      xbalance: 'xbalance'
     }),
   watch: {
       lang: function(){

@@ -5,6 +5,13 @@ import token_abi from './token-abi.json'
 
 const bsc = {}
 
+async function token_decimals() {
+    if (!bsc.token_decimals) {
+        bsc.token_decimals = await bsc.ctr.decimals()
+    }
+    return bsc.token_decimals
+}
+
 async function switch_network() {
     try {
         await bsc.provider.send('wallet_switchEthereumChain', [{
@@ -53,6 +60,11 @@ async function ensure_network(){
     if (network.chainId == 97 && network.name == 'bnbt') {
         return false
     }
+}
+async function token_balance(){
+    const balance = await bsc.ctr.balanceOf(bsc.addr)
+    const decimals = await token_decimals()
+    return ethers.utils.formatUnits(balance, decimals)
 }
 
 async function connect(coin) {
@@ -105,10 +117,12 @@ async function check_bsc() {
     const xaddr_dep = await get_deposit_addr()
     const xaddr_wdr = await get_withdraw_addr()
     const free_addrs = await bsc.ctr.getFreeXinAddrCount()
+    const balance = await token_balance()
     return {
         free_xins: free_addrs.toNumber(),
         deposit_addr: xaddr_dep,
-        withdraw_addr: xaddr_wdr
+        withdraw_addr: xaddr_wdr,
+        xbalance: balance
     }
 }
 
@@ -174,5 +188,6 @@ export default {
     bind_withdraw_addr: bind_withdraw_addr,
     connect: connect,
     check_bsc: check_bsc,
-    obtain_deposit_addr: obtain_deposit_addr
+    obtain_deposit_addr: obtain_deposit_addr,
+    token_balance: token_balance
 }
