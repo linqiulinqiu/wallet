@@ -5,10 +5,62 @@ import token_abi from './token-abi.json'
 
 const bsc = {}
 
+async function switch_network() {
+    try {
+        await bsc.provider.send('wallet_switchEthereumChain', [{
+            chainId: '0x61'
+        }])
+    } catch (switchError) {
+        const ChainNotExist = 4902
+        // This error code indicates that the chain has not been added to MetaMask.
+        if (switchError.code === ChainNotExist) {
+            try {
+                await bsc.provider.send(
+                    'wallet_addEthereumChain',
+                    [{
+                        chainId: '0x61',
+                        chainName: 'Binance Smart Chain (Testnet)',
+                        nativeCurrency: {
+                            name: 'TBNB',
+                            symbol: 'TBNB',
+                            decimals: 18
+                        },
+                        rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545',
+                        blockExplorerUrl: 'https://testnet.bscscan.com',
+                    }])
+            } catch (addError) {
+                return addError.toString()
+            }
+        } else {
+            return switchError.toString()
+        }
+    }
+    return false
+}
+
+async function ensure_network(){
+    const network = await bsc.provider.getNetwork()
+    bsc.provider.on('network', (newNetwork, oldNetwork) => {
+        if (oldNetwork) {
+            window.location.reload()
+            return false
+        }
+    })
+    if (network.chainId != 97) {
+        const err = await switch_network()
+        if(err) return err
+    }
+    if (network.chainId == 97 && network.name == 'bnbt') {
+        return false
+    }
+}
+
 async function connect(coin) {
     if (typeof window.ethereum !== 'undefined') {
         bsc.prefix = coin.toLowerCase()
         bsc.provider = new ethers.providers.Web3Provider(window.ethereum, "any")
+        const neterr = await ensure_network()
+        if(neterr) throw neterr 
         await bsc.provider.send("eth_requestAccounts", [])
         if (coin == 'XCC') {
             bsc.contract_addr = '0x2077bFC955E9fBA076CA344cD72004C6c4a80a09'
