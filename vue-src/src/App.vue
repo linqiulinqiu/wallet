@@ -3,15 +3,15 @@
     <el-container>
       <HeaderBar />
       <el-main class="mainBody">
-        <el-row type="flex" align="center" justify="center">
+        <el-row  type="flex" align="center" justify="center">
           <MainPanel />
         </el-row>
       </el-main>
 
       <el-footer>
         <el-row>
-          <el-col :span='3'><div> {{$t('contact-us')}}</div></el-col>
-          <el-col :span='5' :offset="15">
+          <el-col :lg='3' :xs="6">{{$t('contact-us')}}</el-col>
+          <el-col :lg='5' :xs="18">
             <p>{{$t('links')}}<a href="#">{{$t('xcc-lp')}}</a><a href="">{{$t('xch-lp')}}</a></p>
           </el-col>
         </el-row>
@@ -37,6 +37,7 @@ export default {
   body{
     margin: 0;
     padding: 0;
+    background: url(./assets/images/bg1.png) center ;
   }
   #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -57,6 +58,10 @@ export default {
  .el-footer{
    margin-bottom: 0px;
  } 
+ .footer .el-col:last-child{
+   position: relative;
+   right: 0px;
+ }
   #token-balance,#user{
     border: 1px solid #d1fcd1;
     height: 40px;

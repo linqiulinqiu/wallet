@@ -2,8 +2,8 @@
   <div>
     <WithdrawAddr />
     <div v-if="withdraw_addr">
-        <p>Burn P{{coin}}, then {{coin}} will be distributed to your {{coin}} wallet</p>
-        <p>Transaction Fee at 0.1% will be charged, minimal 0.001 P{{coin}} for each transaction</p>
+      <p>{{ $t('burn-introduction') }}</p>
+      <p>{{ $t('transcation-fee') }}</p>
     </div>
   </div>
     

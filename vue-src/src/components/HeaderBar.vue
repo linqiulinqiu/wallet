@@ -1,17 +1,18 @@
 <template>
       <el-header style="height:80px">
-        <el-row :gutter="20" type="flex" align="center">
-          <el-col :span='4' id="logo">
+        <el-row :gutter="10" type="flex" align="center">
+          <el-col :lg='4'  :sm="6" :xs="8" :offset="1" id="logo" >
             </el-col>
-          <el-col :span='1'>{{$t("version")}} 10/25-2</el-col>
-          <el-col :span='4' :offset="12">
+          <el-col :lg='1'  :sm="1" :xs="1">{{$t("version")}} 10/26-2</el-col>
+          
+          <el-col :lg="6" :md="8" :sm="12" :xs="14" :offset="6">
             <div id="token-balance">
-              {{$t("connect-wallet") }} : &nbsp;<span id="token-balance">{{$t("balance")}}</span></div>
+              <p v-if="!baddr">{{ $t('no-connect') }}</p>
+              <p v-else>{{ baddr }}</p><!-- <el-input v-model="userAddr" :disabled="false"></el-input> -->
+            </div>
           </el-col>
-          <el-col :span='2'>
-            <div id="user">user</div>
-          </el-col>
-          <el-col :span='2' id="language">
+          
+          <el-col :lg='2' :md="3" :sm="3" :xs="4" id="language">
             <el-select v-model="lang">
               <el-option
                 v-for="item in options"
@@ -26,6 +27,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex' 
 import { setup } from '../locales'
 export default {
   name: 'HeaderBar',
@@ -38,9 +40,12 @@ export default {
         value:'zh',
         label:'简体中文'
       }],
-      lang:'en'
+      lang:'en',
     }
   },
+  computed: mapState({
+      baddr: 'baddr'
+    }),
   watch: {
       lang: function(){
         setup(this.lang)
@@ -48,3 +53,14 @@ export default {
   }
 }
 </script>
+<style>
+#token-balance p{
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 20px;
+}
+</style>

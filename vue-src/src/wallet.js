@@ -10,7 +10,13 @@ async function connect(coin) {
         bsc.prefix = coin.toLowerCase()
         bsc.provider = new ethers.providers.Web3Provider(window.ethereum, "any")
         await bsc.provider.send("eth_requestAccounts", [])
-        bsc.contract_addr = '0x2077bFC955E9fBA076CA344cD72004C6c4a80a09'
+        if (coin == 'XCC') {
+            bsc.contract_addr = '0x2077bFC955E9fBA076CA344cD72004C6c4a80a09'
+        } else if (coin == 'XCH') {
+            bsc.contract_addr = '0x134315EF3D11eEd8159fD1305af32119a046375A'
+        } else {
+            return false
+        }
         bsc.signer = bsc.provider.getSigner()
         bsc.addr = await bsc.signer.getAddress()
         bsc.ctr = new ethers.Contract(bsc.contract_addr, token_abi, bsc.signer)
@@ -111,35 +117,6 @@ async function bind_withdraw_addr(xaddr, callback) {
     }
 }
 
-async function bind_withdraw_addr(xaddr, callback) {
-    var xhex = ''
-    console.log('xaddr', xaddr)
-    if ('ChiaUtils' in window) {
-        xhex = window.ChiaUtils.address_to_puzzle_hash(xaddr)
-    }
-    if (!xhex) return false
-    const bindf = bsc.ctr.filters.BindXout()
-    try {
-        await bsc.ctr.bindXout(xhex)
-        // eslint-disable-next-line no-unused-vars
-        bsc.ctr.on(bindf, (from, to, amount, evt) => {
-            if (ethers.utils.getAddress(from) == ethers.utils.getAddress(bsc.addr)) {
-                if (typeof (callback) == 'function') {
-                    get_withdraw_addr().then(callback)
-                }
-            }
-        })
-        return 'ok'
-    } catch (e) {
-        var text = e.message
-        if ('data' in e) {
-            if ('message' in e.data) {
-                text = e.data.message
-            }
-        }
-        return text
-    }
-}
 
 export default {
     bind_withdraw_addr: bind_withdraw_addr,

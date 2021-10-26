@@ -1,15 +1,15 @@
 <template>
-  <el-col :span='8'>
+  <el-col :lg="10" :md="12" :sm="18" :xs="22" class="maintab">
       <ConnectWallet v-if="!baddr" />
       <el-tabs v-else v-model="opMode">
-        <el-tab-pane :label="$t('deposit')" name="deposit-mode">
-          <DepositTab />
-        </el-tab-pane>
-        <el-tab-pane :label="$t('withdraw')" name="withdraw-mode">
-          <WithdrawTab />
-        </el-tab-pane>
+          <el-tab-pane :label="$t('deposit')" name="deposit-mode">
+            <DepositTab />
+          </el-tab-pane>
+          <el-tab-pane :label="$t('withdraw')" name="withdraw-mode">
+            <WithdrawTab />
+          </el-tab-pane>
       </el-tabs>
-  </el-col>
+    </el-col>
 </template>
 <script>
 
@@ -41,17 +41,17 @@ export default {
 }
 </script>
 <style>
-el-tab-pane{
+.el-tab-pane{
   text-align: center;
   margin: 0 auto;
 }
-el-tabs{
+.maintab{
   border: 1px solid #afefad;
-  background-color:azure;
+  background-color: #baccba;
 }
 #tab-deposit-mode,
 #tab-withdraw-mode{
-  width: 290px;
+  width: 200px;
 }
 
 </style>
