@@ -2,7 +2,7 @@
   <div>
     <WithdrawAddr />
     <div v-if="withdraw_addr">
-      <p>{{ $t('burn-introduction') }}</p>
+      <p>{{ $t('burn-introduction',{coin:coin}) }}</p>
       <p>{{ $t('transcation-fee') }}</p>
     </div>
   </div>

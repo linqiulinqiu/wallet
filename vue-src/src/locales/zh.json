@@ -14,7 +14,7 @@
     "input-wallet-for-withdraw":"输入钱包取款地址",
     "bind-withdraw-address":"绑定取款地址",
     "next":"下一步",
-    "burn-introduction":"烧掉P{{coin}}，然后{{coin}}将被分配到您的{{coin}}钱包中",
+    "burn-introduction":"烧掉P{coin}，然后{coin}将被分配到您的{coin}钱包中",
     "amount":"请输入金额",
     "receive-money":"你将会收到:",
     "contact-us":"联系我们",
