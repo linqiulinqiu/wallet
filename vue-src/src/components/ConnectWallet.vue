@@ -18,8 +18,9 @@ export default {
     }),
   methods: {
       connect_wallet: async function (){
+        const commit = this.$store.commit
           try {
-            const addr = await wops.connect(this.$store.state.coin)
+            const addr = await wops.connect(this.$store.state.coin, commit)
             if(addr){
                 this.$store.commit('setBaddr', addr)
                 const bsc = await wops.check_bsc()
@@ -31,7 +32,7 @@ export default {
                 this.$message(this.$t('connect-faild'))
             }
           }catch(e){
-              this.$message(e.toString())
+            this.$message(e.message)
           }
       }
   }

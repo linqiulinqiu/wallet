@@ -4,9 +4,12 @@
           <p>{{deposit_addr}}</p>
         </div>
         <div v-else>
-          <el-button v-if="free_xins>0" @click.native.prevent="obtain_addr" :loading="obtain">{{$t("obtain-deposit-address")}}</el-button>
+          <el-button v-if="free_xins>0" @click.native.prevent="obtain_addr" :loading="loading">{{$t("obtain-deposit-address")}}</el-button>
           <p v-else-if="free_xins===0">{{$t('no-depositAddr')}}</p>
-          <p v-else>{{$t('check-depositAddr')}}</p>
+          <p v-else>
+            <pulse-loader></pulse-loader>
+            {{$t('check-depositAddr')}}
+          </p>
         </div>
     </div>
 </template>
@@ -24,16 +27,21 @@ export default {
       coin: "coin",
       free_xins:"free_xins"
   }),
+  data: ()=>{
+    return {
+      loading: false
+    }
+  },
   methods: {
       obtain_addr: async function (){
-          //TODO: show "loading", and make button "not clickable" or "click to obtain address again"
-          // this.obtain=true
           this.disabled
           const commit = this.$store.commit
+          this.loading = true
           const msg = await wops.obtain_deposit_addr(function(xaddr){
             commit('setDepositAddr',xaddr)
           })
           if(msg!='ok'){
+            this.loading = false
             this.$message(msg)
           }
       }

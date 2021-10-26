@@ -36,16 +36,16 @@ async function switch_network() {
                         blockExplorerUrl: 'https://testnet.bscscan.com',
                     }])
             } catch (addError) {
-                return addError.toString()
+                return addError
             }
         } else {
-            return switchError.toString()
+            return switchError
         }
     }
     return false
 }
 
-async function ensure_network(){
+async function ensure_network() {
     const network = await bsc.provider.getNetwork()
     bsc.provider.on('network', (newNetwork, oldNetwork) => {
         if (oldNetwork) {
@@ -55,24 +55,24 @@ async function ensure_network(){
     })
     if (network.chainId != 97) {
         const err = await switch_network()
-        if(err) return err
+        if (err) return err
     }
     if (network.chainId == 97 && network.name == 'bnbt') {
         return false
     }
 }
-async function token_balance(){
+async function token_balance() {
     const balance = await bsc.ctr.balanceOf(bsc.addr)
     const decimals = await token_decimals()
     return ethers.utils.formatUnits(balance, decimals)
 }
 
-async function connect(coin) {
+async function connect(coin, commit) {
     if (typeof window.ethereum !== 'undefined') {
         bsc.prefix = coin.toLowerCase()
         bsc.provider = new ethers.providers.Web3Provider(window.ethereum, "any")
         const neterr = await ensure_network()
-        if(neterr) throw neterr 
+        if (neterr) throw neterr
         await bsc.provider.send("eth_requestAccounts", [])
         if (coin == 'XCC') {
             bsc.contract_addr = '0x2077bFC955E9fBA076CA344cD72004C6c4a80a09'
@@ -84,6 +84,24 @@ async function connect(coin) {
         bsc.signer = bsc.provider.getSigner()
         bsc.addr = await bsc.signer.getAddress()
         bsc.ctr = new ethers.Contract(bsc.contract_addr, token_abi, bsc.signer)
+        bsc.events = {
+            bindxin: bsc.ctr.filters.BindXin(),
+            bindxout:bsc.ctr.filters.BindXout(),
+            transfer: bsc.ctr.filters.Transfer()
+        }
+        // eslint-disable-next-line no-unused-vars
+        const transListener = function (from, to, amount, evt) {
+            if (ethers.utils.getAddress(from) == ethers.utils.getAddress(bsc.addr)) {
+                if (typeof (commit) == 'function') {
+                    token_balance().then((xb)=>{
+                        commit('setXbalance', xb)
+                    })
+                }
+                bsc.ctr.off(bsc.events.transfer, transListener)
+            }
+        }
+        bsc.ctr.on(bsc.events.transfer, transListener) 
+
         return bsc.addr
     }
     return false
@@ -126,21 +144,21 @@ async function check_bsc() {
     }
 }
 
+
 async function obtain_deposit_addr(callback) {
-    const bindf = bsc.ctr.filters.BindXin()
     const bnb = ethers.constants.WeiPerEther.div(2000)
     try {
-        await bsc.ctr.bindXin({
-            value: bnb
-        })
         // eslint-disable-next-line no-unused-vars
-        bsc.ctr.on(bindf, (from, _to, _amount, _evt) => {
+        const bindListener = function (from, to, amount, evt) {
             if (ethers.utils.getAddress(from) == ethers.utils.getAddress(bsc.addr)) {
                 if (typeof (callback) == 'function') {
                     get_deposit_addr().then(callback)
                 }
+                bsc.ctr.off(bsc.events.bindxin, bindListener)
             }
-        })
+        }
+        bsc.ctr.on(bsc.events.transfer, bindListener)
+        await bsc.ctr.bindXin({value: bnb})        
         return 'ok'
     } catch (e) {
         var text = e.message
@@ -160,17 +178,18 @@ async function bind_withdraw_addr(xaddr, callback) {
         xhex = window.ChiaUtils.address_to_puzzle_hash(xaddr)
     }
     if (!xhex) return false
-    const bindf = bsc.ctr.filters.BindXout()
     try {
-        await bsc.ctr.bindXout(xhex)
         // eslint-disable-next-line no-unused-vars
-        bsc.ctr.on(bindf, (from, to, amount, evt) => {
+        const bindListener = function (from, to, amount, evt) {
             if (ethers.utils.getAddress(from) == ethers.utils.getAddress(bsc.addr)) {
                 if (typeof (callback) == 'function') {
                     get_withdraw_addr().then(callback)
                 }
+                bsc.ctr.off(bsc.events.bindxout, bindListener)
             }
-        })
+        }
+        bsc.ctr.on(bsc.events.transfer, bindListener)         
+        await bsc.ctr.bindXout(xhex)
         return 'ok'
     } catch (e) {
         var text = e.message

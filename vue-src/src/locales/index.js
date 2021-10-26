@@ -10,7 +10,7 @@ const locales = {
     zh: require('./zh.json')
 }
 
-const i18n = new VueI18n({
+export const i18n = new VueI18n({
     locale: DEFAULT_LANG,
     messages: locales
 })
