@@ -2,8 +2,8 @@
   <div class="introduction">
       <DepositAddr />
       <div v-if="deposit_addr">
-        <p>{{$t('deposit-addr')}}</p>
-        <p>{{$t('transcation-fee')}}</p>
+        <p>{{$t('deposit-addr',{coin,coin})}}</p>
+        <p>{{ $t('transaction-fee',{coin:coin}) }}</p>
       </div>
   </div>
 </template>
@@ -18,7 +18,8 @@ export default {
     DepositAddr
   },
   computed: mapState({
-      deposit_addr: "deposit_addr"
+      deposit_addr: "deposit_addr",
+      coin:"coin"
   }),
   methods: {
 

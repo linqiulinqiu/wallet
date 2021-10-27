@@ -3,7 +3,7 @@
         <el-row :gutter="10" type="flex" align="center">
           <el-col :lg='4'  :sm="6" :xs="8" :offset="1" id="logo" >
             </el-col>
-          <el-col :lg='1'  :sm="1" :xs="1">{{$t("version")}} 10/26-2</el-col>
+          <el-col :lg='1'  :sm="1" :xs="1">{{$t("version")}} 10/27-2</el-col>
           
           <el-col :lg="6" :md="8" :sm="12" :xs="14" :offset="6">
             <div id="token-balance">

@@ -1,9 +1,10 @@
 <template>
     <div class="WithdrawBurn">
         <div v-if="xwaddr">
-            <p>When you burn P{{coin}}, your {{coin}} will be sent to {{ xwaddr }}</p>
-            <el-input v-model="amount" type='text' :placeholder="$t('amount')" suffix-icon="el-icon-edit"></el-input>
-            <p>{{$t('receive-money')}} <span></span> </p>
+            <p>{{$t('burn-coin',{coin:coin,xwaddr:xwaddr})}}</p>
+            <el-input class="wburn" suffix-icon="el-icon-edit" clearable
+             v-model="amount" type='text' :placeholder="$t('amount')" ></el-input>
+            <div class="recive">{{$t('receive-money')}} <span>{{amount*0.99}}</span> </div>
             <el-button @click="withdraw" :loading="loading">{{$t('withdraw')}}</el-button>
         </div>
     </div>  
@@ -23,7 +24,7 @@ import wops from '../wallet'
         data() {
             return {
                 amount:"",
-                loading: false
+                loading: false,
             }
         },
   methods: {
@@ -46,3 +47,8 @@ import wops from '../wallet'
 
     }
 </script>
+<style>
+.wburn{
+    width:200px
+}
+</style>

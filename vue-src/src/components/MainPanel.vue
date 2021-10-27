@@ -1,7 +1,7 @@
 <template>
   <el-col :lg="10" :md="12" :sm="18" :xs="22" class="maintab">
       <ConnectWallet v-if="!baddr" />
-      <el-tabs v-else v-model="opMode">
+      <el-tabs v-else v-model="opMode" :tab-position="tabposition">
           <el-tab-pane :label="$t('deposit')" name="deposit-mode">
             <DepositTab />
           </el-tab-pane>
@@ -36,6 +36,7 @@ export default {
   data() {
       return {
         opMode: 'deposit-mode',
+        tabposition: 'left'
       };
     }
 }
@@ -51,7 +52,12 @@ export default {
 }
 #tab-deposit-mode,
 #tab-withdraw-mode{
-  width: 200px;
+  width: 80px;
+  text-align: center;
+  height: 250px;
+  font-size: 20px;
+  writing-mode:horizontal-tb;
+  -webkit-writing-mode: vertical-rl;
 }
 
 </style>
