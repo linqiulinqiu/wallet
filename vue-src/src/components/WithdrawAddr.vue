@@ -7,7 +7,7 @@
           <el-input v-model="xwaddr" :placeholder="$t('input-wallet-for-withdraw')" suffix-icon="el-icon-edit"></el-input>
           <el-button @click="bind_addr">{{$t("bind-withdraw-address")}}</el-button>
         </div>
-        <div class="withdrawburn" hidden>
+        <div class="withdrawburn">
           <WithdrawBurn />
         </div>
     </div>

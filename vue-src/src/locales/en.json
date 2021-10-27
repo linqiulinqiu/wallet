@@ -1,7 +1,7 @@
 {
     "no-connect":"Not Connect Wallet",
     "connect-wallet":"Connect Wallet",
-    "deposit-addr":"Deposit XCH into this address, then PXCH will be distributed to your BSC wallet",
+    "deposit-addr":"Deposit {coin} into this address, then P{coin} will be distributed to your BSC wallet",
     "transcation-fee":"Transaction Fee at 0.3% will be charged, minimal 0.01 {coin} for each transaction",
     "deposit":"Deposit",
     "obtain-deposit-address":"Obtain Deposit Address",
