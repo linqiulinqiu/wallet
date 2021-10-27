@@ -61,10 +61,14 @@ async function ensure_network() {
         return false
     }
 }
-async function token_balance() {
+async function token_balance(bn) {
     const balance = await bsc.ctr.balanceOf(bsc.addr)
     const decimals = await token_decimals()
-    return ethers.utils.formatUnits(balance, decimals)
+    if(!bn){
+        return ethers.utils.formatUnits(balance, decimals)
+    }else{
+        return balance
+    }
 }
 
 async function connect(coin, commit) {
@@ -84,23 +88,35 @@ async function connect(coin, commit) {
         bsc.signer = bsc.provider.getSigner()
         bsc.addr = await bsc.signer.getAddress()
         bsc.ctr = new ethers.Contract(bsc.contract_addr, token_abi, bsc.signer)
+        bsc.decimals = await bsc.ctr.decimals()
         bsc.events = {
             bindxin: bsc.ctr.filters.BindXin(),
             bindxout:bsc.ctr.filters.BindXout(),
-            transfer: bsc.ctr.filters.Transfer()
+            transfer:bsc.ctr.filters.Transfer(),
+            all: "*"
         }
-        // eslint-disable-next-line no-unused-vars
-        const transListener = function (from, to, amount, evt) {
-            if (ethers.utils.getAddress(from) == ethers.utils.getAddress(bsc.addr)) {
+        const allEventListener = function (evt) {
+            var check_balance = false
+            const addrs = []
+            if ('args' in evt){
+                for(var j in evt.args){
+                    addrs.push(evt.args[j])
+                }
+            }
+            for(var i in addrs){
+                if (ethers.utils.isAddress(addrs[i]) && ethers.utils.getAddress(addrs[i]) == ethers.utils.getAddress(bsc.addr)) {
+                    check_balance = true
+                }
+            }
+            if(check_balance){
                 if (typeof (commit) == 'function') {
                     token_balance().then((xb)=>{
                         commit('setXbalance', xb)
                     })
                 }
-                bsc.ctr.off(bsc.events.transfer, transListener)
             }
         }
-        bsc.ctr.on(bsc.events.transfer, transListener) 
+        bsc.ctr.on(bsc.events.all, allEventListener) 
 
         return bsc.addr
     }
@@ -188,7 +204,7 @@ async function bind_withdraw_addr(xaddr, callback) {
                 bsc.ctr.off(bsc.events.bindxout, bindListener)
             }
         }
-        bsc.ctr.on(bsc.events.transfer, bindListener)         
+        bsc.ctr.on(bsc.events.bindxout, bindListener)         
         await bsc.ctr.bindXout(xhex)
         return 'ok'
     } catch (e) {
@@ -203,10 +219,32 @@ async function bind_withdraw_addr(xaddr, callback) {
 }
 
 
+async function token_burn(amount_str, callback){
+    const bamount = ethers.utils.parseUnits(amount_str, bsc.decimals)
+    const balance = await token_balance(true)
+    if (bamount.lte(balance)) {
+        // eslint-disable-next-line no-unused-vars
+        const transListener = function (from, to, amount, evt) {
+            if (ethers.utils.getAddress(from) == ethers.utils.getAddress(bsc.addr)&& amount.eq(bamount)) {
+                if (typeof (callback) == 'function') {
+                    callback()
+                }
+                bsc.ctr.off(bsc.events.transfer, transListener)
+            }
+        }
+        bsc.ctr.on(bsc.events.transfer, transListener)
+        await bsc.ctr.burn(bamount)
+        return 'ok'
+    } else {
+        return 'Insufficient token balance'
+    }
+}
+
 export default {
     bind_withdraw_addr: bind_withdraw_addr,
     connect: connect,
     check_bsc: check_bsc,
     obtain_deposit_addr: obtain_deposit_addr,
-    token_balance: token_balance
+    token_balance: token_balance,
+    token_burn: token_burn
 }
