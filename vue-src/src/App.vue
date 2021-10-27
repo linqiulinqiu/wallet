@@ -2,13 +2,7 @@
   <div id="app">
     <el-container>
       <HeaderBar />
-
-  <!-- change XCC and XCH -->
-        <el-col class="changecoin" hidden>
-          <el-button class="chia" @click="switchxch">Chia</el-button>
-          <el-button class="chivse" @click="switchxcc">Chives</el-button>
-        </el-col>
-
+      <SwitchCoin />
       <el-main class="mainBody">
         <el-row  type="flex" align="center" justify="center">
           <MainPanel />
@@ -30,26 +24,19 @@
 <script>
 import HeaderBar from './components/HeaderBar.vue'
 import MainPanel from './components/MainPanel.vue'
+import SwitchCoin from './components/SwitchCoin.vue'
 import { mapState } from 'vuex'
 
 export default {
   name: 'App',
   components: {
     HeaderBar,
-    MainPanel
+    MainPanel,
+    SwitchCoin
   },
   computed: mapState({
       baddr: 'baddr'
-  }),
-  data(){
-    return{
-      switchxcc:"switchxcc",
-      switchxch:"switchxch"
-    }
-  },
-  methods: {
-
-  }
+  })
 }
 </script>
 
@@ -103,7 +90,7 @@ export default {
   .changecoin{
     margin-top: 60px;
   }
-  .chia,.chivse{
+  .chia,.chives{
     width: 150px;
     background-color: #baccba;
     border: 1px solid #d1fcd1;
