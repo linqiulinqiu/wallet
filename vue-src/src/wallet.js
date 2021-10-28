@@ -5,13 +5,6 @@ import token_abi from './token-abi.json'
 
 const bsc = {}
 
-async function token_decimals() {
-    if (!bsc.token_decimals) {
-        bsc.token_decimals = await bsc.ctr.decimals()
-    }
-    return bsc.token_decimals
-}
-
 async function switch_network() {
     try {
         await bsc.provider.send('wallet_switchEthereumChain', [{
@@ -61,11 +54,13 @@ async function ensure_network() {
         return false
     }
 }
-async function token_balance(bn) {
-    const balance = await bsc.ctr.balanceOf(bsc.addr)
-    const decimals = await token_decimals()
+async function token_balance(bn, cached) {
+    var balance = bsc.xbalance
+    if(!cached||!balance){
+        balance = await bsc.ctr.balanceOf(bsc.addr)
+    }
     if (!bn) {
-        return ethers.utils.formatUnits(balance, decimals)
+        return ethers.utils.formatUnits(balance, bsc.decimals)
     } else {
         return balance
     }
@@ -89,6 +84,18 @@ async function connect(coin, commit) {
         bsc.addr = await bsc.signer.getAddress()
         bsc.ctr = new ethers.Contract(bsc.contract_addr, token_abi, bsc.signer)
         bsc.decimals = await bsc.ctr.decimals()
+        bsc.xbalance = await token_balance(true)
+        if(coin == 'XCC'){
+            bsc.deposit_fee_min = ethers.utils.parseUnits("25", bsc.decimals)
+            bsc.deposit_fee_rate = 30
+            bsc.withdraw_fee_min = ethers.utils.parseUnits("2", bsc.decimals)
+            bsc.withdraw_fee_rate = 10
+        }else if(coin == 'XCH'){
+            bsc.deposit_fee_min = ethers.utils.parseUnits("0.01", bsc.decimals)
+            bsc.deposit_fee_rate = 30
+            bsc.withdraw_fee_min = ethers.utils.parseUnits("0.001", bsc.decimals)
+            bsc.withdraw_fee_rate = 10
+        }
         bsc.events = {
             bindxin: bsc.ctr.filters.BindXin(),
             bindxout: bsc.ctr.filters.BindXout(),
@@ -110,8 +117,9 @@ async function connect(coin, commit) {
             }
             if (check_balance) {
                 if (typeof (commit) == 'function') {
-                    token_balance().then((xb) => {
-                        commit('setXbalance', xb)
+                    token_balance(true).then((xb) => {
+                        bsc.xbalance = xb
+                        commit('setXbalance', ethers.utils.formatUnits(xb, bsc.decimals))
                     })
                 }
             }
@@ -242,12 +250,33 @@ async function token_burn(amount_str, callback) {
     }
 }
 
+function after_fee(mode, amount){
+    const fees = {}
+    amount = ethers.utils.parseUnits(amount, bsc.decimals)
+    if(mode=='deposit'){
+        fees.min = bsc.deposit_fee_min
+        fees.rate = bsc.deposit_fee_rate
+    }else if (mode=='withdraw'){
+        fees.min = bsc.withdraw_fee_min
+        fees.rate = bsc.withdraw_fee_rate
+        if(amount.gt(bsc.xbalance)){
+            return "fund"
+        }
+    }else{
+        return "mode"
+    }
+    var fee = amount.mul(fees.rate).div(10000)
+    if(fee.lt(fees.min)) fee = fees.min
+    if(amount.lte(fee)) return false
+    return ethers.utils.formatUnits(amount.sub(fee), bsc.decimals)
+}
+
 export default {
+    after_fee: after_fee,
     bind_withdraw_addr: bind_withdraw_addr,
     connect: connect,
     check_bsc: check_bsc,
     obtain_deposit_addr: obtain_deposit_addr,
     token_balance: token_balance,
-    token_decimals: token_decimals,
     token_burn: token_burn
 }
