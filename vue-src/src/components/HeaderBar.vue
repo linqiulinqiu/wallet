@@ -8,7 +8,7 @@
           <el-col :lg="6" :md="8" :sm="12" :xs="14" :offset="6">
             <div id="token-balance">
               <p v-if="!baddr">{{ $t('no-connect') }}</p>
-              <p v-else-if="xbalance>=0">{{ baddr }}({{xbalance}})</p>
+              <p v-else-if="xbalance>=0">{{ baddr }}<span>{{$t('balanc')}}({{xbalance}})</span></p>
               <p v-else>{{ baddr}}</p>
             </div>
           </el-col>

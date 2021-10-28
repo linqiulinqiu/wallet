@@ -11,16 +11,22 @@
 
       <el-footer>
         <el-row>
-          <el-col :lg='3' :xs="6">{{$t('contact-us')}}</el-col>
+          <el-col :lg='3' :xs="6"><a href="" target="_blank">
+            {{$t('contact-us')}}</a></el-col>
           <el-col :lg='5' :xs="18">
-            <p>{{$t('links')}}<a href="#">{{$t('xcc-lp')}}</a><a href="">{{$t('xch-lp')}}</a></p>
+            
+            <p>{{$t('links')}}
+              <a href="https://pancake.kiemtienonline360.com/#/add/BNB/0x2077bFC955E9fBA076CA344cD72004C6c4a80a09" target="_blank">
+              {{$t('xcc-lp')}}</a>
+              <a href="https://pancake.kiemtienonline360.com/#/add/BNB/0x134315EF3D11eEd8159fD1305af32119a046375A" target="_blank">
+              {{$t('xch-lp')}}</a>
+            </p>
           </el-col>
         </el-row>
       </el-footer>
     </el-container>
   </div>
 </template>
-
 <script>
 import HeaderBar from './components/HeaderBar.vue'
 import MainPanel from './components/MainPanel.vue'
@@ -34,10 +40,12 @@ export default {
     MainPanel,
     SwitchCoin
   },
+  
   computed: mapState({
       baddr: 'baddr'
-  })
+  }),
 }
+
 </script>
 
 <style>
@@ -107,5 +115,4 @@ export default {
     height: 500px;
     margin-top: 40px;
   }
-  
 </style>
