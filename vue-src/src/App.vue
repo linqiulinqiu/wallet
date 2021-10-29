@@ -9,12 +9,12 @@
         </el-row>
       </el-main>
 
-      <el-footer>
-        <el-row>
-          <el-col :lg='3' :xs="6"><a href="" target="_blank">
-            {{$t('contact-us')}}</a></el-col>
-          <el-col :lg='5' :xs="18">
-            
+      <el-footer style="height:80px">
+        <el-row type="flex"  justify="center">
+          <el-col :lg='3' :xs="3"  class="contact-us">
+            <a href="" target="_blank">{{$t('contact-us')}}</a>
+          </el-col>
+          <el-col :lg='6' :xs="10" class="link-lp" :offset="5"> 
             <p>{{$t('links')}}
               <a href="https://pancake.kiemtienonline360.com/#/add/BNB/0x2077bFC955E9fBA076CA344cD72004C6c4a80a09" target="_blank">
               {{$t('xcc-lp')}}</a>
@@ -44,6 +44,7 @@ export default {
   computed: mapState({
       baddr: 'baddr'
   }),
+
 }
 
 </script>
@@ -54,6 +55,13 @@ export default {
     padding: 0;
     background: url(./assets/images/bg1.png) center ;
   }
+  .container{
+    position: relative;
+  }
+  .el-footer a{
+    text-decoration: none;
+    color: #d1fcd1;
+  }
   #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -62,20 +70,24 @@ export default {
     color: #2c3e50;
   }
   .el-header, .el-footer {
+    position: fixed;
     width: 100%;
     background-color: #668b66;
     color: #333;
     text-align: center;
   }
   .el-header{
-    padding: 10px;
+    padding: 20px 10px 20px 10px;
   }
- .el-footer{
-   margin-bottom: 0px;
+  .el-footer{
+   bottom: 0px;
  } 
- .footer .el-col:last-child{
-   position: relative;
-   right: 0px;
+  .el-footer p{
+   color: #d1fcd1;
+ }
+ .contact-us{
+   float: left;
+   line-height: 80px;
  }
   #token-balance,#user{
     border: 1px solid #d1fcd1;
@@ -92,7 +104,7 @@ export default {
     /* background-color: #E9EEF3; */
     color: #333;
     text-align: center;
-    height: 710px;
+    /* height: 810px; */
     box-sizing: border-box;
   }
   .changecoin{
@@ -113,6 +125,6 @@ export default {
   
   .mainBody>.el-row{
     height: 500px;
-    margin-top: 40px;
+    margin: 140px auto;
   }
 </style>

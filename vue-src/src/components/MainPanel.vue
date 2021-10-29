@@ -51,9 +51,15 @@ export default {
 }
 #tab-deposit-mode,
 #tab-withdraw-mode{
-  width: 350px;
+  width: 200px;
+  height: 60px;
+  line-height: 60px;
   text-align: center;
   font-size: 20px;
 }
+.el-tabs__nav-scroll {
+  padding: 0px 50px;
+}
+
 
 </style>

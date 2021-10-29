@@ -1,10 +1,10 @@
 <template>
     <div class="withdraw-addr" v-if="baddr">
         <div v-if="withdraw_addr">
-          <p>{{$t('send-token-for-withdraw',{withdraw_addr:withdraw_addr})}}</p>
+          <p>{{$t('bound')}}</p>
         </div>
         <div v-else>
-          <el-input v-model="xwaddr" :placeholder="$t('input-wallet-for-withdraw')" suffix-icon="el-icon-edit"></el-input>
+          <p><el-input v-model="xwaddr" :placeholder="$t('input-wallet-for-withdraw')" suffix-icon="el-icon-edit"></el-input></p>
           <el-button @click="bind_addr">{{$t("bind-withdraw-address")}}</el-button>
         </div>
         <div class="withdrawburn">
@@ -47,3 +47,9 @@ export default {
   }
 }
 </script>
+<style>
+  .withdraw-addr .el-input{
+    width: 70%;
+    margin: 20px auto;
+  }
+</style>

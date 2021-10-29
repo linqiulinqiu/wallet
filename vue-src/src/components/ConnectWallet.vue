@@ -1,6 +1,6 @@
 <template>
   <div class="connect-wallet">
-    <el-button type="success" round v-if="!baddr" @click="connect_wallet">{{$t("connect-wallet")}}</el-button>
+    <el-button round v-if="!baddr" @click="connect_wallet">{{$t("connect-wallet")}}</el-button>
     <el-button v-if="baddr">{{baddr}}</el-button>
   </div> 
 </template>
@@ -43,5 +43,13 @@ export default {
   width: 300px;
   height: 60px;
   font-size: 30px;
+  position: relative;
+  top:200px;
 }
+.connect-wallet button:hover{
+  background-color: #668b66;
+  color: #d1fcd1;
+  border: #b1fcb1 1px solid;
+}
+
 </style>

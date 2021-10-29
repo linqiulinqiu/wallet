@@ -27,5 +27,16 @@ export default {
 }
 </script>
 <style>
-
+  .introduction{
+    height: 350px;
+    position: relative;
+    width: 80%;
+    margin: 0px auto;
+  }
+  .introduction p:last-child{
+    position: relative;
+  }
+  .introduction p:first-child{
+    margin-bottom:10px ;
+  }
 </style>
