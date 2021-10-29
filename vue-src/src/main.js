@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import LoadScript from 'vue-plugin-load-script'
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+import VueClipboard from 'vue-clipboard2'
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -15,6 +16,7 @@ Vue.use(Vuex)
 Vue.use(LoadScript)
 Vue.loadScript("https://app.plotbridge.net/js/chia-utils.js")
 Vue.use(ElementUI)
+Vue.use(VueClipboard)
 Vue.component('pulse-loader', PulseLoader)
 Vue.config.productionTip = false
 

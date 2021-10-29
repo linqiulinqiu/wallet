@@ -2,7 +2,7 @@
     <div class="deposit-addr" v-if="baddr">
         <div v-if="deposit_addr" class="have-dep-addr">
           <el-tooltip placement="top">
-            <p>{{deposit_addr}}</p>>
+            <button type="button" v-clipboard:copy="deposit_addr">{{deposit_addr}}</button>
             <span size="small" slot="content">{{$t('copy-dep-addr')}}</span> 
           </el-tooltip>
         </div>
