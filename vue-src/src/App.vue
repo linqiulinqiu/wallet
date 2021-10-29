@@ -70,13 +70,14 @@ export default {
     color: #2c3e50;
   }
   .el-header, .el-footer {
-    position: fixed;
+    position: relative;
     width: 100%;
     background-color: #668b66;
     color: #333;
     text-align: center;
   }
   .el-header{
+    top: 0px;
     padding: 20px 10px 20px 10px;
   }
   .el-footer{
@@ -104,7 +105,7 @@ export default {
     /* background-color: #E9EEF3; */
     color: #333;
     text-align: center;
-    /* height: 810px; */
+    height: 810px;
     box-sizing: border-box;
   }
   .changecoin{
@@ -117,14 +118,14 @@ export default {
     font-size: 18px;
   }
   /* logo */
-  #logo{
+  /* #logo{
     background:url("./assets/images/logo-bridge.png") no-repeat center;
     background-size: 100% 200%;
-  }
+  } */
   /* 页面主体部分 */
   
   .mainBody>.el-row{
-    height: 500px;
-    margin: 140px auto;
+    height: 550px;
+    margin: 100px auto;
   }
 </style>

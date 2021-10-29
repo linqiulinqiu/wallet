@@ -56,10 +56,18 @@ export default {
   line-height: 60px;
   text-align: center;
   font-size: 20px;
+  color: rgb(25, 73, 5);
+}
+.el-tab-pane{
+  height: 400px;
+  text-align: center;
+  margin: 0 auto;
 }
 .el-tabs__nav-scroll {
-  padding: 0px 50px;
+  padding: 0px 10px;
 }
 
-
+#pan-withdraw-mode{
+  height: 600px;
+}
 </style>

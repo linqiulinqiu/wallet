@@ -1,7 +1,18 @@
 <template>
   <div class="connect-wallet">
-    <el-button round v-if="!baddr" @click="connect_wallet">{{$t("connect-wallet")}}</el-button>
+    <el-button round v-if="!baddr" @click="connect_wallet" class="connect">{{$t("connect-wallet")}}</el-button>
     <el-button v-if="baddr">{{baddr}}</el-button>
+    <div class="tips">
+      <el-button round icon="el-icon-question" circle @click="drawer = true"></el-button>
+      <el-drawer
+        title="说明"
+        :visible.sync="drawer"
+        :direction="direction"
+        :before-close="handleClose">
+        <span>钱包为bsa钱包</span>
+</el-drawer>
+    </div>
+    
   </div> 
 </template>
 
@@ -16,6 +27,12 @@ export default {
       baddr: 'baddr',
       xbalance: 'xbalance'
     }),
+    data(){
+      return{
+        drawer:false,
+        direction:"rt1"
+      }    
+    },
   methods: {
       connect_wallet: async function (){
         const commit = this.$store.commit
@@ -34,22 +51,39 @@ export default {
           }catch(e){
             this.$message(e.message)
           }
+      },
+      handleClose(done) {
+        this.$confirm('确认关闭？')
+          .then(function() {
+            done();
+          })
+          .catch(function(){});
       }
   }
 }
 </script>
 <style>
-.connect-wallet button{
+.connect-wallet{
+  position: relative;
+}
+.connect-wallet>button{
   width: 300px;
   height: 60px;
   font-size: 30px;
   position: relative;
   top:200px;
 }
-.connect-wallet button:hover{
+.connect-wallet>button:hover{
   background-color: #668b66;
   color: #d1fcd1;
   border: #b1fcb1 1px solid;
+}
+.tips{
+  float: right;
+}
+.tips .el-drawer{
+  width: 300px;
+  height: 500px;
 }
 
 </style>

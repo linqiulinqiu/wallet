@@ -1,15 +1,22 @@
 <template>
       <el-header style="height:100px">
         <el-row :gutter="10" type="flex" align="center">
-          <el-col :lg='4'  :sm="6" :xs="8" :offset="1" id="logo" >
-            </el-col>
-          <el-col :lg='1'  :sm="1" :xs="1">{{$t("version")}} 10/28-2</el-col>
+          <el-col :lg='2'  :sm="6" :xs="8" :offset="1" id="logo" >
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+            <rect x="0" y="48" width="42" height="42" rx="4" ry="4" style="fill:rgb(80,190,90)" />
+            <rect x="96" y="48" width="42" height="42" rx="4" ry="4" style="fill:rgb(80,190,90)" />
+            <rect x="48" y="0" width="42" height="42" rx="4" ry="4" style="fill:rgb(80,190,90)" />
+            <rect x="48" y="96" width="42" height="42" rx="4" ry="4" style="fill:rgb(80,190,90)" />      
+            <rect x="21" y="21" width="96" height="96" rx="4" ry="4" style="fill:none;stroke:rgb(80,190,90);stroke-width:2"/>
+            </svg>
+          </el-col>
+          <el-col :lg='1'  :sm="1" :xs="1">{{$t("version")}} 10/29-3</el-col>
           
-          <el-col :lg="6" :md="6" :sm="7" :xs="8" :offset="4">
+          <el-col :lg="6" :md="6" :sm="7" :xs="8" :offset="10">
             <div id="token-balance">
-              <p v-if="!baddr">{{ $t('no-connect') }}</p>
-              <p v-else-if="xbalance>=0">{{baddr}}</p>
-              <p v-else>{{ baddr }}</p>
+              <span v-if="!baddr">{{ $t('no-connect') }}</span>
+              <span v-else-if="xbalance>=0">{{baddr}}</span>
+              <span v-else>{{ baddr }}</span>
             </div>
           </el-col>
 
@@ -77,14 +84,16 @@ export default {
 }
 </script>
 <style>
+#logo svg{
+  position: relative;
+  top: 10px;
+}
 #token-balance{
   font-size: 12px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  line-clamp: 2;
 }
 .balance{
   color: #d1fcd1;

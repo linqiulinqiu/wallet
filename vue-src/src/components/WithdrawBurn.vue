@@ -1,16 +1,20 @@
 <template>
     <div class="WithdrawBurn">
         <div v-if="xwaddr">
-            <p>{{$t('burn-coin',{coin:coin,xwaddr:xwaddr})}}</p>
-            <el-input class="wburn" suffix-icon="el-icon-edit" clearable v-model="amount" type='text' :placeholder="$t('amount')" ></el-input>
-            <div v-if="rec_amount">
-                {{$t('receive-money')}}
-                <span>{{ rec_amount }}</span>
-            </div>
-            <div v-if="rec_alert">
-                <p>{{rec_alert}}</p>
-            </div>
+            <p class="send">{{$t('burn-coin',{coin:coin,xwaddr:xwaddr})}}</p>
+
+            <el-input size="middle" suffix-icon="el-icon-edit" clearable 
+                v-model="amount" type='text' :placeholder="$t('amount')" >
+            </el-input>        
             <el-button @click="withdraw" :loading="loading">{{$t('withdraw')}}</el-button>
+
+            <div v-if="rec_amount">
+                <p>{{$t('receive-money')}}{{rec_amount}}</p>
+            </div>
+                    
+            <div v-if="rec_alert">
+                <p class="rec-amount">{{rec_alert}}</p>
+            </div>
         </div>
     </div>  
 </template>
@@ -40,10 +44,10 @@ import wops from '../wallet'
                 const after_fee = wops.after_fee('withdraw', this.amount)
                 if(!after_fee){
                     this.rec_amount = false
-                    this.rec_alert = "您什么也收不到"
+                    this.rec_alert = this.$t('rec-alert1')
                 }else if(after_fee=="fund"){
                     this.rec_amount = false
-                    this.rec_alert = "您的Pxxx代币余额不足"
+                    this.rec_alert = this.$t('rec-alert2',{coin:this.coin})
                 }else{
                     this.rec_amount = after_fee
                     this.rec_alert = false
@@ -71,7 +75,12 @@ import wops from '../wallet'
     }
 </script>
 <style>
-.wburn{
-    width:200px
+.send{
+    width: 95%;
+    color: rgb(23, 73, 5);
+    font-size: 15px;
+}
+.WithdrawBurn .el-button{
+    color: rgb(23, 73, 5);
 }
 </style>

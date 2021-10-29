@@ -1,7 +1,7 @@
 <template>
   <div class="introduction">
       <DepositAddr />
-      <div v-if="deposit_addr">
+      <div v-if="deposit_addr" class="fee">
         <p>{{$t('deposit-addr',{coin,coin})}}</p>
         <p>{{ $t('transaction-fee',{coin:coin}) }}</p>
       </div>
@@ -28,15 +28,17 @@ export default {
 </script>
 <style>
   .introduction{
-    height: 350px;
+    height: 360px;
     position: relative;
-    width: 80%;
+    top: 50px;
+    width: 90%;
     margin: 0px auto;
   }
-  .introduction p:last-child{
-    position: relative;
+  .introduction .fee{
+    margin-top: 80px;
   }
-  .introduction p:first-child{
-    margin-bottom:10px ;
+  .introduction .fee p{
+    margin-bottom:25px;
+    color: rgb(23, 73, 5);
   }
 </style>

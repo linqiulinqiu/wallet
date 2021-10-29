@@ -1,7 +1,7 @@
 <template>
   <div>
     <WithdrawAddr />
-    <div v-if="withdraw_addr">
+    <div v-if="withdraw_addr" class="fee">
       <p>{{ $t('burn-introduction',{coin:coin}) }}</p>
       <p>{{ $t('transactionfee',{coin:coin}) }}</p>
     </div>
@@ -24,3 +24,12 @@ export default {
   })
 }
 </script>
+<style>
+  .fee{
+    height: 100px;
+    position: relative;;
+    bottom: -20px;
+    color: rgb(23, 73, 5);
+    font-size: 16px;
+  }
+</style>

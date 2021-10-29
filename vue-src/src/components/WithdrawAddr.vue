@@ -1,6 +1,6 @@
 <template>
     <div class="withdraw-addr" v-if="baddr">
-        <div v-if="withdraw_addr">
+        <div v-if="withdraw_addr" class="bound">
           <p>{{$t('bound')}}</p>
         </div>
         <div v-else>
@@ -48,8 +48,21 @@ export default {
 }
 </script>
 <style>
+  .withdraw-addr{
+    height: 250px;
+  }
   .withdraw-addr .el-input{
     width: 70%;
     margin: 20px auto;
+  }
+  .bound{
+    background-color: rgba(142, 190, 138, 0.521);
+    color: rgb(23,73,5);
+    display: block;
+    width: 220px;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 20px;
+    margin: 30px auto 10px;
   }
 </style>
