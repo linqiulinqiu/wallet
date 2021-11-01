@@ -105,27 +105,21 @@ export default {
     /* background-color: #E9EEF3; */
     color: #333;
     text-align: center;
-    height: 810px;
+    height: 740px;
     box-sizing: border-box;
+    margin-top: 50px;
   }
-  .changecoin{
-    margin-top: 60px;
-  }
+  
   .chia,.chives{
     width: 150px;
     background-color: #baccba;
     border: 1px solid #d1fcd1;
     font-size: 18px;
   }
-  /* logo */
-  /* #logo{
-    background:url("./assets/images/logo-bridge.png") no-repeat center;
-    background-size: 100% 200%;
-  } */
   /* 页面主体部分 */
   
   .mainBody>.el-row{
     height: 550px;
-    margin: 100px auto;
+    margin: 0px auto;
   }
 </style>
