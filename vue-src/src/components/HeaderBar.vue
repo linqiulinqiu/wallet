@@ -1,7 +1,7 @@
 <template>
       <el-header style="height:100px">
         <el-row :gutter="10" type="flex" align="center">
-          <el-col :lg='2'  :sm="6" :xs="8" :offset="1" id="logo" >
+          <el-col :lg='2'  :sm="6" :xs="8" :offset="1" id="logo" style="transform: rotate(45deg)">
             <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
             <rect x="0" y="48" width="42" height="42" rx="4" ry="4" style="fill:rgb(80,190,90)" />
             <rect x="96" y="48" width="42" height="42" rx="4" ry="4" style="fill:rgb(80,190,90)" />
@@ -10,20 +10,17 @@
             <rect x="21" y="21" width="96" height="96" rx="4" ry="4" style="fill:none;stroke:rgb(80,190,90);stroke-width:2"/>
             </svg>
           </el-col>
-          <el-col :lg='1'  :sm="1" :xs="1">{{$t("version")}} 10/29-3</el-col>
+          <el-col :lg='1'  :sm="1" :xs="1">{{$t("version")}} 11/1-3</el-col>
           
-          <el-col :lg="6" :md="6" :sm="7" :xs="8" :offset="10">
+          <el-col :lg="3" :md="3" :sm="2" :xs="2" :offset="10">
             <div id="token-balance">
               <span v-if="!baddr">{{ $t('no-connect') }}</span>
-              <span v-else-if="xbalance>=0">{{baddr}}</span>
-              <span v-else>{{ baddr }}</span>
+              <span v-else>{{ baddr.substr(0,6)+'...'+baddr.substr(-4,4) }}</span>
             </div>
           </el-col>
 
-          <el-col :lg="2" :md="2" :sm="2" :xs="2">
-            <div v-if="baddr" class="balance">
-              {{$t('balance')}}{{xbalance}}
-            </div>
+          <el-col :lg="3" :md="3" :sm="3" :xs="5" v-if="baddr" class="balance">
+            {{xbalance}} P{{coin}}
           </el-col> 
           <el-col :lg='2' :md="3" :sm="3" :xs="4" id="language">
             <el-select v-model="lang">
@@ -42,8 +39,12 @@
 <script>
 import { mapState } from 'vuex' 
 import { i18n, setup } from '../locales'
+// import SwitchCoin from "./SwitchCoin.vue"
 export default {
   name: 'HeaderBar',
+  // components:{
+  //   SwitchCoin
+  // },
   data(){
     return{
       options:[{
@@ -53,33 +54,22 @@ export default {
         value:'zh',
         label:'简体中文'
       }],
-      lang: i18n.locale,
+      lang: i18n.locale
     }
   },
   computed: mapState({
       baddr: 'baddr',
-      xbalance: 'xbalance'
+      xbalance: 'xbalance',
+      coin: 'coin'
     }),
-  // filters:{
-  //     ellipsis () {
-  //       const baddr = toString(baddr)
-  //       console.log(toString(baddr))
-  //       let len = baddr.length
-  //       if(!baddr) return""
-  //       if (baddr) {
-  //         return baddr.substring(0,18)+"..."+baddr.substring(len-18,len)
-  //       }
-  //       return baddr
-  //     }
-  //   },
   watch: {
       lang: function(){
         setup(this.lang)
       },
-      ellipsis_baddr:function(){
-        var baddrb = this.baddr.slice(0,6)+'...'+this.baddr.slice(this.baddr.length-4,this.baddr.length)
-        return baddrb
-      }
+      // ellipsis_baddr:function(){
+      //   var baddrb = this.baddr.slice(0,6)+'...'+this.baddr.slice(this.baddr.length-4,this.baddr.length)
+      //   return baddrb
+      // }
   }
 }
 </script>

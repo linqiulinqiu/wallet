@@ -11,6 +11,7 @@
     "connect-wallet":"Connect Wallet",
     "connect-failed":"Connect failed: make sure wallet works",
     "check-depositAddr":"Checking available deposit address, Please wait a while",
+    "correct-amount":"Please enter the correct amount",
     "deposit":"Deposit",
     "depositAddr":"Deposit address",
     "deposit-addr":"Deposit {coin} into this address, then P{coin} will be distributed to your BSC wallet",  
@@ -27,6 +28,7 @@
     "transactionfee":"Transaction Fee at 0.1% will be charged, minimal 0.001 {coin} for each transaction",  
     "version":"Version",
     "withdraw":"Withdraw",
+    "waitting":"Your transaction needs time to be confirmed, please wait!",
     "xch-lp":"Pancake Swap XCH-liquidity",
     "xcc-lp":"Pancake SWap XCC-liquidity"
 }

@@ -3,14 +3,11 @@
     <el-button round v-if="!baddr" @click="connect_wallet" class="connect">{{$t("connect-wallet")}}</el-button>
     <el-button v-if="baddr">{{baddr}}</el-button>
     <div class="tips">
-      <el-button round icon="el-icon-question" circle @click="drawer = true"></el-button>
-      <el-drawer
-        title="说明"
+      <el-button icon="el-icon-question" circle @click="drawer=true"></el-button>
+      <el-drawer title="说明"
         :visible.sync="drawer"
         :direction="direction"
-        :before-close="handleClose">
-        <span>钱包为bsa钱包</span>
-</el-drawer>
+        :before-close="handleClose"><span>钱包为bsc钱包</span></el-drawer>
     </div>
     
   </div> 
@@ -25,12 +22,13 @@ export default {
   name: 'ConnectWallet',
   computed: mapState({
       baddr: 'baddr',
-      xbalance: 'xbalance'
+      xbalance: 'xbalance',
+      coin: "coin"
     }),
     data(){
       return{
         drawer:false,
-        direction:"rt1"
+        direction:"ltr"
       }    
     },
   methods: {
@@ -82,7 +80,7 @@ export default {
   float: right;
 }
 .tips .el-drawer{
-  width: 300px;
+  width: 200px;
   height: 500px;
 }
 
