@@ -75,9 +75,9 @@ async function connect(coin, commit) {
         if (neterr) throw neterr
         await bsc.provider.send("eth_requestAccounts", [])
         if (coin == 'XCC') {
-            bsc.contract_addr = '0xfEe42Eff2DBBdB18F3CF5dCe30139fB853A835A2'
+            bsc.contract_addr = '0xA9F7B1a5C36DC79dd0541E50776ec98FcE0edF10'
         } else if (coin == 'XCH') {
-            bsc.contract_addr = '0x239cea57ad27982CbE57Ef47a2c4C99d0d2d997B'
+            bsc.contract_addr = '0xC556C6B9d6D8443a9505DE3E17cd88B717cFd9CF'
         } else {
             return false
         }
