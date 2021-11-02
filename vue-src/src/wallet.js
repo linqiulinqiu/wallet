@@ -40,6 +40,7 @@ async function switch_network() {
 
 async function ensure_network() {
     const network = await bsc.provider.getNetwork()
+    console.log('network', network)
     bsc.provider.on('network', (newNetwork, oldNetwork) => {
         if (oldNetwork) {
             window.location.reload()
@@ -74,9 +75,9 @@ async function connect(coin, commit) {
         if (neterr) throw neterr
         await bsc.provider.send("eth_requestAccounts", [])
         if (coin == 'XCC') {
-            bsc.contract_addr = '0x2077bFC955E9fBA076CA344cD72004C6c4a80a09'
+            bsc.contract_addr = '0xfEe42Eff2DBBdB18F3CF5dCe30139fB853A835A2'
         } else if (coin == 'XCH') {
-            bsc.contract_addr = '0x134315EF3D11eEd8159fD1305af32119a046375A'
+            bsc.contract_addr = '0x239cea57ad27982CbE57Ef47a2c4C99d0d2d997B'
         } else {
             return false
         }
@@ -181,7 +182,7 @@ async function obtain_deposit_addr(callback) {
                 bsc.ctr.off(bsc.events.bindxin, bindListener)
             }
         }
-        bsc.ctr.on(bsc.events.transfer, bindListener)
+        bsc.ctr.on(bsc.events.bindxin, bindListener)
         await bsc.ctr.bindXin({
             value: bnb
         })
