@@ -200,11 +200,13 @@ async function obtain_deposit_addr(callback) {
 
 async function bind_withdraw_addr(xaddr, callback) {
     var xhex = ''
-    console.log('xaddr', xaddr)
     if ('ChiaUtils' in window) {
         xhex = window.ChiaUtils.address_to_puzzle_hash(xaddr)
     }
     if (!xhex) return false
+    if (!bsc.prefix||xaddr.substr(0,3)!=bsc.prefix.toLowerCase()){
+        return 'bad type'
+    }
     try {
         // eslint-disable-next-line no-unused-vars
         const bindListener = function (from, to, amount, evt) {
@@ -228,7 +230,6 @@ async function bind_withdraw_addr(xaddr, callback) {
         return text
     }
 }
-
 
 async function token_burn(amount_str, callback) {
     const bamount = ethers.utils.parseUnits(amount_str, bsc.decimals)
