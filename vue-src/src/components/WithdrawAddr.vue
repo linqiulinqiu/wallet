@@ -39,15 +39,12 @@ export default {
       bind_addr: async function (){
           const commit = this.$store.commit
           const msg = await wops.bind_withdraw_addr(this.xwaddr,function(xaddr){
-            console.log('tx done')
             commit('setWithdrawAddr',xaddr)
           })
           if(msg==='ok'){
-            console.log('tx start, loading')
             this.loading = true
             this.disabled = true
           }else{
-            console.log('no tx should be done')
             this.$message(msg)
             this.xwaddr = ""
             this.loading = false

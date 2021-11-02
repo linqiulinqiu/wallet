@@ -90,7 +90,6 @@ export default ({
 </script>
 <style>
 .bgok ,.bgno{
-  /* width: 100px; */
   background:rgba(146, 202, 146, 0.781) url(../assets/images/ok.png) no-repeat right;
   background-size: 25%;
 }
