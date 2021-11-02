@@ -1,12 +1,10 @@
 <template>
     <div class="WithdrawBurn">
         <div v-if="xwaddr">
-            <p class="send">{{$t('burn-coin',{coin:coin,xwaddr:xwaddr})}}</p>
-
             <el-input size="middle" suffix-icon="el-icon-edit" clearable 
                 v-model="amount" type='text' :placeholder="$t('amount')" >
             </el-input>        
-            <el-button v-if="aa" @click="withdraw" :loading="loading">{{$t('withdraw')}}</el-button>
+            <el-button @click="withdraw" :loading="loading">{{$t('withdraw')}}</el-button>
             <div v-if="rec_amount">
                 <p>{{$t('receive-money')}}{{rec_amount}}</p>
             </div>
@@ -36,66 +34,58 @@ import wops from '../wallet'
                 loading: false,
                 rec_amount: false,
                 rec_alert: false,
-                aa:true
             }
         },
         watch:{
             amount: async function(){
                 const after_fee = wops.after_fee('withdraw', this.amount)
-                    if(!after_fee){
+                if(!after_fee){
                     this.rec_amount = false
                     this.rec_alert = this.$t('rec-alert1')
-                    }else if(after_fee=="fund"){
+                }else if(after_fee=="fund"){
                     this.rec_amount = false
                     this.rec_alert = this.$t('rec-alert2',{coin:this.coin})
-                    }else{
+                }else{
                     this.rec_amount = after_fee
                     this.rec_alert = false
-                    }
+                }
             },
-            aa: async function(){
-
-            }
         },
         methods: {
             withdraw:async function(){
-                if(this.amount == "" || isNaN(this.amount)){
-                    alert(this.$t("correct-amount"))
-                    this.amount = ""
-                } else {
-                    this.disabled
-                    this.loading = true
-                    const btn = this
-                    alert(this.$t('waitting'))
+                try{
+                    if(this.amount == "" || isNaN(this.amount)){
+                        alert(this.$t("correct-amount"))
+                        this.amount = ""
+                    } else {
+                        this.disabled
+                        this.loading = true
+                        const btn = this          
           // TODO: check amount valid first
-                    const msg = await wops.token_burn(this.amount,function(){
-                    btn.loading = false
-                    btn.enabled          
-                    })
-                    if(msg!='ok'){
-                        this.loading = false
-                        this.enabled
-                        this.$message(msg)
+                        const msg = await wops.token_burn(this.amount,function(){
+                        btn.loading = false
+                        btn.enabled   
+                        alert(this.$t('waitting'))       
+                        })
+                        this.amount = ""
+                        
+                        if(msg!='ok'){
+                            this.loading = false
+                            this.enabled
+                            this.$message(msg)
+                        }
+                    }
+                    return 'ok'
+                }catch(e){
+                    var text = e.message
+                    if ('data' in e) {
+                    if ('message' in e.data) {
+                        text = e.data.message
                     }
                 }
+                return text
+            }            
             },
-        //     withdraw: async function (){
-        //     this.disabled
-        //     this.loading = true
-        //     const btn = this
-        //     alert("您的交易需要时间确认,请稍作等待!")
-        //   // TODO: check amount valid first
-        //     const msg = await wops.token_burn(this.amount,function(){
-        //         btn.loading = false
-        //         btn.enabled
-        //         // this.amount = " "               
-        //     })
-        //     if(msg!='ok'){
-        //         this.loading = false
-        //         this.enabled
-        //         this.$message(msg)
-        //         }
-        //     }
         }
 
     }

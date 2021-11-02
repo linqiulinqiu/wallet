@@ -19,6 +19,7 @@
             {{$t('check-depositAddr')}}
             </p>
         </div>
+        <p>{{$t('bind-fee')}}</p>
     </div>
 </template>
 
@@ -38,9 +39,9 @@ export default {
   data: ()=>{
     return {
       loading: false,
-
     }
   },
+ 
   methods: {
       obtain_addr: async function (){
           this.disabled
@@ -62,15 +63,28 @@ export default {
       },
       onError:function(){
       this.$message.error(this.$t('copy-falied'));
-    }
+      },
   }
  }
 
 </script>
 <style>
+.add{
+  width: 90%;
+  height: 93px;
+  text-align: center;
+}
+.add p{
+  text-align: center;
+  width: 100%;
+  margin-left: 5%;
+  margin-top: 30px;
+}
+  .add .el-input{
+    width: 70%;
+  } 
   .deposit-addr{
     width: 100%;
-    margin-top: 50px;
   }
   .deposit-addr .obtain{
     height: 50px;
@@ -103,8 +117,5 @@ export default {
     white-space: normal !important;;
     text-overflow: ellipsis;
   }
-  .have-dep-addr span{
-    background-color: #d1fcd1;
-    border: #d1fcd1 1px solid;
-  }
+  
 </style>

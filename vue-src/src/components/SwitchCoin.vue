@@ -9,7 +9,7 @@
 import wops from '../wallet'
 import { mapState } from "vuex"
 // import ConnectWallet from "./ConnectWallet.vue"
-
+// import WithdrawBurn from "./WithdrawBurn.vue"
 export default ({
 
   name:'SwitchCoin',
@@ -48,8 +48,6 @@ export default ({
         }
       },
     switchxch: async function (){          
-      console.log("kaishile h")
-    
       const loading = this.$loading({
           lock: true,
           text: 'Switching',
@@ -68,9 +66,8 @@ export default ({
 
     },
     switchxcc: async function (){
-      console.log("kaishile c")
-      
-      console.log('done')
+       this.rec_amount = false
+      this.rec_alert = false
       const loading = this.$loading({
           lock: true,
           text: 'Switching',
@@ -93,7 +90,7 @@ export default ({
 </script>
 <style>
 .bgok ,.bgno{
-  width: 100px;
+  /* width: 100px; */
   background:rgba(146, 202, 146, 0.781) url(../assets/images/ok.png) no-repeat right;
   background-size: 25%;
 }

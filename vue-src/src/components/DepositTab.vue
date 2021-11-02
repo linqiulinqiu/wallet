@@ -30,12 +30,12 @@ export default {
   .introduction{
     height: 360px;
     position: relative;
-    top: 50px;
+    top: 30px;
     width: 90%;
     margin: 0px auto;
   }
   .introduction .fee{
-    margin-top: 80px;
+    margin-top: 55px;
   }
   .introduction .fee p{
     margin-bottom:25px;
