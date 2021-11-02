@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     withdraw: async function () {
-      if (!this.amount) {
+      if (!this.amount == "") {
         this.$message("bad amount");
         this.amount = "";
         console.log("this.amount", typeof this.amount);
