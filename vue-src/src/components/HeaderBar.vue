@@ -6,6 +6,11 @@
       </el-col>
       <el-col :lg="13" :sm="5" :xs="0">{{ $t("version") }} 11/3-2</el-col>
 
+
+      <el-col :lg="3" :md="3" :sm="4" :xs="5">
+        <SelectCoin />
+      </el-col>
+
       <el-col :lg="3" :md="3" :sm="4" :xs="5">
         <div id="token-balance">
           <span v-if="!baddr">{{ $t("no-connect") }}</span>
@@ -36,13 +41,14 @@
 <script>
 import { mapState } from "vuex";
 import { i18n, setup } from "../locales";
-// import SwitchCoin from "./SwitchCoin.vue";
 import LogoPlot from "./LogoPlot.vue";
+import SelectCoin from './SelectCoin.vue';
 export default {
   name: "HeaderBar",
   components: {
     // SwitchCoin,
     LogoPlot,
+    SelectCoin,
   },
   data() {
     return {

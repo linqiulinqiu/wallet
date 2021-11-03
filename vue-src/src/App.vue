@@ -2,7 +2,6 @@
   <div id="app">
     <el-container>
       <HeaderBar />
-      <SwitchCoin />
       <el-main class="mainBody">
         <el-row type="flex" align="center" justify="center">
           <MainPanel />
@@ -18,7 +17,6 @@
 <script>
 import HeaderBar from "./components/HeaderBar.vue";
 import MainPanel from "./components/MainPanel.vue";
-import SwitchCoin from "./components/SwitchCoin.vue";
 import Links from "./components/Links.vue";
 import { mapState } from "vuex";
 
@@ -27,7 +25,6 @@ export default {
   components: {
     HeaderBar,
     MainPanel,
-    SwitchCoin,
     Links,
   },
 
