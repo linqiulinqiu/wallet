@@ -5,10 +5,20 @@ import token_abi from './token-abi.json'
 
 const bsc = {}
 
+const b_chainId = '0x38'
+const b_chainName = 'BSC Mainnet'
+const b_chainNetName = 'bnb'
+const b_chainNCSymbol = 'BNB'
+const b_chainRpcUrl = 'https://bsc-dataseed.binance.org'
+const b_chainExplorerUrl = 'https://bscscan.com'
+const b_xcc_address = '0x0243FB40dDED3b4622004035D4871AA1541dB8B4'
+const b_xch_address = '0x38A715E494a2E470b7812C948C3D4867C097771C'
+
+
 async function switch_network() {
     try {
         await bsc.provider.send('wallet_switchEthereumChain', [{
-            chainId: '0x61'
+            chainId: b_chainId
         }])
     } catch (switchError) {
         const ChainNotExist = 4902
@@ -18,15 +28,15 @@ async function switch_network() {
                 await bsc.provider.send(
                     'wallet_addEthereumChain',
                     [{
-                        chainId: '0x61',
-                        chainName: 'Binance Smart Chain (Testnet)',
+                        chainId: b_chainId,
+                        chainName: b_chainName,
                         nativeCurrency: {
-                            name: 'TBNB',
-                            symbol: 'TBNB',
+                            name: b_chainNCSymbol,
+                            symbol: b_chainNCSymbol,
                             decimals: 18
                         },
-                        rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545',
-                        blockExplorerUrl: 'https://testnet.bscscan.com',
+                        rpcUrl: b_chainRpcUrl,
+                        blockExplorerUrl: b_chainExplorerUrl
                     }])
             } catch (addError) {
                 return addError
@@ -47,11 +57,11 @@ async function ensure_network() {
             return false
         }
     })
-    if (network.chainId != 97) {
+    if (network.chainId != parseInt(b_chainId)) {
         const err = await switch_network()
         if (err) return err
     }
-    if (network.chainId == 97 && network.name == 'bnbt') {
+    if (network.chainId == parseInt(b_chainId) && network.name == b_chainNetName) {
         return false
     }
 }
@@ -75,9 +85,9 @@ async function connect(coin, commit) {
         if (neterr) throw neterr
         await bsc.provider.send("eth_requestAccounts", [])
         if (coin == 'XCC') {
-            bsc.contract_addr = '0xA9F7B1a5C36DC79dd0541E50776ec98FcE0edF10'
+            bsc.contract_addr = b_xcc_address
         } else if (coin == 'XCH') {
-            bsc.contract_addr = '0xC556C6B9d6D8443a9505DE3E17cd88B717cFd9CF'
+            bsc.contract_addr = b_xch_address
         } else {
             return false
         }
@@ -254,7 +264,7 @@ async function token_burn(amount_str, callback) {
 
 function after_fee(mode, amount){
     const fees = {}
-    amount = ethers.utils.parseUnits(amount, bsc.decimals)
+    amount = ethers.utils.parseUnits(amount.toString(), bsc.decimals)
     if(mode=='deposit'){
         fees.min = bsc.deposit_fee_min
         fees.rate = bsc.deposit_fee_rate
@@ -273,11 +283,20 @@ function after_fee(mode, amount){
     return ethers.utils.formatUnits(amount.sub(fee), bsc.decimals)
 }
 
+function get_contract_addr(){
+    if('contract_addr' in bsc){
+        return bsc.contract_addr
+    }else{
+        return false
+    }
+}
+
 export default {
     after_fee: after_fee,
     bind_withdraw_addr: bind_withdraw_addr,
     connect: connect,
     check_bsc: check_bsc,
+    get_contract_addr: get_contract_addr,
     obtain_deposit_addr: obtain_deposit_addr,
     token_balance: token_balance,
     token_burn: token_burn
