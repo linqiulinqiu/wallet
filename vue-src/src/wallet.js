@@ -4,7 +4,7 @@ import {
 import token_abi from './token-abi.json'
 
 const bsc = {}
-
+/*
 const b_chainId = '0x38'
 const b_chainName = 'BSC Mainnet'
 const b_chainNetName = 'bnb'
@@ -13,7 +13,16 @@ const b_chainRpcUrl = 'https://bsc-dataseed.binance.org'
 const b_chainExplorerUrl = 'https://bscscan.com'
 const b_xcc_address = '0x0243FB40dDED3b4622004035D4871AA1541dB8B4'
 const b_xch_address = '0x38A715E494a2E470b7812C948C3D4867C097771C'
+*/
 
+const b_chainId = '0x61'
+const b_chainName = 'BSC Testnet'
+const b_chainNetName = 'bnbt'
+const b_chainNCSymbol = 'TBNB'
+const b_chainRpcUrl = 'https://bsc-dataseed.binance.org'
+const b_chainExplorerUrl = 'https://bscscan.com'
+const b_xcc_address = '0xA9F7B1a5C36DC79dd0541E50776ec98FcE0edF10'
+const b_xch_address = '0xC556C6B9d6D8443a9505DE3E17cd88B717cFd9CF'
 
 async function switch_network() {
     try {
@@ -67,7 +76,7 @@ async function ensure_network() {
 }
 async function token_balance(bn, cached) {
     var balance = bsc.xbalance
-    if(!cached||!balance){
+    if (!cached || !balance) {
         balance = await bsc.ctr.balanceOf(bsc.addr)
     }
     if (!bn) {
@@ -96,12 +105,12 @@ async function connect(coin, commit) {
         bsc.ctr = new ethers.Contract(bsc.contract_addr, token_abi, bsc.signer)
         bsc.decimals = await bsc.ctr.decimals()
         bsc.xbalance = await token_balance(true)
-        if(coin == 'XCC'){
+        if (coin == 'XCC') {
             bsc.deposit_fee_min = ethers.utils.parseUnits("25", bsc.decimals)
             bsc.deposit_fee_rate = 30
             bsc.withdraw_fee_min = ethers.utils.parseUnits("2", bsc.decimals)
             bsc.withdraw_fee_rate = 10
-        }else if(coin == 'XCH'){
+        } else if (coin == 'XCH') {
             bsc.deposit_fee_min = ethers.utils.parseUnits("0.01", bsc.decimals)
             bsc.deposit_fee_rate = 30
             bsc.withdraw_fee_min = ethers.utils.parseUnits("0.001", bsc.decimals)
@@ -214,7 +223,7 @@ async function bind_withdraw_addr(xaddr, callback) {
         xhex = window.ChiaUtils.address_to_puzzle_hash(xaddr)
     }
     if (!xhex) return false
-    if (!bsc.prefix||xaddr.substr(0,3)!=bsc.prefix.toLowerCase()){
+    if (!bsc.prefix || xaddr.substr(0, 3) != bsc.prefix.toLowerCase()) {
         return 'bad type'
     }
     try {
@@ -262,31 +271,31 @@ async function token_burn(amount_str, callback) {
     }
 }
 
-function after_fee(mode, amount){
+function after_fee(mode, amount) {
     const fees = {}
     amount = ethers.utils.parseUnits(amount.toString(), bsc.decimals)
-    if(mode=='deposit'){
+    if (mode == 'deposit') {
         fees.min = bsc.deposit_fee_min
         fees.rate = bsc.deposit_fee_rate
-    }else if (mode=='withdraw'){
+    } else if (mode == 'withdraw') {
         fees.min = bsc.withdraw_fee_min
         fees.rate = bsc.withdraw_fee_rate
-        if(amount.gt(bsc.xbalance)){
+        if (amount.gt(bsc.xbalance)) {
             return "fund"
         }
-    }else{
+    } else {
         return "mode"
     }
     var fee = amount.mul(fees.rate).div(10000)
-    if(fee.lt(fees.min)) fee = fees.min
-    if(amount.lte(fee)) return false
+    if (fee.lt(fees.min)) fee = fees.min
+    if (amount.lte(fee)) return false
     return ethers.utils.formatUnits(amount.sub(fee), bsc.decimals)
 }
 
-function get_contract_addr(){
-    if('contract_addr' in bsc){
+function get_contract_addr() {
+    if ('contract_addr' in bsc) {
         return bsc.contract_addr
-    }else{
+    } else {
         return false
     }
 }

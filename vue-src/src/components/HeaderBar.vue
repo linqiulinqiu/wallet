@@ -1,62 +1,10 @@
 <template>
   <el-header style="height: 100px">
     <el-row :gutter="10" type="flex" align="center">
-      <el-col
-        :lg="2"
-        :sm="6"
-        :xs="7"
-        id="logo"
-        style="transform: rotate(45deg)"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-          <rect
-            x="0"
-            y="48"
-            width="42"
-            height="42"
-            rx="4"
-            ry="4"
-            style="fill: rgb(80, 190, 90)"
-          />
-          <rect
-            x="96"
-            y="48"
-            width="42"
-            height="42"
-            rx="4"
-            ry="4"
-            style="fill: rgb(80, 190, 90)"
-          />
-          <rect
-            x="48"
-            y="0"
-            width="42"
-            height="42"
-            rx="4"
-            ry="4"
-            style="fill: rgb(80, 190, 90)"
-          />
-          <rect
-            x="48"
-            y="96"
-            width="42"
-            height="42"
-            rx="4"
-            ry="4"
-            style="fill: rgb(80, 190, 90)"
-          />
-          <rect
-            x="21"
-            y="21"
-            width="96"
-            height="96"
-            rx="4"
-            ry="4"
-            style="fill: none; stroke: rgb(80, 190, 90); stroke-width: 2"
-          />
-        </svg>
+      <el-col :lg="2" :sm="6" :xs="7" id="logo">
+        <LogoPlot />
       </el-col>
-      <el-col :lg="13" :sm="5" :xs="0">{{ $t("version") }} 11/2-2</el-col>
+      <el-col :lg="13" :sm="5" :xs="0">{{ $t("version") }} 11/3-2</el-col>
 
       <el-col :lg="3" :md="3" :sm="4" :xs="5">
         <div id="token-balance">
@@ -80,6 +28,7 @@
           ></el-option>
         </el-select>
       </el-col>
+      <!-- <SwitchCoin /> -->
     </el-row>
   </el-header>
 </template>
@@ -87,12 +36,14 @@
 <script>
 import { mapState } from "vuex";
 import { i18n, setup } from "../locales";
-// import SwitchCoin from "./SwitchCoin.vue"
+// import SwitchCoin from "./SwitchCoin.vue";
+import LogoPlot from "./LogoPlot.vue";
 export default {
   name: "HeaderBar",
-  // components:{
-  //   SwitchCoin
-  // },
+  components: {
+    // SwitchCoin,
+    LogoPlot,
+  },
   data() {
     return {
       options: [

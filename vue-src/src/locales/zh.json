@@ -30,6 +30,5 @@
     "rec-alert2":"您的P{coin}余额不足",
     "contact-us":"联系我们",
     "links":"友情链接:",
-    "xch-lp":"蛋糕网xch流动性",
-    "xcc-lp":"蛋糕网xcc流动性"
+    "xc-lp":"蛋糕网{coin}流动性"
 }

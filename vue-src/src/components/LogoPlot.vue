@@ -1,0 +1,60 @@
+<template>
+  <div class="svg">
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+      <rect
+        x="0"
+        y="48"
+        width="42"
+        height="42"
+        rx="4"
+        ry="4"
+        style="fill: rgb(80, 190, 90)"
+      />
+      <rect
+        x="96"
+        y="48"
+        width="42"
+        height="42"
+        rx="4"
+        ry="4"
+        style="fill: rgb(80, 190, 90)"
+      />
+      <rect
+        x="48"
+        y="0"
+        width="42"
+        height="42"
+        rx="4"
+        ry="4"
+        style="fill: rgb(80, 190, 90)"
+      />
+      <rect
+        x="48"
+        y="96"
+        width="42"
+        height="42"
+        rx="4"
+        ry="4"
+        style="fill: rgb(80, 190, 90)"
+      />
+      <rect
+        x="21"
+        y="21"
+        width="96"
+        height="96"
+        rx="4"
+        ry="4"
+        style="fill: none; stroke: rgb(80, 190, 90); stroke-width: 2"
+      />
+    </svg>
+  </div>
+</template>
+<style>
+.svg {
+  position: relative;
+  top: 56px;
+}
+svg {
+  transform: rotate(45deg);
+}
+</style>

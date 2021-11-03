@@ -30,6 +30,5 @@
     "version":"Version",
     "withdraw":"Withdraw",
     "waitting":"Your transaction needs time to be confirmed, please wait!",
-    "xch-lp":"Pancake Swap XCH-liquidity",
-    "xcc-lp":"Pancake SWap XCC-liquidity"
+    "xc-lp":"Pancake SWap {coin}-liquidity"
 }

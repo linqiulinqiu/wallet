@@ -48,54 +48,52 @@ export default {
   },
   watch: {
     amount: async function () {
-      if (!this.amount == "") {
-        const after_fee = wops.after_fee("withdraw", this.amount);
-        if (!after_fee) {
-          this.rec_amount = false;
-          this.rec_alert = this.$t("rec-alert1");
-        } else if (after_fee == "fund") {
-          this.rec_amount = false;
-          this.rec_alert = this.$t("rec-alert2", { coin: this.coin });
-        } else {
-          this.rec_amount = after_fee;
-          this.rec_alert = false;
-        }
+      var bamount = this.amount;
+      if (!bamount || isNaN(bamount)) {
+        // "", null, false
+        bamount = "0";
+      }
+      const after_fee = wops.after_fee("withdraw", bamount);
+      if (!after_fee) {
+        this.rec_amount = false;
+        this.rec_alert = this.$t("rec-alert1");
+      } else if (after_fee == "fund") {
+        this.rec_amount = false;
+        this.rec_alert = this.$t("rec-alert2", { coin: this.coin });
+      } else {
+        this.rec_amount = after_fee;
+        this.rec_alert = false;
       }
     },
   },
   methods: {
     withdraw: async function () {
-      if (!this.amount == "") {
+      const amount = parseFloat(this.amount);
+      if (this.amount == "" || isNaN(this.amount)) {
         this.$message("bad amount");
         this.amount = "";
-        console.log("this.amount", typeof this.amount);
       }
-      const amount = parseFloat(this.amount); // TODO: use bignmber etc to convert to bigint first
-      console.log("this.amount2", typeof amount);
+      // TODO: use bignmber etc to convert to bigint first
+
       if (this.amount == 0 || wops.after_fee("withdraw", amount)) {
         this.$message("bad amount");
         this.amount = "";
-        console.log("amount1", amount);
       } else {
-        this.disabled;
+        this.disabled = true;
         this.loading = true;
         const btn = this;
         // TODO: check amount valid first
-        console.log(2);
         const msg = await wops.token_burn(amount, function () {
-          console.log(3);
           btn.loading = false;
-          btn.enabled;
+          btn.disabled = true;
           this.$message(this.$t("waitting"));
-          console.log(4);
         });
-        console.log(5);
         this.amount = "";
-        console.log(6);
         if (msg != "ok") {
-          this.loading = false;
-          this.enabled;
           this.$message(msg);
+          this.loading = false;
+          this.disabled = false;
+          this.amount = "";
         }
       }
     },
