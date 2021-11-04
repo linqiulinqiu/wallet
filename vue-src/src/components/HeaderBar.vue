@@ -1,16 +1,16 @@
 <template>
   <el-header style="height: 100px">
     <el-row :gutter="10" type="flex" align="center">
-      <el-col :lg="2" :sm="6" :xs="7" id="logo">
-        <LogoPlot />
+      <el-col :lg="4" :sm="6" :xs="7" id="logo">
+        <img src="../assets/images/PlotbridgeLogo.svg" alt="" srcset="" />
       </el-col>
-      <el-col :lg="13" :sm="5" :xs="0">{{ $t("version") }} 11/4-1</el-col>
+      <el-col :lg="10" :sm="1" :xs="0">{{ $t("version") }} 11/4-2</el-col>
 
-      <el-col :lg="3" :md="3" :sm="4" :xs="5">
+      <el-col :lg="3" :md="3" :sm="5" :xs="5">
         <SelectCoin />
       </el-col>
 
-      <el-col :lg="3" :md="3" :sm="4" :xs="5">
+      <el-col :lg="3" :md="3" :sm="3" :xs="5">
         <div id="token-balance">
           <span v-if="!baddr">{{ $t("no-connect") }}</span>
           <span v-else>{{
@@ -19,10 +19,10 @@
         </div>
       </el-col>
 
-      <el-col :lg="2" :md="3" :sm="3" :xs="7" v-if="baddr" class="balance">
-        {{ xbalance }} P{{ coin }}
+      <el-col :lg="2" :md="3" :sm="4" :xs="7" v-if="baddr" class="balance">
+        <Xbalance />
       </el-col>
-      <el-col :lg="2" :md="3" :sm="3" :xs="4" id="language">
+      <el-col :lg="2" :md="3" :sm="4" :xs="4" id="language">
         <el-select v-model="lang">
           <el-option
             v-for="item in options"
@@ -32,7 +32,6 @@
           ></el-option>
         </el-select>
       </el-col>
-      <!-- <SwitchCoin /> -->
     </el-row>
   </el-header>
 </template>
@@ -40,14 +39,13 @@
 <script>
 import { mapState } from "vuex";
 import { i18n, setup } from "../locales";
-import LogoPlot from "./LogoPlot.vue";
+import Xbalance from "./Xbalance.vue";
 import SelectCoin from "./SelectCoin.vue";
 export default {
   name: "HeaderBar",
   components: {
-    // SwitchCoin,
-    LogoPlot,
     SelectCoin,
+    Xbalance,
   },
   data() {
     return {
@@ -77,9 +75,10 @@ export default {
 };
 </script>
 <style>
-#logo svg {
+#logo img {
   position: relative;
   top: 10px;
+  width: 100%;
 }
 #token-balance {
   font-size: 12px;

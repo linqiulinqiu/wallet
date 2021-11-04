@@ -1,16 +1,8 @@
 <template>
   <el-row type="flex" justify="center">
-    <el-col :lg="3" :xs="3" class="contact-us">
+    <el-col :lg="3" :xs="3" id="contact-us">
       <a href="http://discord.gg/xHC9fBfeVW" target="_blank"> </a>
-      <!-- <a href="">
-        <svg width="35" height="35" viewBox="0 0 30 35">
-          <path
-            fill-rule="evenodd"
-            fill="currentColor"
-            d="M21.3766 4.10479C22.4093 4.38257 23.2225 5.20102 23.4985 6.24038C24 8.12411 24 12.0545 24 12.0545C24 12.0545 24 15.9848 23.4985 17.8688C23.2225 18.908 22.4093 19.7265 21.3766 20.0044C19.505 20.5091 12 20.5091 12 20.5091C12 20.5091 4.49496 20.5091 2.62336 20.0044C1.59082 19.7265 0.777545 18.908 0.501545 17.8688C0 15.9848 0 12.0545 0 12.0545C0 12.0545 0 8.12411 0.501545 6.24038C0.777545 5.20102 1.59082 4.38257 2.62336 4.10479C4.49496 3.59998 12 3.59998 12 3.59998C12 3.59998 19.505 3.59998 21.3766 4.10479ZM15.8182 12.0546L9.54551 15.623V8.48596L15.8182 12.0546Z"
-          ></path>
-        </svg>
-      </a> -->
+      <a href="http://t.me/PlotBridge" target="_blank"> </a>
       <!-- <a href="">
         <svg width="30" height="35" vewBox="0 0 30 35">
           <path
@@ -20,18 +12,24 @@
         </svg>
     </a> -->
     </el-col>
-    <el-col :lg="6" :xs="10" class="link-lp" :offset="5">
-      <p>
-        {{ $t("links") }}
-        <a @click="openPancakeLp">{{ $t("xc-lp", { coin: this.coin }) }}</a>
-      </p>
+    <el-col :lg="6" :xs="10" :offset="5">
+      <div @click="openPancakeLp" id="link-lp">
+        <img
+          id="pancake-lp"
+          src="../assets/images/bunny-color.png"
+          alt="pancake"
+        />
+        <a>{{ $t("xc-lp", { coin: this.coin }) }}</a>
+      </div>
     </el-col>
   </el-row>
 </template>
 <script>
 import { mapState } from "vuex";
+
 export default {
   name: "links",
+
   computed: mapState({
     baddr: "baddr",
     coin: "coin",
@@ -43,27 +41,31 @@ export default {
   },
   methods: {
     openPancakeLp: function () {
-      console.log(this.contract_addr);
-      const pancake_prefix = "https://pancake.kiemtienonline360.com/#/add/BNB/";
-      const url = pancake_prefix;
-      if (!this.baddr) {
-        this.$message("please choose coin first");
-      } else {
-        window.open(url);
+      if (this.contract_addr) {
+        return false;
       }
-      // const contract_addr = wrop.$store.commit(bsc.contract_addr);
+      if (this.coin == "XCC") {
+        const pancake_prefix =
+          "https://pancakeswap.finance/add/0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56/0x0243FB40dDED3b4622004035D4871AA1541dB8B4";
+        const url = pancake_prefix;
+        if (!this.baddr) {
+          this.$message("please choose coin first");
+        } else {
+          window.open(url);
+        }
+      }
     },
   },
 };
 </script>
 <style>
-.contact-us {
+#contact-us {
   float: left;
   width: 250px;
   height: 50px;
   margin-top: 15px;
 }
-.contact-us a {
+#contact-us a {
   display: block;
   width: 45px;
   height: 45px;
@@ -72,12 +74,31 @@ export default {
   margin-right: 10px;
   text-align: center;
 }
-.contact-us a:first-child {
+#contact-us a:first-child {
   background: url(../assets/images/discordlogo.png) no-repeat center;
   background-size: 60%;
 }
-.contact-us a:first-child:hover {
+#contact-us a:nth-child(2) {
+  background: url("../assets/images/t_logo.svg") no-repeat center;
+  background-size: 60%;
+}
+#contact-us a:nth-child(2):hover {
+  background: url("../assets/images/t_logo.svg") no-repeat center;
+  background-size: 80%;
+}
+#contact-us a:first-child:hover {
   background: url(../assets/images/discordlogo.png) no-repeat center;
   background-size: 80%;
+}
+#link-lp {
+  margin-top: 10px;
+}
+.el-footer img {
+  width: 40px;
+  height: 40px;
+}
+.el-footer img:hover {
+  transform: scale(1.2);
+  transition: transform 0.3s;
 }
 </style>

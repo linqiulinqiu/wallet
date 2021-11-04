@@ -1,7 +1,7 @@
 <template>
   <el-select v-model="coinchg" id="selectcoin">
-    <el-option key="XCH" label="Chia" value="XCH"></el-option>
-    <el-option key="XCC" label="Chives" value="XCC"></el-option>
+    <el-option key="XCH" label="Chia -- BSC" value="XCH"></el-option>
+    <el-option key="XCC" label="Chives -- BSC" value="XCC"></el-option>
   </el-select>
 </template>
 <script>
@@ -32,25 +32,24 @@ export default {
   },
   methods: {
     connect_wallet: async function (coin) {
-       const loading = this.$loading({
+      const loading = this.$loading({
         lock: true,
         spinner: "el-icon-loading",
         background: "rgba(200, 230, 200, 0.7)",
-      })
+      });
       const commit = this.$store.commit;
       try {
         const addr = await wops.connect(coin, commit);
-        loading.close()
+        loading.close();
         if (!addr) {
           this.$message(this.$t("connect-faild"));
         }
       } catch (e) {
-        console.log('eee',e)
+        console.log("eee", e);
         this.$message(e.message);
       }
     },
-    selectLoading: async function () {
-    },
+    selectLoading: async function () {},
   },
 };
 </script>

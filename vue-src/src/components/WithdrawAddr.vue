@@ -49,17 +49,28 @@ export default {
   methods: {
     bind_addr: async function () {
       const commit = this.$store.commit;
-      const msg = await wops.bind_withdraw_addr(this.xwaddr, function (xaddr) {
-        commit("setWithdrawAddr", xaddr);
-      });
-      if (msg === "ok") {
-        this.loading = true;
-        this.disabled = true;
-      } else {
-        this.$message(msg);
-        this.xwaddr = "";
-        this.loading = false;
-        this.disabled = false;
+      console.log("try bind");
+      try {
+        const msg = await wops.bind_withdraw_addr(
+          this.xwaddr,
+          function (xaddr) {
+            commit("setWithdrawAddr", xaddr);
+          }
+        );
+        console.log("this.xwaddr", this.xwaddr);
+        console.log("this.withdrawaddr", this.withdraw_addr);
+        if (msg == "ok") {
+          this.loading = true;
+          this.disabled = true;
+        } else {
+          this.$message(msg);
+          this.xwaddr = "";
+          this.loading = false;
+          this.disabled = false;
+        }
+      } catch (e) {
+        this.$message("Address error, please enter the correct address");
+        console.log("ex", e, typeof this.xwaddr);
       }
     },
   },
