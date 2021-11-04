@@ -24,10 +24,10 @@
       <p v-else-if="free_xins === 0">{{ $t("no-depositAddr") }}</p>
       <p v-else>
         <pulse-loader></pulse-loader>
-        {{ $t("check-depositAddr") }}
+        {{ typeof(free_xins)+" "+ $t("check-depositAddr") }}
       </p>
+      <p v-if="free_xins > 0">{{ $t("bind-fee") }}</p>
     </div>
-    <p v-if="free_xins > 0">{{ $t("bind-fee") }}</p>
   </div>
 </template>
 

@@ -37,16 +37,15 @@ export default {
   methods: {
     connect_wallet: async function () {
       const commit = this.$store.commit;
+      const loading = this.$loading({
+        lock: true,
+        spinner: "el-icon-loading",
+        background: "rgba(200, 230, 200, 0.7)",
+      })
       try {
         const addr = await wops.connect(this.$store.state.coin, commit);
-        if (addr) {
-          this.$store.commit("setBaddr", addr);
-          const bsc = await wops.check_bsc();
-          this.$store.commit("setFreeXins", bsc.free_xins);
-          this.$store.commit("setDepositAddr", bsc.deposit_addr);
-          this.$store.commit("setWithdrawAddr", bsc.withdraw_addr);
-          this.$store.commit("setXbalance", bsc.xbalance);
-        } else {
+        loading.close()
+        if (!addr) {
           this.$message(this.$t("connect-faild"));
         }
       } catch (e) {

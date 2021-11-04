@@ -25,7 +25,6 @@ export default {
   watch: {
     coinchg: function (new_coin) {
       this.$store.commit("setCoin", new_coin);
-      this.selectLoading();
       if (this.baddr) {
         this.connect_wallet(new_coin);
       }
@@ -33,34 +32,24 @@ export default {
   },
   methods: {
     connect_wallet: async function (coin) {
+       const loading = this.$loading({
+        lock: true,
+        spinner: "el-icon-loading",
+        background: "rgba(200, 230, 200, 0.7)",
+      })
       const commit = this.$store.commit;
       try {
         const addr = await wops.connect(coin, commit);
-        if (addr) {
-          this.$store.commit("setCoin", coin);
-          this.$store.commit("setBaddr", addr);
-          const bsc = await wops.check_bsc();
-          this.$store.commit("setFreeXins", bsc.free_xins);
-          this.$store.commit("setDepositAddr", bsc.deposit_addr);
-          this.$store.commit("setWithdrawAddr", bsc.withdraw_addr);
-          this.$store.commit("setXbalance", bsc.xbalance);
-        } else {
+        loading.close()
+        if (!addr) {
           this.$message(this.$t("connect-faild"));
         }
       } catch (e) {
+        console.log('eee',e)
         this.$message(e.message);
       }
     },
     selectLoading: async function () {
-      const loading = this.$loading({
-        lock: true,
-        text: "During switching, you need to wait two seconds",
-        spinner: "el-icon-loading",
-        background: "rgba(200, 230, 200, 0.7)",
-      });
-      setTimeout(() => {
-        loading.close();
-      }, 2000);
     },
   },
 };

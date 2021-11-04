@@ -13,8 +13,8 @@ const b_chainRpcUrl = 'https://bsc-dataseed.binance.org'
 const b_chainExplorerUrl = 'https://bscscan.com'
 const b_xcc_address = '0x0243FB40dDED3b4622004035D4871AA1541dB8B4'
 const b_xch_address = '0x38A715E494a2E470b7812C948C3D4867C097771C'
-*/
 
+*/
 const b_chainId = '0x61'
 const b_chainName = 'BSC Testnet'
 const b_chainNetName = 'bnbt'
@@ -23,6 +23,8 @@ const b_chainRpcUrl = 'https://bsc-dataseed.binance.org'
 const b_chainExplorerUrl = 'https://bscscan.com'
 const b_xcc_address = '0xA9F7B1a5C36DC79dd0541E50776ec98FcE0edF10'
 const b_xch_address = '0xC556C6B9d6D8443a9505DE3E17cd88B717cFd9CF'
+
+
 async function switch_network() {
     try {
         await bsc.provider.send('wallet_switchEthereumChain', [{
@@ -58,7 +60,6 @@ async function switch_network() {
 
 async function ensure_network() {
     const network = await bsc.provider.getNetwork()
-    console.log('network', network)
     bsc.provider.on('network', (newNetwork, oldNetwork) => {
         if (oldNetwork) {
             window.location.reload()
@@ -115,6 +116,14 @@ async function connect(coin, commit) {
             bsc.withdraw_fee_min = ethers.utils.parseUnits("0.001", bsc.decimals)
             bsc.withdraw_fee_rate = 10
         }
+
+        commit("setFreeXins", (await bsc.ctr.getFreeXinAddrCount()).toNumber())
+        commit("setDepositAddr", await get_deposit_addr())
+        commit("setWithdrawAddr", await get_withdraw_addr())
+        commit("setXbalance", await token_balance())    
+        commit("setCoin", coin)
+        commit("setBaddr", bsc.addr)
+
         bsc.events = {
             bindxin: bsc.ctr.filters.BindXin(),
             bindxout: bsc.ctr.filters.BindXout(),
@@ -186,7 +195,6 @@ async function check_bsc() {
         xbalance: balance
     }
 }
-
 
 async function obtain_deposit_addr(callback) {
     const bnb = ethers.constants.WeiPerEther.div(2000)
