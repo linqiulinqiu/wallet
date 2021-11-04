@@ -24,7 +24,7 @@
     "transactionfee":"将收取0.1%的交易费,每笔交易最低收取0.001 {coin}",
     "amount":"请输入金额",
     "correct-amount":"请输入正确的金额",
-    "waitting":"您的交易需要时间确认,请稍作等待!",
+    "waiting":"您的交易需要时间确认,请稍作等待!",
     "receive-money":"你将会收到:",
     "rec-alert1":"你什么也收不到",
     "rec-alert2":"您的P{coin}余额不足",
