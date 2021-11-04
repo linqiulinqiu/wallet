@@ -4,8 +4,7 @@
       <el-col :lg="2" :sm="6" :xs="7" id="logo">
         <LogoPlot />
       </el-col>
-      <el-col :lg="13" :sm="5" :xs="0">{{ $t("version") }} 11/3-2</el-col>
-
+      <el-col :lg="13" :sm="5" :xs="0">{{ $t("version") }} 11/4-1</el-col>
 
       <el-col :lg="3" :md="3" :sm="4" :xs="5">
         <SelectCoin />
@@ -20,7 +19,7 @@
         </div>
       </el-col>
 
-      <el-col :lg="3" :md="3" :sm="3" :xs="7" v-if="baddr" class="balance">
+      <el-col :lg="2" :md="3" :sm="3" :xs="7" v-if="baddr" class="balance">
         {{ xbalance }} P{{ coin }}
       </el-col>
       <el-col :lg="2" :md="3" :sm="3" :xs="4" id="language">
@@ -42,7 +41,7 @@
 import { mapState } from "vuex";
 import { i18n, setup } from "../locales";
 import LogoPlot from "./LogoPlot.vue";
-import SelectCoin from './SelectCoin.vue';
+import SelectCoin from "./SelectCoin.vue";
 export default {
   name: "HeaderBar",
   components: {

@@ -49,7 +49,7 @@ export default {
   watch: {
     amount: async function () {
       var bamount = this.amount;
-      if (!bamount || isNaN(bamount)) {
+      if (!bamount || isNaN(bamount) || bamount == "") {
         // "", null, false
         bamount = "0";
       }
@@ -68,24 +68,28 @@ export default {
   },
   methods: {
     withdraw: async function () {
-      const amount = parseFloat(this.amount);
-      if (this.amount == "" || isNaN(this.amount)) {
-        this.$message("bad amount");
+      if (amount == "" || isNaN(amount)) {
+        this.$message("amount is not a number");
         this.amount = "";
       }
       // TODO: use bignmber etc to convert to bigint first
+      const amount = parseFloat(this.amount);
 
-      if (this.amount == 0 || wops.after_fee("withdraw", amount)) {
+      if (amount == 0 || wops.after_fee("withdraw", amount)) {
         this.$message("bad amount");
+        console.log("amount", amount);
         this.amount = "";
       } else {
+        console.log("enter burn", amount);
         this.disabled = true;
         this.loading = true;
         const btn = this;
+        console.log("点击", amount);
         // TODO: check amount valid first
         const msg = await wops.token_burn(amount, function () {
           btn.loading = false;
           btn.disabled = true;
+          console.log("burn is ok", amount);
           this.$message(this.$t("waitting"));
         });
         this.amount = "";
