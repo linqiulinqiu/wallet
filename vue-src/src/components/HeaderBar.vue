@@ -9,7 +9,9 @@
       <el-col :lg="3" :md="3" :sm="5" :xs="5">
         <SelectCoin />
       </el-col>
-
+      <el-col>
+        <el-button @click="add_token">Add Token</el-button>
+      </el-col>
       <el-col :lg="3" :md="3" :sm="3" :xs="5">
         <div id="token-balance">
           <span v-if="!baddr">{{ $t("no-connect") }}</span>
@@ -39,6 +41,7 @@
 <script>
 import { mapState } from "vuex";
 import { i18n, setup } from "../locales";
+import wops from '../wallet'
 import Xbalance from "./Xbalance.vue";
 import SelectCoin from "./SelectCoin.vue";
 export default {
@@ -72,6 +75,12 @@ export default {
       setup(this.lang);
     },
   },
+  methods: {
+      add_token: async function (){
+          const res = await wops.add_token()
+          console.log('add token', res)
+      }
+  }
 };
 </script>
 <style>
