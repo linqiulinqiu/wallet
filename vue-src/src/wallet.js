@@ -306,14 +306,13 @@ function get_contract_addr() {
     }
 }
 
-async function add_token(){
+async function add_token() {
     const added = await bsc.provider.send(
-        'wallet_watchAsset',
-        {
+        'wallet_watchAsset', {
             type: 'ERC20',
             options: {
                 address: bsc.contract_addr,
-                symbol: 'P'+bsc.coin,
+                symbol: 'P' + bsc.coin,
                 decimals: bsc.decimals,
                 image: 'https://app.plotbridge.net/images/chiveslogo.png'
             }

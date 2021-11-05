@@ -86,6 +86,10 @@ export default {
 }
 #link-lp {
   margin-top: 10px;
+  border: 1px solid #d1fcd1;
+  width: 100px;
+  border-radius: 50%;
+  /* height: 40px; */
 }
 .el-footer img {
   width: 30px;

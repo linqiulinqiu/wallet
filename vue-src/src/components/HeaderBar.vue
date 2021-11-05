@@ -4,13 +4,10 @@
       <el-col :lg="4" :sm="6" :xs="7" id="logo">
         <img src="../assets/images/PlotbridgeLogo.svg" alt="plotbridge" />
       </el-col>
-      <el-col :lg="10" :sm="1" :xs="0">{{ $t("version") }} 11/5-1</el-col>
+      <el-col :lg="10" :sm="1" :xs="0">{{ $t("version") }} 11/5-2</el-col>
 
       <el-col :lg="3" :md="3" :sm="5" :xs="5">
         <SelectCoin />
-      </el-col>
-      <el-col>
-        <el-button @click="add_token">Add Token</el-button>
       </el-col>
       <el-col :lg="3" :md="3" :sm="3" :xs="5">
         <div id="token-balance">
@@ -21,8 +18,11 @@
         </div>
       </el-col>
 
-      <el-col :lg="2" :md="3" :sm="4" :xs="7" v-if="baddr" class="balance">
+      <el-col :lg="2" :md="3" :sm="4" :xs="7" v-if="baddr" id="balance">
         <Xbalance />
+      </el-col>
+      <el-col :lg="2" :md="3" :sm="4" :xs="4" id="addtoken">
+        <el-button @click="add_token">{{ $t("add-token") }}</el-button>
       </el-col>
       <el-col :lg="2" :md="3" :sm="4" :xs="4" id="language">
         <el-select v-model="lang">
@@ -41,7 +41,7 @@
 <script>
 import { mapState } from "vuex";
 import { i18n, setup } from "../locales";
-import wops from '../wallet'
+import wops from "../wallet";
 import Xbalance from "./Xbalance.vue";
 import SelectCoin from "./SelectCoin.vue";
 export default {
@@ -76,11 +76,11 @@ export default {
     },
   },
   methods: {
-      add_token: async function (){
-          const res = await wops.add_token()
-          console.log('add token', res)
-      }
-  }
+    add_token: async function () {
+      const res = await wops.add_token();
+      console.log("add token", res);
+    },
+  },
 };
 </script>
 <style>
@@ -89,19 +89,19 @@ export default {
   top: 10px;
   width: 100%;
 }
+#addtoken .el-button {
+  color: #d1fcd1;
+  background-color: #668b66;
+  border: none;
+}
+#balance {
+  margin-right: 10px;
+}
 #token-balance {
   font-size: 12px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-}
-.balance {
-  color: #d1fcd1;
-  border: #d1fcd1 1px solid;
-  height: 40px;
-  margin-top: 10px;
-  border-radius: 5px;
-  font-size: 12px;
 }
 </style>

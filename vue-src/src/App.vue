@@ -40,6 +40,7 @@ body {
   margin: 0;
   padding: 0;
   background: url(./assets/images/bg1.png) center;
+  font-size: 14px;
 }
 .container {
   position: relative;
@@ -62,6 +63,7 @@ body {
   background-color: #668b66;
   color: #333;
   text-align: center;
+  font-size: 12px;
 }
 .el-header {
   top: 0px;
@@ -72,7 +74,9 @@ body {
 }
 
 #token-balance,
-#user {
+#user,
+#balance,
+#addtoken {
   border: 1px solid #d1fcd1;
   height: 40px;
   line-height: 40px;

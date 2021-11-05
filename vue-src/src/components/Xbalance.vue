@@ -1,5 +1,5 @@
 <template>
-  <div id="balance">
+  <div id="balancelink">
     <p>
       <span>{{ xbalance }}P{{ coin }} </span>
       <img src="../assets/images/chiveslogo.png" alt="chives" />
@@ -28,16 +28,21 @@ export default {
   text-decoration: none;
 }
 #buyXCC:hover {
-  color: rgb(127, 255, 148);
+  background-color: #d1fcd1;
+  color: #668b66;
 }
-#balance img {
+#balancelink img {
   width: 30px;
   height: 30px;
   border-radius: 50%;
   margin-top: 4px;
 }
-#balance {
+#balancelink {
   position: relative;
   top: -15px;
+}
+#balancelink a {
+  border-radius: 50%;
+  background-color: #034403;
 }
 </style>
