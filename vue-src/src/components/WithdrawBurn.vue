@@ -50,7 +50,6 @@ export default {
     amount: async function () {
       var bamount = this.amount;
       if (!bamount || isNaN(bamount) || bamount == "") {
-        // "", null, false
         bamount = "0";
       }
       const after_fee = wops.after_fee("withdraw", bamount);
@@ -67,41 +66,41 @@ export default {
     },
   },
   methods: {
-    amount_valid: function (amount){
-      if(!amount||isNaN(amount)){
-        return false
+    amount_valid: function (amount) {
+      if (!amount || isNaN(amount)) {
+        return false;
       }
       //amount = parseFloat(amount) // TODO: convert to bignum later
-      const after_fee = wops.after_fee("withdraw", amount)
-      console.log('after_fee', after_fee)
-      if(!after_fee||isNaN(after_fee)||parseFloat(after_fee)<=0){
-        return false
+      const after_fee = wops.after_fee("withdraw", amount);
+      console.log("after_fee", after_fee);
+      if (!after_fee || isNaN(after_fee) || parseFloat(after_fee) <= 0) {
+        return false;
       }
-      return true
+      return true;
     },
     withdraw: async function () {
-      const btn = this
-      if(this.amount_valid(this.amount)){
-        this.loading = true
-        this.disabled = true
-        try{
+      const btn = this;
+      if (this.amount_valid(this.amount)) {
+        this.loading = true;
+        this.disabled = true;
+        try {
           const msg = await wops.token_burn(this.amount, function () {
-            btn.loading = false
-            btn.disabled = false
-            btn.amount = ""
-          })
+            btn.loading = false;
+            btn.disabled = false;
+            btn.amount = "";
+          });
           if (msg != "ok") {
             this.$message(msg);
             this.loading = false;
             this.disabled = false;
           }
-        }catch(e){
-          this.$message(e.message)
-          btn.loading = false
-          btn.disabled = false
+        } catch (e) {
+          this.$message(e.message);
+          btn.loading = false;
+          btn.disabled = false;
         }
-      }else{
-        this.$message('invalid withdraw amount')
+      } else {
+        this.$message("invalid withdraw amount");
       }
     },
   },

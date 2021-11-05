@@ -1,7 +1,6 @@
 <template>
   <div>
     <span>{{ xbalance }} P{{ coin }} </span>
-    <!-- <div id="buyXCC"> -->
     <a
       v-if="this.coin == 'XCC'"
       id="buyXCC"
@@ -9,7 +8,6 @@
       >buy</a
     >
   </div>
-  <!-- </div> -->
 </template>
 <script>
 import { mapState } from "vuex";

@@ -4,7 +4,7 @@
       $t("connect-wallet")
     }}</el-button>
     <el-button v-if="baddr">{{ baddr }}</el-button>
-    <div class="tips">
+    <!-- <div class="tips">
       <el-button
         icon="el-icon-question"
         circle
@@ -13,7 +13,7 @@
       <el-drawer title="说明" :visible.sync="drawer" :direction="direction"
         ><span>钱包为bsc钱包</span></el-drawer
       >
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -41,20 +41,20 @@ export default {
         lock: true,
         spinner: "el-icon-loading",
         background: "rgba(200, 230, 200, 0.7)",
-      })
+      });
       try {
         const addr = await wops.connect(this.$store.state.coin, commit);
         if (!addr) {
           this.$message(this.$t("connect-faild"));
         }
       } catch (e) {
-          if(e.code===-32601){
-            this.$message('wrong network')
-          }else{
-            this.$message(e.message);
-          }
+        if (e.code === -32601) {
+          this.$message("wrong network");
+        } else {
+          this.$message(e.message);
+        }
       }
-      loading.close()
+      loading.close();
     },
   },
 };

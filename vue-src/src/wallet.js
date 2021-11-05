@@ -4,7 +4,7 @@ import {
 import token_abi from './token-abi.json'
 
 const bsc = {}
-/*
+
 const b_chainId = '0x38'
 const b_chainName = 'BSC Mainnet'
 const b_chainNetName = 'bnb'
@@ -13,16 +13,16 @@ const b_chainRpcUrl = 'https://bsc-dataseed.binance.org'
 const b_chainExplorerUrl = 'https://bscscan.com'
 const b_xcc_address = '0x0243FB40dDED3b4622004035D4871AA1541dB8B4'
 const b_xch_address = '0x38A715E494a2E470b7812C948C3D4867C097771C'
-*/
 
-const b_chainId = '0x61'
-const b_chainName = 'BSC Testnet'
-const b_chainNetName = 'bnbt'
-const b_chainNCSymbol = 'TBNB'
-const b_chainRpcUrl = 'https://bsc-dataseed.binance.org'
-const b_chainExplorerUrl = 'https://bscscan.com'
-const b_xcc_address = '0xA9F7B1a5C36DC79dd0541E50776ec98FcE0edF10'
-const b_xch_address = '0xC556C6B9d6D8443a9505DE3E17cd88B717cFd9CF'
+
+// const b_chainId = '0x61'
+// const b_chainName = 'BSC Testnet'
+// const b_chainNetName = 'bnbt'
+// const b_chainNCSymbol = 'TBNB'
+// const b_chainRpcUrl = 'https://bsc-dataseed.binance.org'
+// const b_chainExplorerUrl = 'https://bscscan.com'
+// const b_xcc_address = '0xA9F7B1a5C36DC79dd0541E50776ec98FcE0edF10'
+// const b_xch_address = '0xC556C6B9d6D8443a9505DE3E17cd88B717cFd9CF'
 
 async function switch_network() {
     try {
@@ -105,7 +105,7 @@ async function connect(coin, commit) {
         bsc.decimals = await bsc.ctr.decimals()
         bsc.xbalance = await token_balance(true)
         if (coin == 'XCC') {
-            bsc.deposit_fee_min = ethers.utils.parseUnits("25", bsc.decimals)
+            bsc.deposit_fee_min = ethers.utils.parseUnits("20", bsc.decimals)
             bsc.deposit_fee_rate = 30
             bsc.withdraw_fee_min = ethers.utils.parseUnits("2", bsc.decimals)
             bsc.withdraw_fee_rate = 10
@@ -119,7 +119,7 @@ async function connect(coin, commit) {
         commit("setFreeXins", (await bsc.ctr.getFreeXinAddrCount()).toNumber())
         commit("setDepositAddr", await get_deposit_addr())
         commit("setWithdrawAddr", await get_withdraw_addr())
-        commit("setXbalance", await token_balance())    
+        commit("setXbalance", await token_balance())
         commit("setCoin", coin)
         commit("setBaddr", bsc.addr)
 

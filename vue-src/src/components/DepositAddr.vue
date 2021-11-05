@@ -16,7 +16,7 @@
     <div v-else>
       <el-button
         v-if="free_xins > 0"
-        @click.native.prevent="obtain_addr"
+        @click="obtain_addr"
         :loading="loading"
         class="obtain"
         >{{ $t("obtain-deposit-address") }}</el-button
@@ -24,7 +24,7 @@
       <p v-else-if="free_xins === 0">{{ $t("no-depositAddr") }}</p>
       <p v-else>
         <pulse-loader></pulse-loader>
-        {{ typeof(free_xins)+" "+ $t("check-depositAddr") }}
+        {{ typeof free_xins + " " + $t("check-depositAddr") }}
       </p>
       <p v-if="free_xins > 0">{{ $t("bind-fee") }}</p>
     </div>
