@@ -24,7 +24,6 @@ const b_chainExplorerUrl = 'https://bscscan.com'
 const b_xcc_address = '0xA9F7B1a5C36DC79dd0541E50776ec98FcE0edF10'
 const b_xch_address = '0xC556C6B9d6D8443a9505DE3E17cd88B717cFd9CF'
 
-
 async function switch_network() {
     try {
         await bsc.provider.send('wallet_switchEthereumChain', [{

@@ -44,13 +44,17 @@ export default {
       })
       try {
         const addr = await wops.connect(this.$store.state.coin, commit);
-        loading.close()
         if (!addr) {
           this.$message(this.$t("connect-faild"));
         }
       } catch (e) {
-        this.$message(e.message);
+          if(e.code===-32601){
+            this.$message('wrong network')
+          }else{
+            this.$message(e.message);
+          }
       }
+      loading.close()
     },
   },
 };
