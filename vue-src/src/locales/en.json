@@ -28,6 +28,5 @@
     "transactionfee":"Transaction Fee at 0.1% will be charged, minimal 0.001 {coin} for each transaction",  
     "version":"Version",
     "withdraw":"Withdraw",
-    "waiting":"Your transaction needs time to be confirmed, please wait!",
-    "xc-lp":"Pancake SWap {coin}-liquidity"
+    "waiting":"Your transaction needs time to be confirmed, please wait!"
 }

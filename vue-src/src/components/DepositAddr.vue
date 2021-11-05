@@ -57,20 +57,22 @@ export default {
       const msg = await wops.obtain_deposit_addr(function (xaddr) {
         commit("setDepositAddr", xaddr);
       });
+
       if (msg != "ok") {
         this.loading = false;
         this.$message(msg);
       }
+      this.loading = false;
     },
-    onCopy: function () {
-      this.$message({
-        message: this.$t("copy-success"),
-        type: "success",
-      });
-    },
-    onError: function () {
-      this.$message.error(this.$t("copy-falied"));
-    },
+  },
+  onCopy: function () {
+    this.$message({
+      message: this.$t("copy-success"),
+      type: "success",
+    });
+  },
+  onError: function () {
+    this.$message.error(this.$t("copy-falied"));
   },
 };
 </script>

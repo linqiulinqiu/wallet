@@ -27,7 +27,5 @@
     "receive-money":"你将会收到:",
     "rec-alert1":"你什么也收不到",
     "rec-alert2":"您的P{coin}余额不足",
-    "contact-us":"联系我们",
-    "links":"友情链接:",
-    "xc-lp":"蛋糕网{coin}流动性"
+    "contact-us":"联系我们"
 }

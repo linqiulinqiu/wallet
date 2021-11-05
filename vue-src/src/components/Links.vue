@@ -19,7 +19,8 @@
           src="../assets/images/bunny-color.png"
           alt="pancake"
         />
-        <a>{{ $t("xc-lp", { coin: this.coin }) }}</a>
+        <img src="../assets/images/chiveslogo.png" alt="chives" />
+        <a>LP</a>
       </div>
     </el-col>
   </el-row>
@@ -41,18 +42,11 @@ export default {
   },
   methods: {
     openPancakeLp: function () {
-      if (this.contract_addr) {
-        return false;
-      }
       if (this.coin == "XCC") {
         const pancake_prefix =
           "https://pancakeswap.finance/add/0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56/0x0243FB40dDED3b4622004035D4871AA1541dB8B4";
         const url = pancake_prefix;
-        if (!this.baddr) {
-          this.$message("please choose coin first");
-        } else {
-          window.open(url);
-        }
+        window.open(url);
       }
     },
   },
@@ -94,8 +88,8 @@ export default {
   margin-top: 10px;
 }
 .el-footer img {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
 }
 .el-footer img:hover {
   transform: scale(1.2);

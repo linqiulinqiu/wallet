@@ -1,12 +1,15 @@
 <template>
-  <div>
-    <span>{{ xbalance }} P{{ coin }} </span>
-    <a
-      v-if="this.coin == 'XCC'"
-      id="buyXCC"
-      href="https://pancakeswap.finance/swap?outputCurrency=0x0243fb40dded3b4622004035d4871aa1541db8b4"
-      >buy</a
-    >
+  <div id="balance">
+    <p>
+      <span>{{ xbalance }}P{{ coin }} </span>
+      <img src="../assets/images/chiveslogo.png" alt="chives" />
+      <a
+        v-if="this.coin == 'XCC'"
+        id="buyXCC"
+        href="https://pancakeswap.finance/swap?outputCurrency=0x0243fb40dded3b4622004035d4871aa1541db8b4"
+        >buy</a
+      >
+    </p>
   </div>
 </template>
 <script>
@@ -26,5 +29,15 @@ export default {
 }
 #buyXCC:hover {
   color: rgb(127, 255, 148);
+}
+#balance img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-top: 4px;
+}
+#balance {
+  position: relative;
+  top: -15px;
 }
 </style>

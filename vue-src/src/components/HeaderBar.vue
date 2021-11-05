@@ -93,7 +93,6 @@ export default {
   height: 40px;
   margin-top: 10px;
   border-radius: 5px;
-  line-height: 40px;
   font-size: 12px;
 }
 </style>
