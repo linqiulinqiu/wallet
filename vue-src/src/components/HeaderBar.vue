@@ -4,7 +4,7 @@
       <el-col :lg="4" :sm="6" :xs="7" id="logo">
         <img src="../assets/images/PlotbridgeLogo.svg" alt="" srcset="" />
       </el-col>
-      <el-col :lg="10" :sm="1" :xs="0">{{ $t("version") }} 11/4-2</el-col>
+      <el-col :lg="10" :sm="1" :xs="0">{{ $t("version") }} 11/5-1</el-col>
 
       <el-col :lg="3" :md="3" :sm="5" :xs="5">
         <SelectCoin />
