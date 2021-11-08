@@ -306,13 +306,14 @@ function get_contract_addr() {
     }
 }
 
-async function add_token() {
+async function add_token(coin) {
+    if(!bsc.provider) return false
     const added = await bsc.provider.send(
         'wallet_watchAsset', {
             type: 'ERC20',
             options: {
                 address: bsc.contract_addr,
-                symbol: 'P' + bsc.coin,
+                symbol: 'P' + coin,
                 decimals: bsc.decimals,
                 image: 'https://app.plotbridge.net/images/chiveslogo.png'
             }
@@ -321,10 +322,20 @@ async function add_token() {
     return added
 }
 
+function bsc_fees(){
+    return {
+        deposit_fee_min    : bsc.deposit_fee_min ,
+        deposit_fee_rate   : bsc.deposit_fee_rate ,
+        withdraw_fee_min   : bsc.withdraw_fee_min ,
+        withdraw_fee_rate  : bsc.withdraw_fee_rate
+    }
+}
+
 export default {
     add_token: add_token,
     after_fee: after_fee,
     bind_withdraw_addr: bind_withdraw_addr,
+    bsc_fees: bsc_fees,
     connect: connect,
     check_bsc: check_bsc,
     get_contract_addr: get_contract_addr,

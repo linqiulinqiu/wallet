@@ -77,7 +77,7 @@ export default {
   },
   methods: {
     add_token: async function () {
-      const res = await wops.add_token();
+      const res = await wops.add_token(this.coin);
       console.log("add token", res);
     },
   },
