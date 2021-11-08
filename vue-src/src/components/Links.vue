@@ -88,14 +88,15 @@ export default {
   margin-top: 10px;
   border: 1px solid #d1fcd1;
   width: 100px;
-  border-radius: 50%;
+  border-radius: 15px;
   /* height: 40px; */
 }
 .el-footer img {
   width: 30px;
   height: 30px;
+  margin-right: 5px;
 }
-.el-footer img:hover {
+.el-footer #link-lp:hover img {
   transform: scale(1.2);
   transition: transform 0.3s;
 }

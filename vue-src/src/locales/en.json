@@ -6,7 +6,7 @@
     "burn-coin":" {coin} will be sent to {withdraw_addr}",
     "bind-fee":"A small fee (0.0005 BNB) will be charged for address generation on BSC chain",
     "contact-us":"Contact us",
-    "copy-dep-addr":"Click to copy",
+    "copy-dep-addr":"Click to copy: ",
     "copy-success":"Copy success",
     "copy-failed":"Copy failed",
     "connect-wallet":"Connect Wallet",
@@ -31,5 +31,5 @@
     "transactionfee":"Transaction Fee at {withdraw_fee_rate}% will be charged, minimal {withdraw_fee_min} {coin} for each transaction",  
     "version":"Version",
     "withdraw":"Withdraw",
-    "waiting":"Your transaction needs time to be confirmed, please wait!"
+    "waiting":"Transaction needs time to be confirmed, please wait!"
 }

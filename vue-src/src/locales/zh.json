@@ -3,7 +3,7 @@
     "balance":"余额:",
     "connect-wallet":"连接钱包",
     "deposit":"存入",
-    "copy-dep-addr":"点击复制",
+    "copy-dep-addr":"点击复制: ",
     "copy-success":"复制成功",
     "copy-failed":"复制失败",
     "depositAddr":"存款地址",

@@ -2,24 +2,36 @@
   <div id="balancelink">
     <p>
       <span>{{ xbalance }}P{{ coin }} </span>
-      <img src="../assets/images/chiveslogo.png" alt="chives" />
-      <a
-        v-if="this.coin == 'XCC'"
-        id="buyXCC"
-        href="https://pancakeswap.finance/swap?outputCurrency=0x0243fb40dded3b4622004035d4871aa1541db8b4"
-        >buy</a
-      >
+      <span v-if="this.coin == 'XCC'">
+        <img
+          src="../assets/images/chiveslogo.png"
+          alt="chives"
+          @click="add_token"
+        />
+        <a
+          id="buyXCC"
+          href="https://pancakeswap.finance/swap?outputCurrency=0x0243fb40dded3b4622004035d4871aa1541db8b4"
+          >buy</a
+        >
+      </span>
     </p>
   </div>
 </template>
 <script>
 import { mapState } from "vuex";
+import wops from "../wallet";
 export default {
   name: "Xbalance",
   computed: mapState({
     coin: "coin",
     xbalance: "xbalance",
   }),
+  methods: {
+    add_token: async function () {
+      const res = await wops.add_token(this.coin);
+      console.log("add token", res);
+    },
+  },
 };
 </script>
 <style>
@@ -35,14 +47,18 @@ export default {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  margin-top: 4px;
+  margin: 4px 4px 0px 4px;
+}
+#balancelink img:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s;
 }
 #balancelink {
   position: relative;
   top: -15px;
 }
 #balancelink a {
-  border-radius: 50%;
+  border-radius: 30%;
   background-color: #034403;
 }
 </style>

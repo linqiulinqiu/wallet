@@ -3,6 +3,7 @@
     <DepositAddr />
     <div v-if="deposit_addr" class="fee">
       <div id="exchange">
+        {{ $t("deposit") }}
         <el-input
           v-model="deposit_amount"
           size="middle"

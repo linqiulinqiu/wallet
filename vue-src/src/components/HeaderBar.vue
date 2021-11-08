@@ -4,7 +4,7 @@
       <el-col :lg="4" :sm="6" :xs="7" id="logo">
         <img src="../assets/images/PlotbridgeLogo.svg" alt="plotbridge" />
       </el-col>
-      <el-col :lg="10" :sm="1" :xs="0">{{ $t("version") }} 11/8-1</el-col>
+      <el-col :lg="10" :sm="1" :xs="0">{{ $t("version") }} 11/8-2</el-col>
 
       <el-col :lg="3" :md="3" :sm="5" :xs="5">
         <SelectCoin />
@@ -18,11 +18,8 @@
         </div>
       </el-col>
 
-      <el-col :lg="2" :md="3" :sm="4" :xs="7" v-if="baddr" id="balance">
+      <el-col :lg="4" :md="3" :sm="4" :xs="7" v-if="baddr" id="balance">
         <Xbalance />
-      </el-col>
-      <el-col :lg="2" :md="3" :sm="4" :xs="4" id="addtoken">
-        <el-button @click="add_token">{{ $t("add-token") }}</el-button>
       </el-col>
       <el-col :lg="2" :md="3" :sm="4" :xs="4" id="language">
         <el-select v-model="lang">
@@ -41,7 +38,6 @@
 <script>
 import { mapState } from "vuex";
 import { i18n, setup } from "../locales";
-import wops from "../wallet";
 import Xbalance from "./Xbalance.vue";
 import SelectCoin from "./SelectCoin.vue";
 export default {
@@ -73,12 +69,6 @@ export default {
   watch: {
     lang: function () {
       setup(this.lang);
-    },
-  },
-  methods: {
-    add_token: async function () {
-      const res = await wops.add_token(this.coin);
-      console.log("add token", res);
     },
   },
 };
