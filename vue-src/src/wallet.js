@@ -11,18 +11,18 @@ const b_chainNetName = 'bnb'
 const b_chainNCSymbol = 'BNB'
 const b_chainRpcUrl = 'https://bsc-dataseed.binance.org'
 const b_chainExplorerUrl = 'https://bscscan.com'
-const b_xcc_address = '0x0243FB40dDED3b4622004035D4871AA1541dB8B4'
+const b_xcc_address = '0xA242e5cb2946b2a72350530AD6B756d0e742d194'
 const b_xch_address = '0x38A715E494a2E470b7812C948C3D4867C097771C'
-
-// const b_chainId = '0x61'
-// const b_chainName = 'BSC Testnet'
-// const b_chainNetName = 'bnbt'
-// const b_chainNCSymbol = 'TBNB'
-// const b_chainRpcUrl = 'https://bsc-dataseed.binance.org'
-// const b_chainExplorerUrl = 'https://bscscan.com'
-// const b_xcc_address = '0xA9F7B1a5C36DC79dd0541E50776ec98FcE0edF10'
-// const b_xch_address = '0xC556C6B9d6D8443a9505DE3E17cd88B717cFd9CF'
-
+/*
+const b_chainId = '0x61'
+const b_chainName = 'BSC Testnet'
+const b_chainNetName = 'bnbt'
+const b_chainNCSymbol = 'TBNB'
+const b_chainRpcUrl = 'https://bsc-dataseed.binance.org'
+const b_chainExplorerUrl = 'https://bscscan.com'
+const b_xcc_address = '0x7d2F50De9aE8a0eF6954A2205B48C1D475E0787E'
+const b_xch_address = '0xC556C6B9d6D8443a9505DE3E17cd88B717cFd9CF'
+*/
 async function switch_network() {
     try {
         await bsc.provider.send('wallet_switchEthereumChain', [{
@@ -195,7 +195,7 @@ async function check_bsc() {
 }
 
 async function obtain_deposit_addr(callback) {
-    const bnb = ethers.constants.WeiPerEther.div(2000)
+    const bnb = await bsc.ctr.getBindFee()
     try {
         // eslint-disable-next-line no-unused-vars
         const bindListener = function (from, to, amount, evt) {
