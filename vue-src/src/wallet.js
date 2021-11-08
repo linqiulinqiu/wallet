@@ -324,9 +324,9 @@ async function add_token(coin) {
 
 function bsc_fees() {
     return {
-        deposit_fee_min: bsc.deposit_fee_min,
+        deposit_fee_min: ethers.utils.formatUnits(bsc.deposit_fee_min, bsc.decimals),
         deposit_fee_rate: bsc.deposit_fee_rate,
-        withdraw_fee_min: bsc.withdraw_fee_min,
+        withdraw_fee_min: ethers.utils.formatUnits(bsc.withdraw_fee_min, bsc.decimals),
         withdraw_fee_rate: bsc.withdraw_fee_rate
     }
 }

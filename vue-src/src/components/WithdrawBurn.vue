@@ -15,7 +15,14 @@
       }}</el-button>
       <div v-if="amount">
         <div v-if="rec_amount">
-          <p>{{ $t("receive-money") }}{{ rec_amount }}</p>
+          <p>
+            {{
+              $t("receive-money", {
+                rec_amount: this.rec_amount,
+                coin: this.coin,
+              })
+            }}
+          </p>
         </div>
         <div v-if="rec_alert">
           <p class="rec-amount">{{ rec_alert }}</p>

@@ -14,15 +14,25 @@
           <div v-if="rec_amount">
             <p>
               {{ rec_amount }}
-              {{ $t("deposit-coin", { coin: this.coin, baddr: this.baddr }) }}
+              {{ $t("deposit-coin", { coin: this.coin }) }}
             </p>
+            <p>{{ $t("bsc-addr", { baddr: this.baddr }) }}</p>
+            <span>{{ $t("in-about") }}</span>
           </div>
           <div v-if="rec_alert">
             <p class="rec-amount">{{ rec_alert }}</p>
           </div>
         </div>
       </div>
-      <p>{{ $t("transaction-fee", { coin: coin }) }}</p>
+      <p>
+        {{
+          $t("transaction-fee", {
+            coin: coin,
+            deposit_fee_min: this.fees.deposit_fee_min,
+            deposit_fee_rate: this.fees.deposit_fee_rate / 100,
+          })
+        }}
+      </p>
     </div>
   </div>
 </template>
@@ -44,8 +54,10 @@ export default {
     baddr: "baddr",
   }),
   data() {
+    const fees = wops.bsc_fees();
     return {
       deposit_amount: "",
+      fees: fees,
       rec_amount: false,
       rec_alert: false,
     };
@@ -83,15 +95,13 @@ export default {
   margin-top: 25px;
 }
 .introduction .fee p {
-  margin-bottom: 25px;
   color: rgb(23, 73, 5);
 }
 #exchange {
   width: 90%;
-  height: 90px;
+  height: 185px;
 }
 #exchange .el-input {
   width: 70%;
-  /* margin-left: 5%; */
 }
 </style>

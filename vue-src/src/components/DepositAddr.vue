@@ -1,6 +1,7 @@
 <template>
   <div class="deposit-addr" v-if="baddr">
     <div v-if="deposit_addr" class="have-dep-addr">
+      <!-- <span>存款地址</span> -->
       <el-tooltip effect="light" placement="top">
         <button
           type="button"
@@ -10,7 +11,9 @@
         >
           {{ deposit_addr }}
         </button>
-        <span size="small" slot="content">{{ $t("copy-dep-addr") }}</span>
+        <span size="small" slot="content"
+          >{{ $t("copy-dep-addr") }}{{ deposit_addr }}</span
+        >
       </el-tooltip>
     </div>
     <div v-else>

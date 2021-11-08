@@ -1,9 +1,10 @@
 <template>
   <div class="withdraw-addr" v-if="baddr">
-    <div v-if="withdraw_addr" class="bound">
+    <div v-if="withdraw_addr" id="bound">
       <p class="send">
-        {{ $t("burn-coin", { coin: coin, withdraw_addr: withdraw_addr }) }}
+        {{ $t("burn-coin", { coin: coin }) }}
       </p>
+      <p>{{ withdraw_addr }}</p>
     </div>
     <div v-else>
       <p>
@@ -84,14 +85,15 @@ export default {
   width: 70%;
   margin: 20px auto;
 }
-.bound {
+#bound {
   background-color: rgba(142, 190, 138, 0.521);
   color: rgb(23, 73, 5);
   display: block;
   width: 90%;
   height: 100px;
-  line-height: 50px;
+  line-height: 20px;
   border-radius: 20px;
   margin: 30px auto 10px;
+  padding-top: 10px;
 }
 </style>
