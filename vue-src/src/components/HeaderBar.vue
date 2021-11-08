@@ -2,7 +2,7 @@
   <el-header style="height: 100px">
     <el-row :gutter="10" type="flex" align="center">
       <el-col :lg="4" :sm="6" :xs="7" id="logo">
-        <img src="../assets/images/PlotbridgeLogo.svg" alt="plotbridge" />
+        <img src="../assets/images/plotbridge-logo.svg" alt="plotbridge" />
       </el-col>
       <el-col :lg="10" :sm="1" :xs="0">{{ $t("version") }} 11/8-2</el-col>
 

@@ -1,14 +1,16 @@
 <template>
   <div id="balancelink">
     <p>
-      <span>{{ xbalance }}P{{ coin }} </span>
+      <span class="aa">{{ xbalance }} P{{ coin }} </span>
       <span v-if="this.coin == 'XCC'">
-        <img
-          src="../assets/images/chiveslogo.png"
+        <el-image
+          :src="require('../assets/images/pxcc-logo.png')"
           alt="chives"
+          fit="fill"
           @click="add_token"
         />
         <a
+          class="aa"
           id="buyXCC"
           href="https://pancakeswap.finance/swap?outputCurrency=0x0243fb40dded3b4622004035d4871aa1541db8b4"
           >buy</a
@@ -55,10 +57,14 @@ export default {
 }
 #balancelink {
   position: relative;
-  top: -15px;
+  top: -12px;
 }
 #balancelink a {
   border-radius: 30%;
   background-color: #034403;
+}
+.aa {
+  position: relative;
+  top: -16px;
 }
 </style>

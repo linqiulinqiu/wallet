@@ -6,7 +6,7 @@
         height="96"
         rx="4"
         ry="4"
-        style="fill: none; stroke: rgb(240, 185, 11); stroke-width: 8"
+        style="fill: none; stroke: rgb(240, 185, 11); stroke-width: 2.5"
       />
       <rect
         x="0"
