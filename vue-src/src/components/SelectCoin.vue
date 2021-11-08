@@ -1,11 +1,6 @@
 <template>
   <el-select v-model="coinchg" id="selectcoin">
-    <el-option
-      key="XCH"
-      label="Chia -- BSC"
-      value="XCH"
-      :disabled="true"
-    ></el-option>
+    <el-option key="XCH" label="Chia -- BSC" value="XCH"></el-option>
     <el-option key="XCC" label="Chives -- BSC" value="XCC"></el-option>
   </el-select>
 </template>

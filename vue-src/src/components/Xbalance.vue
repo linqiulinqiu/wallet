@@ -10,12 +10,29 @@
           @click="add_token"
         />
         <a
+          target="_blank"
           class="aa"
-          id="buyXCC"
+          id="buy"
           href="https://pancakeswap.finance/swap?outputCurrency=0x0243fb40dded3b4622004035d4871aa1541db8b4"
           >buy</a
         >
       </span>
+      <span v-else-if="this.coin == 'XCH'">
+        <img
+          src="../assets/images/chia-logo.png"
+          alt="chia"
+          fit="fill"
+          @click="add_token"
+        />
+        <a
+          target="_blank"
+          class="aa"
+          id="buy"
+          href="https://pancakeswap.finance/swap?outputCurrency=0x38A715E494a2E470b7812C948C3D4867C097771C"
+          >buy</a
+        >
+      </span>
+      <span v-else></span>
     </p>
   </div>
 </template>
@@ -37,11 +54,11 @@ export default {
 };
 </script>
 <style>
-#buyXCC {
+#buy {
   color: #d1fcd1;
   text-decoration: none;
 }
-#buyXCC:hover {
+#buy:hover {
   background-color: #d1fcd1;
   color: #668b66;
 }

@@ -13,7 +13,12 @@
           src="../assets/images/bunny-color.png"
           alt="pancake"
         />
-        <img src="../assets/images/pxcc-logo.png" alt="chives" />
+        <span v-if="this.coin == 'XCC'">
+          <img src="../assets/images/pxcc-logo.png" alt="chives" />
+        </span>
+        <span v-else-if="this.coin == 'XCH'">
+          <img src="../assets/images/chia-logo.png" alt="chia" />
+        </span>
         <a>LP</a>
       </div>
     </el-col>
@@ -36,6 +41,11 @@ export default {
           "https://pancakeswap.finance/add/0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56/0x0243FB40dDED3b4622004035D4871AA1541dB8B4";
         const url = pancake_prefix;
         window.open(url);
+      } else if (this.coin == "XCH") {
+        const url = "";
+        window.open(url);
+      } else {
+        return false;
       }
     },
   },
