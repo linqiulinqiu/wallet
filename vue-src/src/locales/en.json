@@ -6,7 +6,7 @@
     "burn-coin":"your {coin} will be sent to {withdraw_addr}",
     "bind-fee":"A small fee (0.0005 BNB) will be charged for address generation on BSC chain",
     "contact-us":"Contact us",
-    "copy-dep-addr":"You can click to copy it",
+    "copy-dep-addr":"Click to copy it",
     "copy-success":"Copy success",
     "copy-failed":"Copy failed",
     "connect-wallet":"Connect Wallet",
