@@ -62,7 +62,7 @@ export default {
   background-size: 100%;
 }
 #contact-us a:nth-child(2) {
-  background: url("../assets/images/t_logo.svg") no-repeat center;
+  background: url("../assets/images/telegram-logo.svg") no-repeat center;
   background-size: 100%;
 }
 #contact-us a:nth-child(3) {
@@ -70,7 +70,7 @@ export default {
   background-size: 100%;
 }
 #contact-us a:nth-child(2):hover {
-  background: url("../assets/images/t_logo.svg") no-repeat center;
+  background: url("../assets/images/telegram-logo.svg") no-repeat center;
   background-size: 120%;
 }
 #contact-us a:nth-child(3):hover {

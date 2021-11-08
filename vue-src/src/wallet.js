@@ -14,7 +14,6 @@ const b_chainExplorerUrl = 'https://bscscan.com'
 const b_xcc_address = '0x0243FB40dDED3b4622004035D4871AA1541dB8B4'
 const b_xch_address = '0x38A715E494a2E470b7812C948C3D4867C097771C'
 
-// 
 // const b_chainId = '0x61'
 // const b_chainName = 'BSC Testnet'
 // const b_chainNetName = 'bnbt'
@@ -315,7 +314,7 @@ async function add_token(coin) {
                 address: bsc.contract_addr,
                 symbol: 'P' + coin,
                 decimals: bsc.decimals,
-                image: 'https://app.plotbridge.net/img/chiveslogo.824d8e75.png'
+                image: 'https://app.plotbridge.net/img/pxcc-logo.png'
             }
         }
     )

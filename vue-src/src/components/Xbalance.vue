@@ -3,8 +3,8 @@
     <p>
       <span class="aa">{{ xbalance }} P{{ coin }} </span>
       <span v-if="this.coin == 'XCC'">
-        <el-image
-          :src="require('../assets/images/pxcc-logo.png')"
+        <img
+          src="../assets/images/pxcc-logo.png"
           alt="chives"
           fit="fill"
           @click="add_token"
@@ -65,6 +65,6 @@ export default {
 }
 .aa {
   position: relative;
-  top: -16px;
+  top: -10px;
 }
 </style>
