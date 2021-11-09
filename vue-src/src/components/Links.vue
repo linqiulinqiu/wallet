@@ -26,6 +26,7 @@
 </template>
 <script>
 import { mapState } from "vuex";
+import wops from "../wallet";
 
 export default {
   name: "links",
@@ -36,17 +37,10 @@ export default {
   }),
   methods: {
     openPancakeLp: function () {
-      if (this.coin == "XCC") {
-        const pancake_prefix =
-          "https://pancakeswap.finance/add/0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56/0x0243FB40dDED3b4622004035D4871AA1541dB8B4";
-        const url = pancake_prefix;
-        window.open(url);
-      } else if (this.coin == "XCH") {
-        const url = "";
-        window.open(url);
-      } else {
-        return false;
-      }
+      const contract_addr = wops.get_contract_addr();
+      // const lp_addr = wops.get_lp_addr()
+      const url = contract_addr;
+      window.open(url);
     },
   },
 };

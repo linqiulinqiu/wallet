@@ -10,7 +10,7 @@
       <p>
         <el-input
           v-model="xwaddr"
-          :placeholder="$t('input-wallet-for-withdraw')"
+          :placeholder="$t('input-wallet-for-withdraw', { coin: coin })"
           suffix-icon="el-icon-edit"
         ></el-input>
       </p>
