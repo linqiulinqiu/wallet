@@ -4,17 +4,17 @@ import {
 import token_abi from './token-abi.json'
 
 const bsc = {}
-/*
+
 const b_chainId = '0x38'
 const b_chainName = 'BSC Mainnet'
 const b_chainNetName = 'bnb'
 const b_chainNCSymbol = 'BNB'
 const b_chainRpcUrl = 'https://bsc-dataseed.binance.org'
 const b_chainExplorerUrl = 'https://bscscan.com'
-const b_xcc_address = '0xA242e5cb2946b2a72350530AD6B756d0e742d194'
+const b_xcc_address = '0x24D7ec172b331c7636a5Ca604de890996e5e2028'
 const b_xch_address = '0x38A715E494a2E470b7812C948C3D4867C097771C'
-*/
 
+/*
 const b_chainId = '0x61'
 const b_chainName = 'BSC Testnet'
 const b_chainNetName = 'bnbt'
@@ -23,6 +23,7 @@ const b_chainRpcUrl = 'https://bsc-dataseed.binance.org'
 const b_chainExplorerUrl = 'https://bscscan.com'
 const b_xcc_address = '0xD98ebD2073b389558005683262B241749B1C5655'
 const b_xch_address = '0xC556C6B9d6D8443a9505DE3E17cd88B717cFd9CF'
+*/
 
 async function switch_network() {
     try {
