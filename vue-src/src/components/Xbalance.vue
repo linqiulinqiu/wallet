@@ -9,13 +9,7 @@
           fit="fill"
           @click="add_token"
         />
-        <a
-          target="_blank"
-          class="aa"
-          id="buy"
-          href="https://pancakeswap.finance/swap?outputCurrency=0x0243fb40dded3b4622004035d4871aa1541db8b4"
-          >buy</a
-        >
+        <a target="_blank" class="aa" id="buy" @click="openswap">buy</a>
       </span>
       <span v-else-if="this.coin == 'XCH'">
         <img
@@ -24,13 +18,7 @@
           fit="fill"
           @click="add_token"
         />
-        <a
-          target="_blank"
-          class="aa"
-          id="buy"
-          href="https://pancakeswap.finance/swap?outputCurrency=0x38A715E494a2E470b7812C948C3D4867C097771C"
-          >buy</a
-        >
+        <a target="_blank" class="aa" id="buy" @click="openswap">buy</a>
       </span>
       <span v-else></span>
     </p>
@@ -49,6 +37,13 @@ export default {
     add_token: async function () {
       const res = await wops.add_token(this.coin);
       console.log("add token", res);
+    },
+    openswap: async function () {
+      const contract_addr = wops.get_contract_addr();
+      const swap = "https://pancakeswap.finance/swap?outputCurrency=";
+      const url = swap + contract_addr;
+      console.log("contract_addr", contract_addr);
+      window.open(url);
     },
   },
 };
