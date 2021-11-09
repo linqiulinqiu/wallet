@@ -247,6 +247,7 @@ async function bind_withdraw_addr(xaddr, callback, rebind) {
             await bsc.ctr.bindXout(xhex)
         }else{
             const bnb = await bsc.ctr.getRebindFee()
+            console.log('rebind fee', bnb)
             await bsc.ctr.rebindXout(xhex, {value: bnb})
         }
         return 'ok'
@@ -336,6 +337,16 @@ function bsc_fees() {
     }
 }
 
+async function get_bind_fee(rebind){
+    var fee = 0
+    if(rebind){
+        fee = await bsc.ctr.getRebindFee()
+    }else{
+        fee = await bsc.ctr.getBindFee()
+    }
+    return ethers.utils.formatEther(fee)
+}
+
 export default {
     add_token: add_token,
     after_fee: after_fee,
@@ -343,6 +354,7 @@ export default {
     bsc_fees: bsc_fees,
     connect: connect,
     check_bsc: check_bsc,
+    get_bind_fee: get_bind_fee,
     get_contract_addr: get_contract_addr,
     obtain_deposit_addr: obtain_deposit_addr,
     token_balance: token_balance,

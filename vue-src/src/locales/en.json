@@ -4,7 +4,7 @@
     "balance":"Balance:",
     "bind-withdraw-address":"Bind withdraw address",
     "burn-coin":" {coin} will be sent to {withdraw_addr}",
-    "bind-fee":"A small fee (0.0005 BNB) will be charged for address generation on BSC chain",
+    "bind-fee":"A small fee ({fee} BNB) will be charged for address generation on BSC chain",
     "contact-us":"Contact us",
     "copy-dep-addr":"Click to copy: ",
     "copy-success":"Copy success",

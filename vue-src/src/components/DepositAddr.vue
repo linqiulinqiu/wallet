@@ -1,7 +1,6 @@
 <template>
   <div class="deposit-addr" v-if="baddr">
     <div v-if="deposit_addr" class="have-dep-addr">
-      <!-- <span>存款地址</span> -->
       <el-tooltip effect="light" placement="top">
         <button
           type="button"
@@ -29,7 +28,7 @@
         <pulse-loader></pulse-loader>
         {{ typeof free_xins + " " + $t("check-depositAddr") }}
       </p>
-      <p v-if="free_xins > 0">{{ $t("bind-fee") }}</p>
+      <p v-if="free_xins > 0">{{ $t("bind-fee",{fee:bind_fee}) }}</p>
     </div>
   </div>
 </template>
@@ -48,12 +47,15 @@ export default {
   }),
   data: () => {
     return {
+      bind_fee: '-',
       loading: false,
       onCopy: "",
       onError: "",
     };
   },
-
+  created(){
+      this.load_fee()
+  },
   methods: {
     obtain_addr: async function () {
       this.disabled;
@@ -69,6 +71,10 @@ export default {
       }
       this.loading = false;
     },
+    load_fee: async function () {
+        const fee = await wops.get_bind_fee(false)
+        this.bind_fee = fee
+    }
   },
   onCopy: function () {
     this.$message({
