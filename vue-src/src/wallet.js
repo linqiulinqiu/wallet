@@ -106,14 +106,14 @@ async function connect(coin, commit) {
         bsc.xbalance = await token_balance(true)
         if (coin == 'XCC') {
             bsc.deposit_fee_min = ethers.utils.parseUnits("20", bsc.decimals)
-            bsc.deposit_fee_rate = 30
+            bsc.deposit_fee_rate = 25
             bsc.withdraw_fee_min = ethers.utils.parseUnits("2", bsc.decimals)
-            bsc.withdraw_fee_rate = 10
+            bsc.withdraw_fee_rate = 20
         } else if (coin == 'XCH') {
             bsc.deposit_fee_min = ethers.utils.parseUnits("0.01", bsc.decimals)
-            bsc.deposit_fee_rate = 30
+            bsc.deposit_fee_rate = 25
             bsc.withdraw_fee_min = ethers.utils.parseUnits("0.001", bsc.decimals)
-            bsc.withdraw_fee_rate = 10
+            bsc.withdraw_fee_rate = 20
         }
 
         commit("setFreeXins", (await bsc.ctr.getFreeXinAddrCount()).toNumber())
