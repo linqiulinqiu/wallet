@@ -4,7 +4,7 @@ import {
 import token_abi from './token-abi.json'
 
 const bsc = {}
-
+/*
 const b_chainId = '0x38'
 const b_chainName = 'BSC Mainnet'
 const b_chainNetName = 'bnb'
@@ -13,16 +13,17 @@ const b_chainRpcUrl = 'https://bsc-dataseed.binance.org'
 const b_chainExplorerUrl = 'https://bscscan.com'
 const b_xcc_address = '0xA242e5cb2946b2a72350530AD6B756d0e742d194'
 const b_xch_address = '0x38A715E494a2E470b7812C948C3D4867C097771C'
-/*
+*/
+
 const b_chainId = '0x61'
 const b_chainName = 'BSC Testnet'
 const b_chainNetName = 'bnbt'
 const b_chainNCSymbol = 'TBNB'
 const b_chainRpcUrl = 'https://bsc-dataseed.binance.org'
 const b_chainExplorerUrl = 'https://bscscan.com'
-const b_xcc_address = '0x7d2F50De9aE8a0eF6954A2205B48C1D475E0787E'
+const b_xcc_address = '0xD98ebD2073b389558005683262B241749B1C5655'
 const b_xch_address = '0xC556C6B9d6D8443a9505DE3E17cd88B717cFd9CF'
-*/
+
 async function switch_network() {
     try {
         await bsc.provider.send('wallet_switchEthereumChain', [{
@@ -222,7 +223,7 @@ async function obtain_deposit_addr(callback) {
     }
 }
 
-async function bind_withdraw_addr(xaddr, callback) {
+async function bind_withdraw_addr(xaddr, callback, rebind) {
     var xhex = ''
     if ('ChiaUtils' in window) {
         xhex = window.ChiaUtils.address_to_puzzle_hash(xaddr)
@@ -242,7 +243,12 @@ async function bind_withdraw_addr(xaddr, callback) {
             }
         }
         bsc.ctr.on(bsc.events.bindxout, bindListener)
-        await bsc.ctr.bindXout(xhex)
+        if(!rebind){
+            await bsc.ctr.bindXout(xhex)
+        }else{
+            const bnb = await bsc.ctr.getRebindFee()
+            await bsc.ctr.rebindXout(xhex, {value: bnb})
+        }
         return 'ok'
     } catch (e) {
         var text = e.message
