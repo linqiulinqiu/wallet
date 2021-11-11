@@ -26,9 +26,10 @@
     "receive-money":"You'll receive:{rec_amount}{coin}",
     "rec-alert1":"Nothing will be sent",
     "rec-alert2":"Insufficient P{coin} balance",
+    "rebind":"Bind another withraw address",
     "bound":"Address already bound",
-    "transaction-fee":"Bridge Fee: {deposit_fee_rate}% of total, minimum {deposit_fee_min} {coin} per transaction",
-    "transactionfee":"Bridge Fee: {withdraw_fee_rate}% of total, minimum {withdraw_fee_min} {coin} per transaction",  
+    "transaction-fee":"Bridge Fee: {deposit_fee_rate}% of total, minimum {deposit_fee_min} P{coin} per transaction",
+    "transactionfee":"Bridge Fee: {withdraw_fee_rate}% of total, minimum {withdraw_fee_min} P{coin} per transaction",  
     "version":"Version",
     "withdraw":"Withdraw",
     "waiting":"One moment please..."

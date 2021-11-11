@@ -59,4 +59,10 @@ export default {
   top: -90px;
   left: -2px;
 }
+#toRebind:hover {
+  transform: scale(1.5);
+  opacity: 0.7;
+  transition: transform 0.3s;
+  border: 1px solid #d1fcd1;
+}
 </style>

@@ -108,12 +108,12 @@ async function connect(coin, commit) {
         if (coin == 'XCC') {
             bsc.deposit_fee_min = ethers.utils.parseUnits("20", bsc.decimals)
             bsc.deposit_fee_rate = 25
-            bsc.withdraw_fee_min = ethers.utils.parseUnits("2", bsc.decimals)
+            bsc.withdraw_fee_min = ethers.utils.parseUnits("5", bsc.decimals)
             bsc.withdraw_fee_rate = 20
         } else if (coin == 'XCH') {
             bsc.deposit_fee_min = ethers.utils.parseUnits("0.01", bsc.decimals)
             bsc.deposit_fee_rate = 25
-            bsc.withdraw_fee_min = ethers.utils.parseUnits("0.001", bsc.decimals)
+            bsc.withdraw_fee_min = ethers.utils.parseUnits("0.003", bsc.decimals)
             bsc.withdraw_fee_rate = 20
         }
 
@@ -238,18 +238,21 @@ async function bind_withdraw_addr(xaddr, callback, rebind) {
         const bindListener = function (from, to, amount, evt) {
             if (ethers.utils.getAddress(from) == ethers.utils.getAddress(bsc.addr)) {
                 if (typeof (callback) == 'function') {
+                    //3SEC = bsc BLOCK TIME
                     get_withdraw_addr().then(callback)
                 }
                 bsc.ctr.off(bsc.events.bindxout, bindListener)
             }
         }
         bsc.ctr.on(bsc.events.bindxout, bindListener)
-        if(!rebind){
+        if (!rebind) {
             await bsc.ctr.bindXout(xhex)
-        }else{
+        } else {
             const bnb = await bsc.ctr.getRebindFee()
             console.log('rebind fee', bnb)
-            await bsc.ctr.rebindXout(xhex, {value: bnb})
+            await bsc.ctr.rebindXout(xhex, {
+                value: bnb
+            })
         }
         return 'ok'
     } catch (e) {
@@ -338,11 +341,11 @@ function bsc_fees() {
     }
 }
 
-async function get_bind_fee(rebind){
+async function get_bind_fee(rebind) {
     var fee = 0
-    if(rebind){
+    if (rebind) {
         fee = await bsc.ctr.getRebindFee()
-    }else{
+    } else {
         fee = await bsc.ctr.getBindFee()
     }
     return ethers.utils.formatEther(fee)

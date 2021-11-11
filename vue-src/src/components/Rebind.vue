@@ -1,6 +1,6 @@
 <template>
   <div id="rebind" v-if="r">
-    <p>Rebind:</p>
+    <p>{{ $t("Rebind") }}</p>
     <el-input
       v-model="xwaddr"
       :placeholder="$t('input-wallet-for-withdraw', { coin: coin })"
