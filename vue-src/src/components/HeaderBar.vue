@@ -5,7 +5,14 @@
         <img src="../assets/images/plotbridge-logo.svg" alt="plotbridge" />
       </el-col>
       <el-col :lg="10" :sm="1" :xs="0"
-        >{{ $t("version") }} 11/11-1 beta testing
+        >{{ $t("version") }} 11/11-2 beta testing
+
+        <div>
+          <a
+            href="https://pancakeswap.finance/add/0x24D7ec172b331c7636a5Ca604de890996e5e2028/0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56"
+            >XCClp</a
+          >
+        </div>
       </el-col>
 
       <el-col :lg="3" :md="3" :sm="5" :xs="5">

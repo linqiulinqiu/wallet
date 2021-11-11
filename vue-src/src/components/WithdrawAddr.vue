@@ -1,53 +1,54 @@
 <template>
-  <div class="withdraw-addr" v-if="baddr">
-    <div v-if="withdraw_addr" id="bound">
-      <p class="send">
-        {{ $t("burn-coin", { coin: coin }) }}
-      </p>
-      <p>{{ withdraw_addr }}</p>
-      <p>
-        <el-input
-          v-model="xwaddr"
-          :placeholder="$t('input-wallet-for-withdraw')"
-          suffix-icon="el-icon-edit"
-        ></el-input>
-      </p>
-      <el-button @click="rebind_addr" :loading="loading" :disabled="disabled">
-        Rebind-Withdraw Addr
-      </el-button>
+  <div id="withdraw-addr" v-if="baddr">
+    <div v-if="withdraw_addr">
+      <div v-if="r">
+        <Rebind />
+      </div>
+      <div v-else>
+        <SendToWaddr />
+        <div>
+          <WithdrawBurn />
+        </div>
+      </div>
     </div>
     <div v-else>
-      <p>
-        <el-input
-          v-model="xwaddr"
-          :placeholder="$t('input-wallet-for-withdraw', { coin: coin })"
-          suffix-icon="el-icon-edit"
-        ></el-input>
-      </p>
-      <el-button @click="bind_addr" :loading="loading" :disabled="disabled">{{
-        $t("bind-withdraw-address")
-      }}</el-button>
-    </div>
-    <div class="withdrawburn">
-      <WithdrawBurn />
+      <div v-if="!r">
+        <Bind />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
-import wops from "../wallet";
+// import wops from "../wallet";
 import WithdrawBurn from "./WithdrawBurn.vue";
+import Bind from "./Bind.vue";
+import Rebind from "./Rebind.vue";
+import SendToWaddr from "./SendToWaddr.vue";
 
 export default {
   name: "WithdrawAddr",
   components: {
+    Bind,
     WithdrawBurn,
+    Rebind,
+    SendToWaddr,
   },
   computed: mapState({
     baddr: "baddr",
     withdraw_addr: "withdraw_addr",
     coin: "coin",
+    r(state) {
+      const wa = state.withdraw_addr;
+      if (wa === "") {
+        return false;
+      }
+      if (String(wa).substring(0, 1) == " ") {
+        return true;
+      }
+      return false;
+    },
   }),
   data: () => {
     return {
@@ -56,70 +57,14 @@ export default {
       disabled: false,
     };
   },
-  watch: {},
-  methods: {
-    bind_addr: async function () {
-      const commit = this.$store.commit;
-      console.log("try bind");
-      try {
-        const msg = await wops.bind_withdraw_addr(
-          this.xwaddr,
-          function (xaddr) {
-            commit("setWithdrawAddr", xaddr);
-          },
-          false
-        );
-        console.log("this.xwaddr", this.xwaddr);
-        console.log("this.withdrawaddr", this.withdraw_addr);
-        if (msg == "ok") {
-          this.loading = true;
-          this.disabled = true;
-        } else {
-          this.$message(msg);
-          this.xwaddr = "";
-          this.loading = false;
-          this.disabled = false;
-        }
-      } catch (e) {
-        this.$message("Address error, please enter the correct address");
-        console.log("ex", e, typeof this.xwaddr);
-      }
-    },
-    rebind_addr: async function () {
-      const commit = this.$store.commit;
-      console.log("try bind");
-      try {
-        const msg = await wops.bind_withdraw_addr(
-          this.xwaddr,
-          function (xaddr) {
-            commit("setWithdrawAddr", xaddr);
-          },
-          true
-        );
-        console.log("this.xwaddr", this.xwaddr);
-        console.log("this.withdrawaddr", this.withdraw_addr);
-        if (msg == "ok") {
-          this.loading = true;
-          this.disabled = true;
-        } else {
-          this.$message(msg);
-          this.xwaddr = "";
-          this.loading = false;
-          this.disabled = false;
-        }
-      } catch (e) {
-        this.$message("Address error, please enter the correct address");
-        console.log("ex", e, typeof this.xwaddr);
-      }
-    },
-  },
 };
 </script>
 <style>
-.withdraw-addr {
+#withdraw-addr {
   height: 250px;
+  width: 100%;
 }
-.withdraw-addr .el-input {
+#withdraw-addr .el-input {
   width: 70%;
   margin: 20px auto;
 }
