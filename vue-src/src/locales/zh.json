@@ -28,6 +28,7 @@
     "rebind":"重绑定",
     "transactionfee":"将收取{withdraw_fee_rate}%的交易费,每笔交易最低收取{withdraw_fee_min} P{coin}",
     "amount":"请输入金额",
+    "max":"全部",
     "correct-amount":"请输入正确的金额",
     "waiting":"您的交易需要时间确认,请稍作等待!",
     "receive-money":"您将会收到:{rec_amount}{coin}",

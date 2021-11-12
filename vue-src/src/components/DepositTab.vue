@@ -20,8 +20,11 @@
             <p>{{ $t("bsc-addr", { baddr: this.baddr }) }}</p>
             <span>{{ $t("in-about") }}</span>
           </div>
-          <div v-if="rec_alert">
-            <p class="rec-amount">{{ rec_alert }}</p>
+          <div v-if="rec_alert1">
+            <p class="rec-amount">{{ $t("rec-alert1") }}</p>
+          </div>
+          <div v-if="rec_alert2">
+            <p>{{ this.$t("rec-alert2", { coin: this.coin }) }}</p>
           </div>
         </div>
       </div>
@@ -60,7 +63,8 @@ export default {
       deposit_amount: "",
       fees: fees,
       rec_amount: false,
-      rec_alert: false,
+      rec_alert1: false,
+      rec_alert2: false,
     };
   },
   watch: {
@@ -72,13 +76,16 @@ export default {
       const after_fee = wops.after_fee("deposit", depositamount);
       if (!after_fee) {
         this.rec_amount = false;
-        this.rec_alert = this.$t("rec-alert1");
+        this.rec_alert1 = true;
+        this.rec_alert2 = false;
       } else if (after_fee == "fund") {
         this.rec_amount = false;
-        this.rec_alert = this.$t("rec-alert2", { coin: this.coin });
+        this.rec_alert1 = false;
+        this.rec_alert2 = true;
       } else {
         this.rec_amount = after_fee;
-        this.rec_alert = false;
+        this.rec_alert1 = false;
+        this.rec_alert2 = false;
       }
     },
   },

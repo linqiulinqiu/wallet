@@ -5,7 +5,7 @@
         <img src="../assets/images/plotbridge-logo.svg" alt="plotbridge" />
       </el-col>
       <el-col :lg="10" :sm="1" :xs="0"
-        >{{ $t("version") }} 11/12-1 beta testing
+        >{{ $t("version") }} 11/12-3 beta testing
       </el-col>
 
       <el-col :lg="3" :md="3" :sm="5" :xs="5">

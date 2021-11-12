@@ -21,6 +21,7 @@
     "in-about":"in about 10 minutes",  
     "input-wallet-for-withdraw":"Please input your wallet address to receive whithdrawn {coin}",
     "links":"Friendly links:",
+    "max":"Max",
     "no-connect":"Wallet Not Connected",
     "no-depositAddr":"No Deposit Address Available, Please wait a while",
     "obtain-deposit-address":"Obtain Deposit Address",
