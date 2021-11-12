@@ -22,7 +22,7 @@ const b_chainNCSymbol = 'TBNB'
 const b_chainRpcUrl = 'https://bsc-dataseed.binance.org'
 const b_chainExplorerUrl = 'https://bscscan.com'
 const b_xcc_address = '0xD98ebD2073b389558005683262B241749B1C5655'
-const b_xch_address = '0xC556C6B9d6D8443a9505DE3E17cd88B717cFd9CF'
+const b_xch_address = '0xFdF2F0995663a993A16929CeC5c39B039AB18Ef6'
 */
 
 async function switch_network() {
