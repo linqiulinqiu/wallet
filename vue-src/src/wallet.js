@@ -238,8 +238,12 @@ async function bind_withdraw_addr(xaddr, callback, rebind) {
         const bindListener = function (from, to, amount, evt) {
             if (ethers.utils.getAddress(from) == ethers.utils.getAddress(bsc.addr)) {
                 if (typeof (callback) == 'function') {
+
                     //3SEC = bsc BLOCK TIME
-                    get_withdraw_addr().then(callback)
+                    setTimeout(() => {
+                        get_withdraw_addr().then(callback)
+                    }, 3000);
+
                 }
                 bsc.ctr.off(bsc.events.bindxout, bindListener)
             }

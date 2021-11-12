@@ -1,5 +1,5 @@
 <template>
-  <div class="introduction">
+  <div id="introduction">
     <DepositAddr />
     <div v-if="deposit_addr" class="fee">
       <div id="exchange">
@@ -85,24 +85,24 @@ export default {
 };
 </script>
 <style>
-.introduction {
+#introduction {
   height: 360px;
   position: relative;
   top: 30px;
   width: 90%;
   margin: 0px auto;
 }
-.introduction .fee {
+#introduction .fee {
   margin-top: 25px;
 }
-.introduction .fee p {
+#introduction .fee p {
   color: rgb(23, 73, 5);
 }
 #exchange {
   width: 90%;
   height: 185px;
 }
-#exchange .el-input {
+#exchange > .el-input {
   width: 70%;
 }
 </style>

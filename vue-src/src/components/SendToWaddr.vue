@@ -4,7 +4,7 @@
       {{ $t("burn-coin", { coin: coin }) }}
     </p>
     <p>{{ withdraw_addr }}</p>
-    <button @click="toRebind" id="toRebind">rebind</button>
+    <button @click="toRebind" id="toRebind">Rebind</button>
   </div>
 </template>
 <script>
@@ -39,7 +39,6 @@ export default {
   methods: {
     toRebind: function () {
       this.$store.commit("setWithdrawAddr", " " + this.withdraw_addr);
-      console.log("torebind", this.r);
     },
   },
 };

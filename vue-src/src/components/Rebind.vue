@@ -1,15 +1,28 @@
 <template>
   <div id="rebind" v-if="r">
-    <p>{{ $t("Rebind") }}</p>
-    <el-input
-      v-model="xwaddr"
-      :placeholder="$t('input-wallet-for-withdraw', { coin: coin })"
-      suffix-icon="el-icon-edit"
-    ></el-input>
-    <el-button @click="rebind_addr" :loading="loading" :disabled="disabled"
-      >rebind</el-button
-    >
-    <el-button @click="cancel_rebind">cancel</el-button>
+    <p>{{ $t("rebind-newaddr") }}</p>
+    <p>
+      <el-input
+        id="rebindInput"
+        v-model="xwaddr"
+        :placeholder="$t('input-wallet-for-withdraw', { coin: coin })"
+        suffix-icon="el-icon-edit"
+      ></el-input>
+    </p>
+
+    <div>
+      <el-button
+        type="primary"
+        plain
+        @click="rebind_addr"
+        :loading="loading"
+        :disabled="disabled"
+        >{{ $t("rebind") }}</el-button
+      >
+      <el-button type="primary" plain @click="cancel_rebind">{{
+        $t("cancel")
+      }}</el-button>
+    </div>
   </div>
 </template>
 <script>
@@ -84,8 +97,12 @@ export default {
 };
 </script>
 <style>
-#Rebind {
-  width: 90%;
+#rebind {
+  width: 100%;
   margin: 0px auto;
+  height: 250px;
+}
+#rebind .el-input {
+  width: 100%;
 }
 </style>

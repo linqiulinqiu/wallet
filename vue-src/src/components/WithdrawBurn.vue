@@ -1,5 +1,5 @@
 <template>
-  <div class="WithdrawBurn">
+  <div id="WithdrawBurn">
     <div v-if="xwaddr">
       <el-input
         size="middle"
@@ -10,9 +10,17 @@
         :placeholder="$t('amount')"
       >
       </el-input>
-      <el-button @click="withdraw" :loading="loading" :disabled="disabled">{{
-        $t("withdraw")
-      }}</el-button>
+      <el-button type="primary" plain @click="amount = xbalance">max</el-button>
+
+      <el-button
+        type="primary"
+        plain
+        size="middle"
+        @click="withdraw"
+        :loading="loading"
+        :disabled="disabled"
+        >{{ $t("withdraw") }}</el-button
+      >
       <div v-if="amount">
         <div v-if="rec_amount">
           <p>
@@ -118,8 +126,5 @@ export default {
   width: 95%;
   color: rgb(23, 73, 5);
   font-size: 15px;
-}
-.WithdrawBurn .el-button {
-  color: rgb(23, 73, 5);
 }
 </style>

@@ -65,7 +65,7 @@ export default {
   width: 100%;
 }
 #withdraw-addr .el-input {
-  width: 70%;
+  width: 60%;
   margin: 20px auto;
 }
 #bound {

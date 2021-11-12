@@ -20,6 +20,7 @@
         v-if="free_xins > 0"
         @click="obtain_addr"
         :loading="loading"
+        :disabled="disabled"
         class="obtain"
         >{{ $t("obtain-deposit-address") }}</el-button
       >
@@ -28,7 +29,7 @@
         <pulse-loader></pulse-loader>
         {{ typeof free_xins + " " + $t("check-depositAddr") }}
       </p>
-      <p v-if="free_xins > 0">{{ $t("bind-fee",{fee:bind_fee}) }}</p>
+      <p v-if="free_xins > 0">{{ $t("bind-fee", { fee: bind_fee }) }}</p>
     </div>
   </div>
 </template>
@@ -47,34 +48,37 @@ export default {
   }),
   data: () => {
     return {
-      bind_fee: '-',
+      bind_fee: "-",
       loading: false,
+      disabled: false,
       onCopy: "",
       onError: "",
     };
   },
-  created(){
-      this.load_fee()
+  created() {
+    this.load_fee();
   },
   methods: {
     obtain_addr: async function () {
-      this.disabled;
-      const commit = this.$store.commit;
+      this.disabled = true;
       this.loading = true;
+      const commit = this.$store.commit;
       const msg = await wops.obtain_deposit_addr(function (xaddr) {
         commit("setDepositAddr", xaddr);
       });
 
       if (msg != "ok") {
         this.loading = false;
+        this.disabled = false;
         this.$message(msg);
       }
       this.loading = false;
+      this.disabled = false;
     },
     load_fee: async function () {
-        const fee = await wops.get_bind_fee(false)
-        this.bind_fee = fee
-    }
+      const fee = await wops.get_bind_fee(false);
+      this.bind_fee = fee;
+    },
   },
   onCopy: function () {
     this.$message({
