@@ -25,7 +25,7 @@
     "burn-coin":"取出的{coin}将发送到{withdraw_addr}",
     "rebind-newaddr":"重新绑定一个新的地址",
     "cancel":"取消",
-    "rebind":"重绑定",
+    "rebind":"绑定",
     "transactionfee":"将收取{withdraw_fee_rate}%的交易费,每笔交易最低收取{withdraw_fee_min} P{coin}",
     "amount":"请输入金额",
     "max":"全部",

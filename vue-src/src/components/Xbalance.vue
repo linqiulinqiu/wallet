@@ -42,7 +42,6 @@ export default {
       const contract_addr = wops.get_contract_addr();
       const swap = "https://pancakeswap.finance/swap?outputCurrency=";
       const url = swap + contract_addr;
-      console.log("contract_addr", contract_addr);
       window.open(url);
     },
   },

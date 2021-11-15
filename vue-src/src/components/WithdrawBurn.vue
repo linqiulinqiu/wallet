@@ -29,7 +29,7 @@
             {{
               $t("receive-money", {
                 rec_amount: this.rec_amount,
-                coin: this.coin,
+                coin: coin,
               })
             }}
           </p>
@@ -135,5 +135,8 @@ export default {
   width: 95%;
   color: rgb(23, 73, 5);
   font-size: 15px;
+}
+#WithdrawBurn {
+  color: #034203;
 }
 </style>

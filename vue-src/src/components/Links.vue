@@ -26,7 +26,7 @@
 </template>
 <script>
 import { mapState } from "vuex";
-// import wops from "../wallet";
+import wops from "../wallet";
 
 export default {
   name: "links",
@@ -37,13 +37,10 @@ export default {
   }),
   methods: {
     openPancakeLp: function () {
-      //   const contract_addr = wops.get_contract_addr();
-      //   console.log(contract_addr);
-      //   const lp_addr = "/0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56";
-      //   const prefixpPancake = "https://pancakeswap.finance/add/";
-      // const url = prefixpPancake + contract_addr + lp_addr;
-      const url =
-        "https://pancakeswap.finance/add/0x24D7ec172b331c7636a5Ca604de890996e5e2028/0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56";
+      const contract_addr = wops.get_contract_addr();
+      const lp_addr = "/0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56";
+      const prefixpPancake = "https://pancakeswap.finance/add/";
+      const url = prefixpPancake + contract_addr + lp_addr;
       window.open(url);
     },
   },

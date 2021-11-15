@@ -25,7 +25,7 @@
     "no-connect":"Wallet Not Connected",
     "no-depositAddr":"No Deposit Address Available, Please wait a while",
     "obtain-deposit-address":"Obtain Deposit Address",
-    "rebind":"Rebind",
+    "rebind":"Bind",
     "receive-money":"You'll receive:{rec_amount}{coin}",
     "rec-alert1":"Nothing will be sent",
     "rec-alert2":"Insufficient P{coin} balance",

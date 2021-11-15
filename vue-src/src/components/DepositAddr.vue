@@ -2,12 +2,7 @@
   <div class="deposit-addr" v-if="baddr">
     <div v-if="deposit_addr" class="have-dep-addr">
       <el-tooltip effect="light" placement="top">
-        <button
-          type="button"
-          v-clipboard:copy="deposit_addr"
-          v-clipboard:success="onCopy"
-          v-clipboard:error="onError"
-        >
+        <button type="button" v-clipboard:copy="deposit_addr">
           {{ deposit_addr }}
         </button>
         <span size="small" slot="content"
@@ -20,7 +15,6 @@
         v-if="free_xins > 0"
         @click="obtain_addr"
         :loading="loading"
-        :disabled="disabled"
         class="obtain"
         >{{ $t("obtain-deposit-address") }}</el-button
       >
@@ -50,7 +44,6 @@ export default {
     return {
       bind_fee: "-",
       loading: false,
-      disabled: false,
       onCopy: "",
       onError: "",
     };
@@ -60,34 +53,25 @@ export default {
   },
   methods: {
     obtain_addr: async function () {
-      this.disabled = true;
+      console.log("obtain");
       this.loading = true;
       const commit = this.$store.commit;
       const msg = await wops.obtain_deposit_addr(function (xaddr) {
+        console.log("set dep");
         commit("setDepositAddr", xaddr);
+        this.loading = false;
       });
-
+      console.log("obtain 2");
       if (msg != "ok") {
         this.loading = false;
-        this.disabled = false;
         this.$message(msg);
       }
       this.loading = false;
-      this.disabled = false;
     },
     load_fee: async function () {
       const fee = await wops.get_bind_fee(false);
       this.bind_fee = fee;
     },
-  },
-  onCopy: function () {
-    this.$message({
-      message: this.$t("copy-success"),
-      type: "success",
-    });
-  },
-  onError: function () {
-    this.$message.error(this.$t("copy-falied"));
   },
 };
 </script>

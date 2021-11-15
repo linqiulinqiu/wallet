@@ -28,15 +28,17 @@
           </div>
         </div>
       </div>
-      <p>
-        {{
+
+      <el-tooltip class="item" effect="dark" placement="left-start">
+        <span slot="content">{{
           $t("transaction-fee", {
-            coin: coin,
+            coin: this.coin,
             deposit_fee_min: this.fees.deposit_fee_min,
             deposit_fee_rate: this.fees.deposit_fee_rate / 100,
           })
-        }}
-      </p>
+        }}</span>
+        <el-button>fee</el-button>
+      </el-tooltip>
     </div>
   </div>
 </template>
@@ -67,6 +69,7 @@ export default {
       rec_alert2: false,
     };
   },
+
   watch: {
     deposit_amount: async function () {
       var depositamount = this.deposit_amount;
