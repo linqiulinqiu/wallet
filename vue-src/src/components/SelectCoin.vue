@@ -38,6 +38,7 @@ export default {
         background: "rgba(200, 230, 200, 0.7)",
       });
       const commit = this.$store.commit;
+
       try {
         const addr = await wops.connect(coin, commit);
         loading.close();
@@ -49,7 +50,6 @@ export default {
         this.$message(e.message);
       }
     },
-    selectLoading: async function () {},
   },
 };
 </script>

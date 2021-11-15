@@ -13,7 +13,7 @@
       </span>
       <span v-else-if="this.coin == 'XCH'">
         <img
-          src="../assets/images/chia-logo.png"
+          src="../assets/images/pxch-logo.png"
           alt="chia"
           fit="fill"
           @click="add_token"

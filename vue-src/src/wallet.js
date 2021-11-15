@@ -14,16 +14,16 @@ const b_chainExplorerUrl = 'https://bscscan.com'
 const b_xcc_address = '0x24D7ec172b331c7636a5Ca604de890996e5e2028'
 const b_xch_address = '0x8fCD852147d1BbA1C4f4dFf07880cCB25DD36DD7'
 
-/*
-const b_chainId = '0x61'
-const b_chainName = 'BSC Testnet'
-const b_chainNetName = 'bnbt'
-const b_chainNCSymbol = 'TBNB'
-const b_chainRpcUrl = 'https://bsc-dataseed.binance.org'
-const b_chainExplorerUrl = 'https://bscscan.com'
-const b_xcc_address = '0xD98ebD2073b389558005683262B241749B1C5655'
-const b_xch_address = '0xFdF2F0995663a993A16929CeC5c39B039AB18Ef6'
-*/
+
+// const b_chainId = '0x61'
+// const b_chainName = 'BSC Testnet'
+// const b_chainNetName = 'bnbt'
+// const b_chainNCSymbol = 'TBNB'
+// const b_chainRpcUrl = 'https://bsc-dataseed.binance.org'
+// const b_chainExplorerUrl = 'https://bscscan.com'
+// const b_xcc_address = '0xD98ebD2073b389558005683262B241749B1C5655'
+// const b_xch_address = '0xFdF2F0995663a993A16929CeC5c39B039AB18Ef6'
+
 
 async function switch_network() {
     try {
@@ -322,6 +322,10 @@ function get_contract_addr() {
 
 async function add_token(coin) {
     if (!bsc.provider) return false
+    var img_name = 'p' + coin.toLowerCase() + '-logo.png'
+    console.log(img_name)
+    // const img_pre = 'https://app.plotbridge.net/img/'
+
     const added = await bsc.provider.send(
         'wallet_watchAsset', {
             type: 'ERC20',
@@ -329,7 +333,9 @@ async function add_token(coin) {
                 address: bsc.contract_addr,
                 symbol: 'P' + coin,
                 decimals: bsc.decimals,
-                image: 'https://app.plotbridge.net/img/pxcc-logo.png'
+
+                image: "https://app.plotbridge.net/img/pxch-logo.png"
+
             }
         }
     )

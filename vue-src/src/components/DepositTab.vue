@@ -28,17 +28,22 @@
           </div>
         </div>
       </div>
-
-      <el-tooltip class="item" effect="dark" placement="left-start">
-        <span slot="content">{{
-          $t("transaction-fee", {
-            coin: this.coin,
-            deposit_fee_min: this.fees.deposit_fee_min,
-            deposit_fee_rate: this.fees.deposit_fee_rate / 100,
-          })
-        }}</span>
-        <el-button>fee</el-button>
-      </el-tooltip>
+      <div id="dep-fees">
+        <el-popover placement="left" title="fees" width="400" trigger="click">
+          <span
+            >{{
+              $t("transaction-fee", {
+                coin: coin,
+                deposit_fee_min: deposit_fee_min,
+                deposit_fee_rate: deposit_fee_rate,
+              })
+            }}
+          </span>
+          <el-button @click="show_fee()" slot="reference" type="primary">{{
+            $t("little-fee")
+          }}</el-button>
+        </el-popover>
+      </div>
     </div>
   </div>
 </template>
@@ -60,16 +65,22 @@ export default {
     baddr: "baddr",
   }),
   data() {
-    const fees = wops.bsc_fees();
     return {
       deposit_amount: "",
-      fees: fees,
       rec_amount: false,
       rec_alert1: false,
       rec_alert2: false,
+      deposit_fee_min: "",
+      deposit_fee_rate: "",
     };
   },
-
+  methods: {
+    show_fee: function () {
+      const fees = wops.bsc_fees();
+      this.deposit_fee_min = fees.deposit_fee_min;
+      this.deposit_fee_rate = fees.deposit_fee_rate / 100;
+    },
+  },
   watch: {
     deposit_amount: async function () {
       var depositamount = this.deposit_amount;
@@ -95,22 +106,23 @@ export default {
 };
 </script>
 <style>
-#introduction {
-  height: 360px;
+#dep-fees {
   position: relative;
-  top: 30px;
+  top: 72px;
+  left: 40px;
+  float: right;
+}
+#introduction {
+  height: 450px;
+  position: relative;
+  top: 40px;
   width: 90%;
   margin: 0px auto;
 }
-#introduction .fee {
-  margin-top: 25px;
-}
-#introduction .fee p {
-  color: rgb(23, 73, 5);
-}
 #exchange {
   width: 90%;
-  height: 185px;
+  height: 180px;
+  margin-top: 40px;
 }
 #exchange > .el-input {
   width: 70%;

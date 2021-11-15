@@ -1,6 +1,6 @@
 <template>
   <el-row type="flex" justify="center">
-    <el-col :lg="3" :xs="3" id="contact-us">
+    <el-col :lg="3" :xs="6" id="contact-us">
       <a href="https://discord.gg/xHC9fBfeVW" target="_blank"> </a>
       <a href="https://t.me/PlotBridge" target="_blank"> </a>
       <a href="https://twitter.com/plot_bridge" target="_blank"> </a>
@@ -17,10 +17,17 @@
           <img src="../assets/images/pxcc-logo.png" alt="chives" />
         </span>
         <span v-else-if="this.coin == 'XCH'">
-          <img src="../assets/images/chia-logo.png" alt="chia" />
+          <img src="../assets/images/pxch-logo.png" alt="chia" />
         </span>
         LP
       </div>
+      <!-- <div>
+        <a
+          target="_blank"
+          href="https://pancakeswap.finance/info/pool/0x62608fa59fcd378cd71ce277a50f24df333b4633"
+          >PXCC/BUSD LP</a
+        >
+      </div> -->
     </el-col>
   </el-row>
 </template>

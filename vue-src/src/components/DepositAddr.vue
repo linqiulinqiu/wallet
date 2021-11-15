@@ -53,20 +53,18 @@ export default {
   },
   methods: {
     obtain_addr: async function () {
-      console.log("obtain");
-      this.loading = true;
-      const commit = this.$store.commit;
+      const obt = this;
+      obt.loading = true;
+      const commit = obt.$store.commit;
       const msg = await wops.obtain_deposit_addr(function (xaddr) {
-        console.log("set dep");
         commit("setDepositAddr", xaddr);
-        this.loading = false;
+        obt.loading = false;
       });
       console.log("obtain 2");
       if (msg != "ok") {
-        this.loading = false;
-        this.$message(msg);
+        obt.loading = false;
+        obt.$message(msg);
       }
-      this.loading = false;
     },
     load_fee: async function () {
       const fee = await wops.get_bind_fee(false);

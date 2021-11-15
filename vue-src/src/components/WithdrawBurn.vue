@@ -105,8 +105,8 @@ export default {
     withdraw: async function () {
       const btn = this;
       if (this.amount_valid(this.amount)) {
-        this.loading = true;
-        this.disabled = true;
+        btn.loading = true;
+        btn.disabled = true;
         try {
           const msg = await wops.token_burn(this.amount, function () {
             btn.loading = false;
@@ -115,8 +115,8 @@ export default {
           });
           if (msg != "ok") {
             this.$message(msg);
-            this.loading = false;
-            this.disabled = false;
+            btn.loading = false;
+            btn.disabled = false;
           }
         } catch (e) {
           this.$message(e.message);
