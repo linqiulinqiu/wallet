@@ -29,6 +29,7 @@
         </div>
       </div>
       <div id="dep-fees">
+        <span>{{ $t("little-fee") }}</span>
         <el-popover placement="left" title="fees" width="400" trigger="click">
           <span
             >{{
@@ -39,9 +40,14 @@
               })
             }}
           </span>
-          <el-button @click="show_fee()" slot="reference" type="primary">{{
-            $t("little-fee")
-          }}</el-button>
+          <el-button
+            size="mini"
+            circle
+            type="primary"
+            @click="show_fee()"
+            slot="reference"
+            icon="el-icon-info"
+          ></el-button>
         </el-popover>
       </div>
     </div>
@@ -109,8 +115,12 @@ export default {
 #dep-fees {
   position: relative;
   top: 72px;
-  left: 40px;
+  left: 30px;
   float: right;
+  color: rgb(23, 73, 5);
+}
+#dep-fees .el-button {
+  margin-left: 5px;
 }
 #introduction {
   height: 450px;

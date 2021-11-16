@@ -3,6 +3,7 @@
     <WithdrawAddr />
     <div v-if="withdraw_addr">
       <div id="withdrawfee">
+        <span>{{ $t("little-fee") }}</span>
         <el-popover placement="left" title="fees" width="400" trigger="click">
           <span
             >{{
@@ -13,9 +14,14 @@
               })
             }}
           </span>
-          <el-button @click="show_fee()" slot="reference" type="primary">{{
-            $t("little-fee")
-          }}</el-button>
+          <el-button
+            size="mini"
+            circle
+            @click="show_fee()"
+            slot="reference"
+            type="primary"
+            icon="el-icon-info"
+          ></el-button>
         </el-popover>
       </div>
     </div>
@@ -58,5 +64,9 @@ export default {
   bottom: -155px;
   color: rgb(23, 73, 5);
   float: right;
+  right: 5px;
+}
+#withdrawfee .el-button {
+  margin-left: 5px;
 }
 </style>

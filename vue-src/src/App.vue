@@ -8,8 +8,15 @@
         </el-row>
       </el-main>
 
-      <el-footer style="height: 80px">
+      <el-footer style="height: 170px">
         <Links />
+        <el-col>
+          <p>Copyright©2021 Plot Network</p>
+          <p>
+            {{ $t("right") }} <br />
+            {{ $t("other-right") }}
+          </p>
+        </el-col>
       </el-footer>
     </el-container>
   </div>
@@ -61,7 +68,7 @@ body {
   position: relative;
   width: 100%;
   background-color: #668b66;
-  color: #333;
+  color: #d1fcd1;
   text-align: center;
   font-size: 12px;
 }

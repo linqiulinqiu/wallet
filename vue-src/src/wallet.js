@@ -334,7 +334,7 @@ async function add_token(coin) {
                 symbol: 'P' + coin,
                 decimals: bsc.decimals,
 
-                image: "https://app.plotbridge.net/img/pxch-logo.png"
+                image: "https://app.plotbridge.net/img/" + img_name
 
             }
         }

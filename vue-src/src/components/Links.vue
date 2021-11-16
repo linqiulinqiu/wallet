@@ -1,6 +1,6 @@
 <template>
   <el-row type="flex" justify="center">
-    <el-col :lg="3" :xs="6" id="contact-us">
+    <el-col :lg="4" :md="6" :xs="6" id="contact-us">
       <a href="https://discord.gg/xHC9fBfeVW" target="_blank"> </a>
       <a href="https://t.me/PlotBridge" target="_blank"> </a>
       <a href="https://twitter.com/plot_bridge" target="_blank"> </a>
