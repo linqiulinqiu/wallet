@@ -1,12 +1,12 @@
 <template>
   <el-row type="flex" justify="center">
-    <el-col :lg="4" :md="6" :xs="6" id="contact-us">
+    <el-col :lg="4" :md="6" :xs="3" id="contact-us">
       <a href="https://discord.gg/xHC9fBfeVW" target="_blank"> </a>
       <a href="https://t.me/PlotBridge" target="_blank"> </a>
       <a href="https://twitter.com/plot_bridge" target="_blank"> </a>
     </el-col>
-    <el-col :lg="15" :md="14" :xs="1"></el-col>
-    <el-col :lg="4" :xs="6">
+    <el-col :lg="15" :md="14" :sm="6" :xs="0"></el-col>
+    <el-col :lg="2" :sm="4" :xs="7">
       <div @click="openPancakeLp" id="link-lp">
         <img
           id="pancake-lp"
@@ -21,14 +21,24 @@
         </span>
         LP
       </div>
-      <!-- <div>
+    </el-col>
+    <el-col :lg="2" :md="3" :sm="4" :xs="8" id="swap-details">
+      <div v-if="this.coin == 'XCC'">
         <a
           target="_blank"
           href="https://pancakeswap.finance/info/pool/0x62608fa59fcd378cd71ce277a50f24df333b4633"
-          >PXCC/BUSD LP</a
+          >Swap details</a
         >
-      </div> -->
-    </el-col>
+      </div>
+      <div v-if="this.coin == 'XCH'">
+        <a
+          icon="el-icon-info"
+          href="https://pancakeswap.finance/info/pool/0xffdfb45e3d743ec10eb793fdcee3055ea82c270c"
+          target="_blank"
+          >Swap details</a
+        >
+      </div></el-col
+    >
   </el-row>
 </template>
 <script>
@@ -48,7 +58,11 @@ export default {
       const lp_addr = "/0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56";
       const prefixpPancake = "https://pancakeswap.finance/add/";
       const url = prefixpPancake + contract_addr + lp_addr;
-      window.open(url);
+      if (!contract_addr) {
+        this.$message("Please connect wallet");
+      } else {
+        window.open(url);
+      }
     },
   },
 };
@@ -100,13 +114,20 @@ export default {
   border-radius: 15px;
   /* height: 40px; */
 }
-.el-footer img {
+#link-lp img {
   width: 30px;
   height: 30px;
   margin-right: 5px;
 }
-.el-footer #link-lp:hover img {
+#link-lp:hover img {
   transform: scale(1.2);
   transition: transform 0.3s;
+}
+#swap-details {
+  border: 1px solid #d1fcd1;
+  height: 35px;
+  border-radius: 20px;
+  line-height: 35px;
+  margin-top: 10px;
 }
 </style>
