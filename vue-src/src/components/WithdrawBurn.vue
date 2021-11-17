@@ -23,7 +23,7 @@
         :disabled="disabled"
         >{{ $t("withdraw") }}</el-button
       >
-      <div v-if="amount">
+      <div v-if="amount" id="have-amount">
         <div v-if="rec_amount">
           <p>
             {{
@@ -175,11 +175,13 @@ export default {
 }
 #WithdrawBurn {
   color: #034203;
+  height: 320px;
+  position: relative;
 }
 #withdrawfee {
-  height: 100px;
-  position: relative;
-  bottom: -205px;
+  height: 30px;
+  position: absolute;
+  bottom: 0px;
   color: rgb(23, 73, 5);
   float: right;
   right: 5px;

@@ -5,6 +5,7 @@
       <el-input
         id="rebindInput"
         v-model="xwaddr"
+        clearable
         :placeholder="$t('input-wallet-for-withdraw', { coin: coin })"
         suffix-icon="el-icon-edit"
       ></el-input>

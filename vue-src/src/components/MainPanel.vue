@@ -62,7 +62,7 @@ export default {
   padding: 0px 10px;
 }
 
-#pan-withdraw-mode {
-  height: 600px;
-}
+/* #pane-withdraw-mode {
+  height: 550px;
+} */
 </style>
