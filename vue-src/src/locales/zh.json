@@ -26,6 +26,7 @@
     "bind-withdraw-address":"绑定取款地址",
     "burn-coin":"取出的{coin}将发送到{withdraw_addr}",
     "rebind-newaddr":"重新绑定一个新的地址",
+    "fees":"费用",
     "rebind-fee":"系统会收取一点手续费({re_fee}BNB),用于重新绑定一个新的存储地址",
     "cancel":"取消",
     "rebind":"绑定",

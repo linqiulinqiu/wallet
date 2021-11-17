@@ -26,7 +26,12 @@
 
     <div id="rebindfee">
       <span>{{ $t("little-refee") }}</span>
-      <el-popover placement="left" title="fees" width="400" trigger="click">
+      <el-popover
+        placement="left"
+        :title="$t('fees')"
+        width="400"
+        trigger="click"
+      >
         <span
           >{{
             $t("rebind-fee", {
@@ -68,7 +73,7 @@ export default {
   }),
   data() {
     return {
-      xwaddr: "-",
+      xwaddr: "",
       loading: false,
       disabled: false,
       refee: "-",
@@ -80,9 +85,7 @@ export default {
   methods: {
     rebindfee: async function () {
       const re_fee = await wops.get_bind_fee(true);
-      console.log(re_fee);
       this.refee = re_fee;
-      console.log(this.refee);
     },
     cancel_rebind: async function () {
       const wa = this.withdraw_addr;
@@ -93,7 +96,6 @@ export default {
     },
     rebind_addr: async function () {
       const commit = this.$store.commit;
-      console.log("try bind");
       try {
         const msg = await wops.bind_withdraw_addr(
           this.xwaddr,
@@ -102,9 +104,9 @@ export default {
           },
           true
         );
-        console.log("this.r", this.r);
-        console.log("this.xwaddr", this.xwaddr);
-        console.log("this.withdrawaddr", this.withdraw_addr);
+        // console.log("this.r", this.r);
+        // console.log("this.xwaddr", this.xwaddr);
+        // console.log("this.withdrawaddr", this.withdraw_addr);
         if (msg == "ok") {
           this.loading = true;
           this.disabled = true;

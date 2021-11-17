@@ -18,6 +18,7 @@
     "depositAddr":"Deposit address",
     "deposit-coin":"P{coin} will be sent to",
     "bsc-addr":"BEP20 address {baddr}",
+    "fees":"fees",
     "in-about":"in about 10 minutes",  
     "input-wallet-for-withdraw":"Please input your wallet address to receive whithdrawn {coin}",
     "links":"Friendly links:",

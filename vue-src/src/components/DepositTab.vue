@@ -30,7 +30,12 @@
       </div>
       <div id="dep-fees">
         <span>{{ $t("little-fee") }}</span>
-        <el-popover placement="left" title="fees" width="400" trigger="click">
+        <el-popover
+          placement="left"
+          :title="$t('fees')"
+          width="400"
+          trigger="click"
+        >
           <span
             >{{
               $t("transaction-fee", {

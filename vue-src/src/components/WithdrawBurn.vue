@@ -45,7 +45,12 @@
     <div v-if="withdraw_addr">
       <div id="withdrawfee">
         <span>{{ $t("little-fee") }}</span>
-        <el-popover placement="left" title="fees" width="400" trigger="click">
+        <el-popover
+          placement="left"
+          :title="$t('fees')"
+          width="400"
+          trigger="click"
+        >
           <span
             >{{
               $t("transactionfee", {
@@ -128,7 +133,7 @@ export default {
       }
       //amount = parseFloat(amount) // TODO: convert to bignum later
       const after_fee = wops.after_fee("withdraw", amount);
-      console.log("after_fee", after_fee);
+      // console.log("after_fee", after_fee);
       if (!after_fee || isNaN(after_fee) || parseFloat(after_fee) <= 0) {
         return false;
       }
