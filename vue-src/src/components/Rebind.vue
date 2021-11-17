@@ -30,7 +30,7 @@
         <span
           >{{
             $t("rebind-fee", {
-              refee: this.rebindfee,
+              re_fee: this.refee,
             })
           }}
         </span>
@@ -66,20 +66,23 @@ export default {
       return false;
     },
   }),
-  data: () => {
+  data() {
     return {
-      xwaddr: "",
+      xwaddr: "-",
       loading: false,
       disabled: false,
+      refee: "-",
     };
   },
   created() {
-    this.rebind_fee();
+    this.rebindfee();
   },
   methods: {
-    rebind_fee: async function () {
+    rebindfee: async function () {
       const re_fee = await wops.get_bind_fee(true);
-      this.rebindfee = re_fee;
+      console.log(re_fee);
+      this.refee = re_fee;
+      console.log(this.refee);
     },
     cancel_rebind: async function () {
       const wa = this.withdraw_addr;

@@ -32,7 +32,7 @@
     "rec-alert1":"Nothing will be sent",
     "rec-alert2":"Insufficient P{coin} balance",
     "rebind-newaddr":"Bind another withdraw address",
-    "rebind-fee":"A small fee({refee}BNB) will be change to bind another new withdraw address",
+    "rebind-fee":"A small fee({re_fee}BNB) will be change to bind another new withdraw address",
     "right":"All right reserved",
     "other-right":"All third party trademarks are the property of their respective owners.",
     "bound":"Address already bound",
