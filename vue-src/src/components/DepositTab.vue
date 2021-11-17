@@ -115,7 +115,7 @@ export default {
 #dep-fees {
   position: relative;
   top: 72px;
-  left: 30px;
+  left: 20px;
   float: right;
   color: rgb(23, 73, 5);
 }

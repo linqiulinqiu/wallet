@@ -23,6 +23,26 @@
         $t("cancel")
       }}</el-button>
     </div>
+
+    <div id="rebindfee">
+      <span>{{ $t("little-refee") }}</span>
+      <el-popover placement="left" title="fees" width="400" trigger="click">
+        <span
+          >{{
+            $t("rebind-fee", {
+              refee: this.rebindfee,
+            })
+          }}
+        </span>
+        <el-button
+          size="mini"
+          circle
+          slot="reference"
+          type="primary"
+          icon="el-icon-info"
+        ></el-button>
+      </el-popover>
+    </div>
   </div>
 </template>
 <script>
@@ -53,7 +73,14 @@ export default {
       disabled: false,
     };
   },
+  created() {
+    this.rebind_fee();
+  },
   methods: {
+    rebind_fee: async function () {
+      const re_fee = await wops.get_bind_fee(true);
+      this.rebindfee = re_fee;
+    },
     cancel_rebind: async function () {
       const wa = this.withdraw_addr;
       if (wa.length > 0 && wa.substr(0, 1) == " ") {
@@ -104,5 +131,16 @@ export default {
 }
 #rebind .el-input {
   width: 100%;
+}
+#rebindfee {
+  height: 100px;
+  position: relative;
+  bottom: -255px;
+  color: rgb(23, 73, 5);
+  float: right;
+  right: 5px;
+}
+#rebindfee .el-button {
+  margin-left: 5px;
 }
 </style>

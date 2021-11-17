@@ -42,6 +42,30 @@
         </div>
       </div>
     </div>
+    <div v-if="withdraw_addr">
+      <div id="withdrawfee">
+        <span>{{ $t("little-fee") }}</span>
+        <el-popover placement="left" title="fees" width="400" trigger="click">
+          <span
+            >{{
+              $t("transactionfee", {
+                coin: coin,
+                withdraw_fee_rate: withdraw_fee_rate,
+                withdraw_fee_min: withdraw_fee_min,
+              })
+            }}
+          </span>
+          <el-button
+            size="mini"
+            circle
+            @click="show_fee()"
+            slot="reference"
+            type="primary"
+            icon="el-icon-info"
+          ></el-button>
+        </el-popover>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -55,6 +79,7 @@ export default {
     baddr: "baddr",
     xbalance: "xbalance",
     xwaddr: "withdraw_addr",
+    withdraw_addr: "withdraw_addr",
     coin: "coin",
   }),
   data() {
@@ -65,6 +90,8 @@ export default {
       rec_alert1: false,
       rec_alert2: false,
       disabled: false,
+      withdraw_fee_min: "",
+      withdraw_fee_rate: "",
     };
   },
   watch: {
@@ -90,6 +117,11 @@ export default {
     },
   },
   methods: {
+    show_fee: function () {
+      const fees = wops.bsc_fees();
+      this.withdraw_fee_min = fees.withdraw_fee_min;
+      this.withdraw_fee_rate = fees.withdraw_fee_rate / 100;
+    },
     amount_valid: function (amount) {
       if (!amount || isNaN(amount)) {
         return false;
@@ -138,5 +170,16 @@ export default {
 }
 #WithdrawBurn {
   color: #034203;
+}
+#withdrawfee {
+  height: 100px;
+  position: relative;
+  bottom: -205px;
+  color: rgb(23, 73, 5);
+  float: right;
+  right: 5px;
+}
+#withdrawfee .el-button {
+  margin-left: 5px;
 }
 </style>

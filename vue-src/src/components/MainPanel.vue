@@ -6,7 +6,7 @@
         <DepositTab />
       </el-tab-pane>
       <el-tab-pane :label="$t('withdraw')" name="withdraw-mode">
-        <WithdrawTab />
+        <WithdrawAddr />
       </el-tab-pane>
     </el-tabs>
   </el-col>
@@ -17,14 +17,14 @@ import { mapState } from "vuex";
 
 import ConnectWallet from "./ConnectWallet.vue";
 import DepositTab from "./DepositTab.vue";
-import WithdrawTab from "./WithdrawTab.vue";
+import WithdrawAddr from "./WithdrawAddr.vue";
 
 export default {
   name: "MainPanel",
   components: {
     ConnectWallet,
     DepositTab,
-    WithdrawTab,
+    WithdrawAddr,
   },
   computed: mapState({
     baddr: "baddr",
