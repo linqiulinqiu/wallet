@@ -43,11 +43,28 @@ export default {
 </script>
 
 <style>
+a,
+p,
+div,
+.el-input,
+.el-row,
+.el-button,
+.el-select,
+.el-input--suffix .el-input__inner {
+  font-family: "Courier New", Courier monospace !important;
+}
+html {
+  font-family: "Courier New", Courier monospace;
+}
+#app {
+  font-family: "Courier New", Courier monospace !important;
+}
 body {
   margin: 0;
   padding: 0;
   background: url(./assets/images/bg1.png) center;
   font-size: 14px;
+  font-family: "Courier New", Courier monospace !important;
 }
 .container {
   position: relative;

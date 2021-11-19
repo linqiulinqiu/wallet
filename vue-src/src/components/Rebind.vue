@@ -142,7 +142,7 @@ export default {
 #rebindfee {
   height: 100px;
   position: relative;
-  bottom: -255px;
+  bottom: -240px;
   color: rgb(23, 73, 5);
   float: right;
   right: 5px;

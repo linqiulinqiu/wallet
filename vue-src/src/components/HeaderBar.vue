@@ -5,7 +5,7 @@
         <img src="../assets/images/plotbridge-logo.svg" alt="plotbridge" />
       </el-col>
       <el-col :lg="10" :sm="1" :xs="0"
-        >{{ $t("version") }} 11/19-1 beta testing
+        >{{ $t("version") }} 11/19-2 beta testing
       </el-col>
 
       <el-col :lg="3" :md="3" :sm="5" :xs="5">
@@ -23,7 +23,7 @@
       <el-col :lg="4" :md="3" :sm="4" :xs="7" v-if="baddr" id="balance">
         <Xbalance />
       </el-col>
-      <el-col :lg="2" :md="3" :sm="4" :xs="4" id="language">
+      <el-col :lg="3" :md="3" :sm="4" :xs="4" id="language">
         <el-select v-model="lang">
           <el-option
             v-for="item in options"

@@ -169,11 +169,6 @@ export default {
 };
 </script>
 <style>
-.send {
-  width: 95%;
-  color: rgb(23, 73, 5);
-  font-size: 15px;
-}
 #WithdrawBurn {
   color: #034203;
   height: 320px;

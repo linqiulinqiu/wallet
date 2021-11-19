@@ -1,6 +1,6 @@
 <template>
   <div id="bound">
-    <p class="send">
+    <p id="send">
       {{ $t("burn-coin", { coin: coin }) }}
     </p>
     <p>{{ withdraw_addr }}</p>
@@ -63,5 +63,14 @@ export default {
   opacity: 0.7;
   transition: transform 0.3s;
   border: 1px solid #d1fcd1;
+}
+#send {
+  width: 95%;
+  color: rgb(23, 73, 5);
+  font-size: 15px;
+}
+#bound p {
+  word-break: keep-all;
+  overflow: auto;
 }
 </style>
