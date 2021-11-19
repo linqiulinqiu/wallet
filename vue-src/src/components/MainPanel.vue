@@ -61,8 +61,4 @@ export default {
 .el-tabs__nav-scroll {
   padding: 0px 10px;
 }
-
-/* #pane-withdraw-mode {
-  height: 550px;
-} */
 </style>

@@ -64,10 +64,10 @@ export default {
   height: 250px;
   width: 100%;
 }
-#withdraw-addr .el-input {
+/* #withdraw-addr .el-input {
   width: 60%;
   margin: 20px auto;
-}
+} */
 #bound {
   background-color: rgba(142, 190, 138, 0.521);
   color: rgb(23, 73, 5);

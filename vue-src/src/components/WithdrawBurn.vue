@@ -2,6 +2,7 @@
   <div id="WithdrawBurn">
     <div v-if="xwaddr">
       <el-input
+        id="withdraw-amount"
         size="middle"
         suffix-icon="el-icon-edit"
         clearable
@@ -177,6 +178,10 @@ export default {
   color: #034203;
   height: 320px;
   position: relative;
+}
+#WithdrawBurn .el-input {
+  width: 60%;
+  margin: 20px auto;
 }
 #withdrawfee {
   height: 30px;

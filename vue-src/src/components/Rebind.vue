@@ -136,7 +136,8 @@ export default {
   height: 250px;
 }
 #rebind .el-input {
-  width: 100%;
+  width: 90%;
+  margin: 30px auto;
 }
 #rebindfee {
   height: 100px;
