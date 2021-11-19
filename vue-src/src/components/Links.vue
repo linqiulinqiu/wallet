@@ -22,21 +22,39 @@
         LP
       </div>
     </el-col>
-    <el-col :lg="2" :md="3" :sm="4" :xs="8" id="swap-details">
+    <el-col :lg="4" :md="5" :sm="6" :xs="8">
       <div v-if="this.coin == 'XCC'">
-        <a
-          target="_blank"
-          href="https://pancakeswap.finance/info/pool/0x62608fa59fcd378cd71ce277a50f24df333b4633"
-          >Swap details</a
-        >
+        <el-col id="pool-info" :span="11">
+          <a
+            target="_blank"
+            href="https://pancakeswap.finance/info/pool/0x62608fa59fcd378cd71ce277a50f24df333b4633"
+            >{{ $t("pool-info") }}</a
+          >
+        </el-col>
+        <el-col id="token-info" :span="11">
+          <a
+            target="_blank"
+            href="https://bscscan.com/address/0x24D7ec172b331c7636a5Ca604de890996e5e2028"
+            >{{ $t("token-info") }}</a
+          >
+        </el-col>
       </div>
       <div v-if="this.coin == 'XCH'">
-        <a
-          icon="el-icon-info"
-          href="https://pancakeswap.finance/info/pool/0xffdfb45e3d743ec10eb793fdcee3055ea82c270c"
-          target="_blank"
-          >Swap details</a
-        >
+        <el-col id="pool-info" :span="11">
+          <a
+            icon="el-icon-info"
+            href="https://pancakeswap.finance/info/pool/0xffdfb45e3d743ec10eb793fdcee3055ea82c270c"
+            target="_blank"
+            >{{ $t("pool-info") }}</a
+          >
+        </el-col>
+        <el-col id="token-info" :span="11">
+          <a
+            target="_blank"
+            href="https://bscscan.com/address/0x8fCD852147d1BbA1C4f4dFf07880cCB25DD36DD7"
+            >{{ $t("token-info") }}</a
+          >
+        </el-col>
       </div></el-col
     >
   </el-row>
@@ -112,7 +130,6 @@ export default {
   border: 1px solid #d1fcd1;
   width: 100px;
   border-radius: 15px;
-  /* height: 40px; */
 }
 #link-lp img {
   width: 30px;
@@ -123,11 +140,14 @@ export default {
   transform: scale(1.2);
   transition: transform 0.3s;
 }
-#swap-details {
+#token-info,
+#pool-info {
   border: 1px solid #d1fcd1;
-  height: 35px;
+  /* height: 35px; */
   border-radius: 20px;
-  line-height: 35px;
+  line-height: 15px;
   margin-top: 10px;
+  padding: 10px;
+  margin-left: 5px;
 }
 </style>

@@ -37,8 +37,10 @@
     "other-right":"所有第三方商标是其各自所有者的财产。",
     "correct-amount":"请输入正确的金额",
     "waiting":"您的交易需要时间确认,请稍作等待!",
-    "receive-money":"您将会收到:{rec_amount}{coin}",
+    "receive-money":"您将会收到 {rec_amount}{coin}",
     "rec-alert1":"您什么也收不到",
     "rec-alert2":"您的P{coin}余额不足",
-    "contact-us":"联系我们"
+    "contact-us":"联系我们",
+    "pool-info":"交易对信息",
+    "token-info":"代币信息"
 }
