@@ -34,7 +34,7 @@
         <el-col id="token-info" :span="11">
           <a
             target="_blank"
-            href="https://bscscan.com/address/0x24D7ec172b331c7636a5Ca604de890996e5e2028"
+            href="https://bscscan.com/token/0x24D7ec172b331c7636a5Ca604de890996e5e2028"
             >{{ $t("token-info") }}</a
           >
         </el-col>
@@ -51,7 +51,7 @@
         <el-col id="token-info" :span="11">
           <a
             target="_blank"
-            href="https://bscscan.com/address/0x8fCD852147d1BbA1C4f4dFf07880cCB25DD36DD7"
+            href="https://bscscan.com/token/0x8fCD852147d1BbA1C4f4dFf07880cCB25DD36DD7"
             >{{ $t("token-info") }}</a
           >
         </el-col>
