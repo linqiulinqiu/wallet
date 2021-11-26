@@ -27,6 +27,7 @@ const store = new Vuex.Store({
         baddr: false,
         free_xins: -1,
         xbalance: -1,
+        xsupply: 0,
         deposit_addr: false,
         withdraw_addr: false
     },
@@ -45,6 +46,9 @@ const store = new Vuex.Store({
         },
         setXbalance(state, xb) {
             state.xbalance = xb
+        },
+        setXsupply(state, xs) {
+            state.xsupply = xs
         },
         setCoin(state, coin) {
             state.coin = coin

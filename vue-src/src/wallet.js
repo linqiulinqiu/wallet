@@ -121,6 +121,7 @@ async function connect(coin, commit) {
         commit("setDepositAddr", await get_deposit_addr())
         commit("setWithdrawAddr", await get_withdraw_addr())
         commit("setXbalance", await token_balance())
+        commit("setXsupply", ethers.utils.formatUnits(await bsc.ctr.totalSupply(), bsc.decimals))
         commit("setCoin", coin)
         commit("setBaddr", bsc.addr)
 

@@ -31,6 +31,9 @@
           ></el-option>
         </el-select>
       </el-col>
+      <el-col>
+      {{ xsupply }}
+      </el-col>
     </el-row>
   </el-header>
 </template>
@@ -64,6 +67,7 @@ export default {
   computed: mapState({
     baddr: "baddr",
     xbalance: "xbalance",
+    xsupply: "xsupply",
     coin: "coin",
   }),
   watch: {
