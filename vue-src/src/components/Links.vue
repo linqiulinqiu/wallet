@@ -1,12 +1,23 @@
 <template>
-  <el-row type="flex" justify="center">
-    <el-col :lg="4" :md="6" :xs="3" id="contact-us">
+  <el-row type="flex" justify="center" :gutter="10">
+    <el-col :lg="4" :md="6" :xs="2" id="contact-us">
       <a href="https://discord.gg/xHC9fBfeVW" target="_blank"> </a>
       <a href="https://t.me/PlotBridge" target="_blank"> </a>
       <a href="https://twitter.com/plot_bridge" target="_blank"> </a>
     </el-col>
-    <el-col :lg="15" :md="14" :sm="6" :xs="0"></el-col>
-    <el-col :lg="2" :sm="4" :xs="7">
+    <el-col :lg="10" :md="4" :sm="6" :xs="0"></el-col>
+    <el-col :lg="3" :md="4" :sm="6" :xs="8" id="add-token">
+      <div v-if="baddr" id="token-count">
+        {{ $t("coin-total", { coin: coin }) }}
+        <span v-if="this.coin == 'XCC'">
+          {{ xsupply }}
+        </span>
+        <span v-else-if="this.coin == 'XCH'">
+          {{ xsupply }}
+        </span>
+      </div>
+    </el-col>
+    <el-col :lg="2" :sm="4" :xs="6">
       <div @click="openPancakeLp" id="link-lp">
         <img
           id="pancake-lp"
@@ -22,7 +33,7 @@
         LP
       </div>
     </el-col>
-    <el-col :lg="4" :md="5" :sm="6" :xs="8">
+    <el-col :lg="4" :md="6" :sm="11" :xs="8">
       <div v-if="this.coin == 'XCC'">
         <el-col id="pool-info" :span="11">
           <a
@@ -69,6 +80,7 @@ export default {
   computed: mapState({
     baddr: "baddr",
     coin: "coin",
+    xsupply: "xsupply",
   }),
   methods: {
     openPancakeLp: function () {
@@ -88,7 +100,6 @@ export default {
 <style>
 #contact-us {
   float: left;
-  width: 250px;
   height: 50px;
   margin-top: 15px;
 }
@@ -141,7 +152,8 @@ export default {
   transition: transform 0.3s;
 }
 #token-info,
-#pool-info {
+#pool-info,
+#token-count {
   border: 1px solid #d1fcd1;
   /* height: 35px; */
   border-radius: 20px;

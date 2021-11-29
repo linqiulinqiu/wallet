@@ -63,7 +63,7 @@ export default {
   margin: 4px 4px 0px 4px;
 }
 #balancelink img:hover {
-  transform: scale(1.1);
+  transform: scale(1.2);
   transition: transform 0.3s;
 }
 #balancelink {

@@ -8,11 +8,12 @@
         </el-row>
       </el-main>
 
-      <el-footer style="height: 170px">
+      <el-footer style="height: 220px">
         <Links />
         <el-col>
           <p>Copyright©2021 Plot Network</p>
           <p>
+            {{ $t("right-pancake") }} <br />
             {{ $t("right") }} <br />
             {{ $t("other-right") }}
           </p>
@@ -115,9 +116,9 @@ body {
   /* background-color: #E9EEF3; */
   color: #333;
   text-align: center;
-  height: 740px;
+  height: 700px;
   box-sizing: border-box;
-  margin-top: 50px;
+  margin-top: 100px;
 }
 
 .chia,
@@ -130,7 +131,7 @@ body {
 /* 页面主体部分 */
 
 .mainBody > .el-row {
-  height: 550px;
+  height: 500px;
   margin: 0px auto;
 }
 </style>

@@ -142,10 +142,10 @@ export default {
 #rebindfee {
   height: 100px;
   position: relative;
-  bottom: -240px;
+  bottom: -185px;
   color: rgb(23, 73, 5);
   float: right;
-  right: 5px;
+  right: 10px;
 }
 #rebindfee .el-button {
   margin-left: 5px;

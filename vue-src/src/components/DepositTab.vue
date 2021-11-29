@@ -119,8 +119,8 @@ export default {
 <style>
 #dep-fees {
   position: relative;
-  top: 72px;
-  left: 20px;
+  top: 25px;
+  left: 25px;
   float: right;
   color: rgb(23, 73, 5);
 }
@@ -128,7 +128,7 @@ export default {
   margin-left: 5px;
 }
 #introduction {
-  height: 450px;
+  height: 400px;
   position: relative;
   top: 40px;
   width: 90%;

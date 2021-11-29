@@ -1,11 +1,11 @@
 <template>
   <el-header style="height: 100px">
     <el-row :gutter="10" type="flex" align="center">
-      <el-col :lg="4" :md="4" :sm="5" :xs="0" id="logo">
+      <el-col :lg="3" :md="4" :sm="5" :xs="0" id="logo">
         <img src="../assets/images/plotbridge-logo.svg" alt="plotbridge" />
       </el-col>
-      <el-col :lg="7" :md="1" :sm="0" :xs="0"
-        >{{ $t("version") }} 11/22-1 beta testing
+      <el-col :lg="7" :md="1" :sm="1" :xs="0"
+        >{{ $t("version") }} 11/29-2 beta
       </el-col>
       <el-col :lg="3" :md="4" :sm="5" :xs="6">
         <SelectCoin />
@@ -18,10 +18,10 @@
           }}</span>
         </div>
       </el-col>
-      <el-col :lg="4" :md="8" :sm="6" :xs="11" v-if="baddr" id="balance">
+      <el-col :lg="4" :md="8" :sm="6" :xs="8" v-if="baddr" id="balance">
         <Xbalance />
       </el-col>
-      <el-col :lg="3" :md="3" :sm="4" :xs="3" id="language">
+      <el-col :lg="3" :md="3" :sm="4" :xs="6" id="language">
         <el-select v-model="lang">
           <el-option
             v-for="item in options"
@@ -30,9 +30,6 @@
             :value="item.value"
           ></el-option>
         </el-select>
-      </el-col>
-      <el-col>
-      {{ xsupply }}
       </el-col>
     </el-row>
   </el-header>
@@ -67,7 +64,6 @@ export default {
   computed: mapState({
     baddr: "baddr",
     xbalance: "xbalance",
-    xsupply: "xsupply",
     coin: "coin",
   }),
   watch: {

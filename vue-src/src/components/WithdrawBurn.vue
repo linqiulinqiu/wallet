@@ -171,7 +171,7 @@ export default {
 <style>
 #WithdrawBurn {
   color: #034203;
-  height: 320px;
+  height: 270px;
   position: relative;
 }
 #WithdrawBurn .el-input {
@@ -181,10 +181,10 @@ export default {
 #withdrawfee {
   height: 30px;
   position: absolute;
-  bottom: 0px;
+  bottom: 5px;
   color: rgb(23, 73, 5);
   float: right;
-  right: 5px;
+  right: 10px;
 }
 #withdrawfee .el-button {
   margin-left: 5px;

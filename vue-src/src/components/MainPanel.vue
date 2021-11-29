@@ -54,7 +54,7 @@ export default {
   color: rgb(25, 73, 5);
 }
 .el-tab-pane {
-  height: 500px;
+  height: 420px;
   text-align: center;
   margin: 0 auto;
 }
