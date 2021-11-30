@@ -5,25 +5,31 @@ import token_abi from './token-abi.json'
 
 const bsc = {}
 
-const b_chainId = '0x38'
-const b_chainName = 'BSC Mainnet'
-const b_chainNetName = 'bnb'
-const b_chainNCSymbol = 'BNB'
-const b_chainRpcUrl = 'https://bsc-dataseed.binance.org'
-const b_chainExplorerUrl = 'https://bscscan.com'
-const b_xcc_address = '0x24D7ec172b331c7636a5Ca604de890996e5e2028'
-const b_xch_address = '0x8fCD852147d1BbA1C4f4dFf07880cCB25DD36DD7'
-
-
-// const b_chainId = '0x61'
-// const b_chainName = 'BSC Testnet'
-// const b_chainNetName = 'bnbt'
-// const b_chainNCSymbol = 'TBNB'
+// const b_chainId = '0x38'
+// const b_chainName = 'BSC Mainnet'
+// const b_chainNetName = 'bnb'
+// const b_chainNCSymbol = 'BNB'
 // const b_chainRpcUrl = 'https://bsc-dataseed.binance.org'
 // const b_chainExplorerUrl = 'https://bscscan.com'
-// const b_xcc_address = '0xD98ebD2073b389558005683262B241749B1C5655'
-// const b_xch_address = '0xFdF2F0995663a993A16929CeC5c39B039AB18Ef6'
+// const b_xcc_address = '0x24D7ec172b331c7636a5Ca604de890996e5e2028'
+// const b_xch_address = '0x8fCD852147d1BbA1C4f4dFf07880cCB25DD36DD7'
 
+
+const b_chainId = '0x61'
+const b_chainName = 'BSC Testnet'
+const b_chainNetName = 'bnbt'
+const b_chainNCSymbol = 'TBNB'
+const b_chainRpcUrl = 'https://bsc-dataseed.binance.org'
+const b_chainExplorerUrl = 'https://bscscan.com'
+const b_pxcc_addr = '0xD98ebD2073b389558005683262B241749B1C5655'
+const b_pxch_addr = '0xFdF2F0995663a993A16929CeC5c39B039AB18Ef6'
+const b_phdd_addr = '0xFdF2F0995663a993A16929CeC5c39B039AB18Ef6'
+
+const b_xaddresses = {
+    'XCC': b_pxcc_addr,
+    'XCH': b_pxch_addr,
+    'HDD': b_phdd_addr
+}
 
 async function switch_network() {
     try {
@@ -93,10 +99,8 @@ async function connect(coin, commit) {
         const neterr = await ensure_network()
         if (neterr) throw neterr
         await bsc.provider.send("eth_requestAccounts", [])
-        if (coin == 'XCC') {
-            bsc.contract_addr = b_xcc_address
-        } else if (coin == 'XCH') {
-            bsc.contract_addr = b_xch_address
+        if (coin in b_xaddresses) {
+            bsc.contract_addr = b_xaddresses[coin]
         } else {
             return false
         }
@@ -105,16 +109,19 @@ async function connect(coin, commit) {
         bsc.ctr = new ethers.Contract(bsc.contract_addr, token_abi, bsc.signer)
         bsc.decimals = await bsc.ctr.decimals()
         bsc.xbalance = await token_balance(true)
+        bsc.deposit_fee_rate = 25
+        bsc.withdraw_fee_rate = 20
+
+
         if (coin == 'XCC') {
             bsc.deposit_fee_min = ethers.utils.parseUnits("20", bsc.decimals)
-            bsc.deposit_fee_rate = 25
             bsc.withdraw_fee_min = ethers.utils.parseUnits("5", bsc.decimals)
-            bsc.withdraw_fee_rate = 20
         } else if (coin == 'XCH') {
             bsc.deposit_fee_min = ethers.utils.parseUnits("0.01", bsc.decimals)
-            bsc.deposit_fee_rate = 25
             bsc.withdraw_fee_min = ethers.utils.parseUnits("0.003", bsc.decimals)
-            bsc.withdraw_fee_rate = 20
+        } else if (coin == 'HDD') {
+            bsc.deposit_fee_min = ethers.utils.parseUnits("20", bsc.decimals)
+            bsc.withdraw_fee_min = ethers.utils.parseUnits("0.5", bsc.decimals)
         }
 
         commit("setFreeXins", (await bsc.ctr.getFreeXinAddrCount()).toNumber())

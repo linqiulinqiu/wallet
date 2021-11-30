@@ -15,6 +15,9 @@
         <span v-else-if="this.coin == 'XCH'">
           {{ xsupply }}
         </span>
+        <span v-else-if="this.coin == 'HDD'">
+          {{ xsupply }}
+        </span>
       </div>
     </el-col>
     <el-col :lg="2" :sm="4" :xs="6">
@@ -30,6 +33,9 @@
         <span v-else-if="this.coin == 'XCH'">
           <img src="../assets/images/pxch-logo.png" alt="chia" />
         </span>
+        <span v-else-if="this.coin == 'HDD'"
+          ><img src="../assets/images/pxch-logo.png" alt="HDD"
+        /></span>
         LP
       </div>
     </el-col>
@@ -66,8 +72,24 @@
             >{{ $t("token-info") }}</a
           >
         </el-col>
-      </div></el-col
-    >
+      </div>
+      <div v-if="this.coin == 'HDD'">
+        <el-col id="pool-info" :span="11">
+          <a
+            target="_blank"
+            href="https://pancakeswap.finance/info/pool/0x62608fa59fcd378cd71ce277a50f24df333b4633"
+            >{{ $t("pool-info") }}</a
+          >
+        </el-col>
+        <el-col id="token-info" :span="11">
+          <a
+            target="_blank"
+            href="https://bscscan.com/token/0x24D7ec172b331c7636a5Ca604de890996e5e2028"
+            >{{ $t("token-info") }}</a
+          >
+        </el-col>
+      </div>
+    </el-col>
   </el-row>
 </template>
 <script>

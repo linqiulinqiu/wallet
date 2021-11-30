@@ -2,6 +2,7 @@
   <el-select v-model="coinchg" id="selectcoin">
     <el-option key="XCH" label="Chia -- BSC" value="XCH" id="XCH"></el-option>
     <el-option key="XCC" label="Chives -- BSC" value="XCC" id="XCC"></el-option>
+    <el-option key="HDD" label="HDD -- BSC" value="HDD" id="HDD"></el-option>
   </el-select>
 </template>
 <script>
