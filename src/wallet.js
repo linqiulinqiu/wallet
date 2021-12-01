@@ -23,13 +23,40 @@ const b_chainRpcUrl = 'https://bsc-dataseed.binance.org'
 const b_chainExplorerUrl = 'https://bscscan.com'
 const b_pxcc_addr = '0xD98ebD2073b389558005683262B241749B1C5655'
 const b_pxch_addr = '0xFdF2F0995663a993A16929CeC5c39B039AB18Ef6'
-const b_phdd_addr = '0xFdF2F0995663a993A16929CeC5c39B039AB18Ef6'
+const b_phdd_addr = '0xFfB8F22732e7fC4550a8Cda5DB03cCcCF082b357'
 
 const b_xaddresses = {
     'XCC': b_pxcc_addr,
     'XCH': b_pxch_addr,
     'HDD': b_phdd_addr
 }
+
+
+// async function have_links() {
+//     const network = await bsc.provider.getNetwork()
+//     if (coin in b_xaddresses) {
+//         bsc.contract_addr = b_xaddresses[coin]
+//     } else {
+//         return false
+//     }
+//     if (parseInt(network.chainId) == parseInt(0x61)) {
+//         const pancake_prefix_buy = 'https://pancake.kiemtienonline360.com/#/swap?inputCurrency='
+//         const pancake_prefix_lp = ''
+//         url_buy = pancake_prefix_buy + bsc.contract_addr
+//         url_token_info = 'https://testnet.bscscan.com/token/' + bsc.contract_addr
+//         url_lp = pancake_prefix_lp + aaa + bsc.contract_addr
+//     } else if (parseInt(network.chainId) == parseInt(0x38)) {
+//         const pancake_prefix_buy = ' https://pancakeswap.finance/swap?outputCurrency='
+//         const pancake_prefix_lp = 'https://pancakeswap.finance/add'
+
+//         url_buy = pancake_prefix_buy + bsc.contract_addr
+//         url_token_info = 'https://bscscan.com/token/' + bsc.contract_addr
+//         url_lp = pancake_prefix_lp + aaa + bsc.contract_addr
+//     } else {
+//         return false
+//     }
+// }
+
 
 async function switch_network() {
     try {
