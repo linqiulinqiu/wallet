@@ -32,6 +32,14 @@
               fit="fill"
               @click="add_token"
           /></span>
+          <span slot="reference" v-if="this.coin == 'HDD'">
+            <img
+              src="../assets/images/phdd-logo.png"
+              alt="hdd"
+              fit="fill"
+              @click="add_token"
+            />
+          </span>
         </span>
       </el-popover>
 

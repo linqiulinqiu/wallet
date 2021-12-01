@@ -1,5 +1,5 @@
 <template>
-  <el-col :lg="10" :md="12" :sm="18" :xs="22" class="maintab">
+  <el-col :lg="10" :md="18" :sm="18" :xs="22" class="maintab">
     <ConnectWallet v-if="!baddr" />
     <el-tabs v-else v-model="opMode">
       <el-tab-pane :label="$t('deposit')" name="deposit-mode">

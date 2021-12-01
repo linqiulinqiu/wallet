@@ -120,7 +120,7 @@ async function connect(coin, commit) {
             bsc.deposit_fee_min = ethers.utils.parseUnits("0.01", bsc.decimals)
             bsc.withdraw_fee_min = ethers.utils.parseUnits("0.003", bsc.decimals)
         } else if (coin == 'HDD') {
-            bsc.deposit_fee_min = ethers.utils.parseUnits("20", bsc.decimals)
+            bsc.deposit_fee_min = ethers.utils.parseUnits("21", bsc.decimals)
             bsc.withdraw_fee_min = ethers.utils.parseUnits("0.5", bsc.decimals)
         }
 

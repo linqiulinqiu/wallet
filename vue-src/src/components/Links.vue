@@ -34,7 +34,7 @@
           <img src="../assets/images/pxch-logo.png" alt="chia" />
         </span>
         <span v-else-if="this.coin == 'HDD'"
-          ><img src="../assets/images/pxch-logo.png" alt="HDD"
+          ><img src="../assets/images/phdd-logo.png" alt="HDD"
         /></span>
         LP
       </div>

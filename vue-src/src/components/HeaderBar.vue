@@ -2,10 +2,11 @@
   <el-header style="height: 100px">
     <el-row :gutter="10" type="flex" align="center">
       <el-col :lg="3" :md="4" :sm="5" :xs="0" id="logo">
-        <img src="../assets/images/plotbridge-logo.svg" alt="plotbridge" />
+        <!-- <img src="../assets/images/plotbridge-logo.svg" alt="plotbridge" /> -->
+        <img src="../assets/images/hdd.svg" alt="plotbridge" />
       </el-col>
       <el-col :lg="7" :md="1" :sm="1" :xs="0"
-        >{{ $t("version") }} 11/29-3 beta testing in test network
+        >{{ $t("version") }} 12-1-1 beta testing in test network
       </el-col>
       <el-col :lg="3" :md="4" :sm="5" :xs="6">
         <SelectCoin />
