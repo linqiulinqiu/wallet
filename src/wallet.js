@@ -5,30 +5,31 @@ import token_abi from './token-abi.json'
 
 const bsc = {}
 
-// const b_chainId = '0x38'
-// const b_chainName = 'BSC Mainnet'
-// const b_chainNetName = 'bnb'
-// const b_chainNCSymbol = 'BNB'
-// const b_chainRpcUrl = 'https://bsc-dataseed.binance.org'
-// const b_chainExplorerUrl = 'https://bscscan.com'
-// const b_xcc_address = '0x24D7ec172b331c7636a5Ca604de890996e5e2028'
-// const b_xch_address = '0x8fCD852147d1BbA1C4f4dFf07880cCB25DD36DD7'
-
-
-const b_chainId = '0x61'
-const b_chainName = 'BSC Testnet'
-const b_chainNetName = 'bnbt'
-const b_chainNCSymbol = 'TBNB'
+const b_chainId = '0x38'
+const b_chainName = 'BSC Mainnet'
+const b_chainNetName = 'bnb'
+const b_chainNCSymbol = 'BNB'
 const b_chainRpcUrl = 'https://bsc-dataseed.binance.org'
 const b_chainExplorerUrl = 'https://bscscan.com'
-const b_pxcc_addr = '0xD98ebD2073b389558005683262B241749B1C5655'
-const b_pxch_addr = '0xFdF2F0995663a993A16929CeC5c39B039AB18Ef6'
-const b_phdd_addr = '0xFfB8F22732e7fC4550a8Cda5DB03cCcCF082b357'
+const b_xcc_address = '0x24D7ec172b331c7636a5Ca604de890996e5e2028'
+const b_xch_address = '0x8fCD852147d1BbA1C4f4dFf07880cCB25DD36DD7'
+const b_hdd_address = '0xfEe42Eff2DBBdB18F3CF5dCe30139fB853A835A2'
+
+
+// const b_chainId = '0x61'
+// const b_chainName = 'BSC Testnet'
+// const b_chainNetName = 'bnbt'
+// const b_chainNCSymbol = 'TBNB'
+// const b_chainRpcUrl = 'https://bsc-dataseed.binance.org'
+// const b_chainExplorerUrl = 'https://bscscan.com'
+// const b_pxcc_addr = '0xD98ebD2073b389558005683262B241749B1C5655'
+// const b_pxch_addr = '0xFdF2F0995663a993A16929CeC5c39B039AB18Ef6'
+// const b_phdd_addr = '0xFfB8F22732e7fC4550a8Cda5DB03cCcCF082b357'
 
 const b_xaddresses = {
-    'XCC': b_pxcc_addr,
-    'XCH': b_pxch_addr,
-    'HDD': b_phdd_addr
+    'XCC': b_xcc_address,
+    'XCH': b_xch_address,
+    'HDD': b_hdd_address
 }
 
 // async function have_links(coin) {
