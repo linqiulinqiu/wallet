@@ -71,3 +71,10 @@ export default {
   },
 };
 </script>
+<style>
+#bindwithdrawaddr .el-input {
+  width: 90%;
+  margin-top: 50px;
+  margin-bottom: 10px;
+}
+</style>
