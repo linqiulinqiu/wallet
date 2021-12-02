@@ -31,29 +31,47 @@ const b_xaddresses = {
     'HDD': b_phdd_addr
 }
 
-
-// async function have_links() {
+// async function have_links(coin) {
 //     const network = await bsc.provider.getNetwork()
 //     if (coin in b_xaddresses) {
 //         bsc.contract_addr = b_xaddresses[coin]
 //     } else {
 //         return false
 //     }
+//     const lp_addr = "/0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56";
 //     if (parseInt(network.chainId) == parseInt(0x61)) {
 //         const pancake_prefix_buy = 'https://pancake.kiemtienonline360.com/#/swap?inputCurrency='
 //         const pancake_prefix_lp = ''
-//         url_buy = pancake_prefix_buy + bsc.contract_addr
-//         url_token_info = 'https://testnet.bscscan.com/token/' + bsc.contract_addr
-//         url_lp = pancake_prefix_lp + aaa + bsc.contract_addr
+//         const url_buy = pancake_prefix_buy + bsc.contract_addr
+//         const url_lp = pancake_prefix_lp + bsc.contract_addr
+//         const url_token_info = 'https://testnet.bscscan.com/token/' + bsc.contract_addr
+
 //     } else if (parseInt(network.chainId) == parseInt(0x38)) {
 //         const pancake_prefix_buy = ' https://pancakeswap.finance/swap?outputCurrency='
 //         const pancake_prefix_lp = 'https://pancakeswap.finance/add'
-
+//         if (coin == 'XCC') {
+//             url_pool_info = 'https://pancakeswap.finance/info/pool/0x62608fa59fcd378cd71ce277a50f24df333b4633'
+//         } else if (coin = 'XCH') {
+//             url_pool_info = 'https://pancakeswap.finance/info/pool/0xffdfb45e3d743ec10eb793fdcee3055ea82c270c'
+//         } else if (coin == "HDD") {
+//             url_pool_info = 'https://pancakeswap.finance/info/pool/0x62608fa59fcd378cd71ce277a50f24df333b4633'
+//         } else {
+//             return false
+//         }
 //         url_buy = pancake_prefix_buy + bsc.contract_addr
 //         url_token_info = 'https://bscscan.com/token/' + bsc.contract_addr
-//         url_lp = pancake_prefix_lp + aaa + bsc.contract_addr
+//         url_lp = pancake_prefix_lp + lp_addr + bsc.contract_addr
 //     } else {
 //         return false
+//     }
+// }
+
+// function get_links() {
+//     return {
+//         url_buy: url_buy,
+//         url_token_info: url_token_info,
+//         url_lp: url_lp,
+//         url_pool_info: url_pool_info
 //     }
 // }
 
@@ -147,7 +165,7 @@ async function connect(coin, commit) {
             bsc.deposit_fee_min = ethers.utils.parseUnits("0.01", bsc.decimals)
             bsc.withdraw_fee_min = ethers.utils.parseUnits("0.003", bsc.decimals)
         } else if (coin == 'HDD') {
-            bsc.deposit_fee_min = ethers.utils.parseUnits("21", bsc.decimals)
+            bsc.deposit_fee_min = ethers.utils.parseUnits("2", bsc.decimals)
             bsc.withdraw_fee_min = ethers.utils.parseUnits("0.5", bsc.decimals)
         }
 
@@ -407,5 +425,7 @@ export default {
     get_contract_addr: get_contract_addr,
     obtain_deposit_addr: obtain_deposit_addr,
     token_balance: token_balance,
-    token_burn: token_burn
+    token_burn: token_burn,
+    // get_links: get_links,
+    // have_links: have_links
 }
