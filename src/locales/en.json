@@ -33,6 +33,7 @@
     "receive-money":"You'll receive {rec_amount}{coin}",
     "rec-alert1":"Nothing will be sent",
     "rec-alert2":"Insufficient P{coin} balance",
+    "rec-alert3":"Can't send more than {maxamount} {coin} in a single transaction",
     "rebind-newaddr":"Bind another withdraw address",
     "rebind-fee":"A small fee({re_fee}BNB) will be change to bind another new withdraw address",
     "right":"All right reserved",

@@ -41,6 +41,9 @@
         <div v-if="rec_alert2">
           <p>{{ $t("rec-alert2", { coin: this.coin }) }}</p>
         </div>
+        <div v-if="rec_alert3">
+          <p>{{ $t("rec-alert3") }}</p>
+        </div>
       </div>
     </div>
     <div v-if="withdraw_addr">
@@ -95,6 +98,7 @@ export default {
       rec_amount: false,
       rec_alert1: false,
       rec_alert2: false,
+      rec_alert3: false,
       disabled: false,
       withdraw_fee_min: "",
       withdraw_fee_rate: "",
@@ -111,14 +115,22 @@ export default {
         this.rec_amount = false;
         this.rec_alert1 = true;
         this.rec_alert2 = false;
+        this.rec_alert3 = false;
       } else if (after_fee == "fund") {
         this.rec_amount = false;
         this.rec_alert1 = false;
         this.rec_alert2 = true;
+        this.rec_alert3 = false;
+      } else if (after_fee > "maxcoin") {
+        this.rec_amount = false;
+        this.rec_alert1 = false;
+        this.rec_alert2 = false;
+        this.rec_alert3 = true;
       } else {
         this.rec_amount = after_fee;
         this.rec_alert1 = false;
         this.rec_alert2 = false;
+        this.rec_alert3 = false;
       }
     },
   },

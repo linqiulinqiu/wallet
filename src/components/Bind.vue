@@ -52,8 +52,8 @@ export default {
           },
           false
         );
-        console.log("this.xwaddr", this.xwaddr);
-        console.log("this.withdrawaddr", this.withdraw_addr);
+        // console.log("this.xwaddr", this.xwaddr);
+        // console.log("this.withdrawaddr", this.withdraw_addr);
         if (msg == "ok") {
           this.loading = true;
           this.disabled = true;
