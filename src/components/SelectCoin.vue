@@ -4,7 +4,7 @@
     <el-option key="XCC" label="Chives -- BSC" value="XCC" id="XCC"></el-option>
     <el-option
       key="HDD"
-      label="HDD coin -- BSC"
+      label="HDDcoin -- BSC"
       value="HDD"
       id="HDD"
     ></el-option>

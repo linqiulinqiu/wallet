@@ -6,7 +6,7 @@
         <!-- <img src="../assets/images/hdd.svg" alt="plotbridge" /> -->
       </el-col>
       <el-col :lg="7" :md="1" :sm="1" :xs="0"
-        >{{ $t("version") }} 12-3-1 beta testing in test network
+        >{{ $t("version") }} 12-3-2 beta testing in main network
       </el-col>
       <el-col :lg="3" :md="4" :sm="5" :xs="6">
         <SelectCoin />
