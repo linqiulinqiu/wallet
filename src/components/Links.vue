@@ -75,16 +75,14 @@
       </div>
       <div v-if="this.coin == 'HDD'">
         <el-col id="pool-info" :span="11">
-          <a
-            target="_blank"
-            href="https://pancakeswap.finance/info/pool/0x62608fa59fcd378cd71ce277a50f24df333b4633"
-            >{{ $t("pool-info") }}</a
-          >
+          <a target="_blank" href="https://pancakeswap.finance/info/pool/">{{
+            $t("pool-info")
+          }}</a>
         </el-col>
         <el-col id="token-info" :span="11">
           <a
             target="_blank"
-            href="https://bscscan.com/token/0x24D7ec172b331c7636a5Ca604de890996e5e2028"
+            href="https://bscscan.com/token/0xfEe42Eff2DBBdB18F3CF5dCe30139fB853A835A2"
             >{{ $t("token-info") }}</a
           >
         </el-col>
