@@ -117,8 +117,6 @@ export default {
           this.loading = false;
           this.disabled = false;
         }
-        this.loading = false;
-        this.disabled = false;
         this.waddr = "";
       } catch (e) {
         this.$message("Address error, please enter the correct address");
