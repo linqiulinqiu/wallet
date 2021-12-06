@@ -21,9 +21,14 @@ Vue.use(VueClipboard)
 Vue.component('pulse-loader', PulseLoader)
 Vue.config.productionTip = false
 
+function queryCoin() {
+    console.log(location.pathname)
+    console.log(location.hash.substr(1))
+}
+queryCoin()
 const store = new Vuex.Store({
     state: {
-        coin: '',
+        coin: "",
         baddr: false,
         free_xins: -1,
         xbalance: -1,

@@ -22,7 +22,7 @@ export default {
     xbalance: "xbalance",
   }),
   data() {
-    var curCoin = location.pathname.substr(1);
+    var curCoin = location.hash.substr(1);
     if (this.coin) curCoin = this.coin;
     return {
       coinchg: curCoin,
@@ -35,6 +35,9 @@ export default {
         this.connect_wallet(new_coin);
       }
     },
+    // queryCoin: function () {
+    //   console.log(location.query);
+    // },
   },
   methods: {
     connect_wallet: async function (coin) {
