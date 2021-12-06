@@ -23,7 +23,7 @@ Vue.config.productionTip = false
 
 const store = new Vuex.Store({
     state: {
-        coin: 'XCH',
+        coin: '',
         baddr: false,
         free_xins: -1,
         xbalance: -1,

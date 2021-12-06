@@ -1,5 +1,5 @@
 <template>
-  <el-select v-model="coinchg" id="selectcoin">
+  <el-select v-model="coinchg" id="selectcoin" :placeholder="$t('select-coin')">
     <el-option key="XCH" label="Chia -- BSC" value="XCH" id="XCH"></el-option>
     <el-option key="XCC" label="Chives -- BSC" value="XCC" id="XCC"></el-option>
     <el-option
@@ -22,7 +22,7 @@ export default {
     xbalance: "xbalance",
   }),
   data() {
-    var curCoin = "XCH";
+    var curCoin = location.pathname.substr(1);
     if (this.coin) curCoin = this.coin;
     return {
       coinchg: curCoin,
@@ -49,7 +49,12 @@ export default {
         const addr = await wops.connect(coin, commit);
         loading.close();
         if (!addr) {
-          this.$message(this.$t("connect-faild"));
+          if (!coin) {
+            this.$message(this.$t("no-coin"));
+          } else {
+            this.$message(this.$t("connect-faild"));
+            console.log(coin);
+          }
         }
       } catch (e) {
         console.log("eee", e);
@@ -62,6 +67,9 @@ export default {
 <style>
 #selectcoin {
   margin-top: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  border: 2px solid #d1fcd1;
 }
 .el-select-dropdown__item.selected {
   color: #668b66;

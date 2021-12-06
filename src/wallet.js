@@ -22,16 +22,15 @@ const b_hdd_address = '0xfEe42Eff2DBBdB18F3CF5dCe30139fB853A835A2'
 // const b_chainNCSymbol = 'TBNB'
 // const b_chainRpcUrl = 'https://bsc-dataseed.binance.org'
 // const b_chainExplorerUrl = 'https://bscscan.com'
-// const b_pxcc_addr = '0xD98ebD2073b389558005683262B241749B1C5655'
-// const b_pxch_addr = '0xFdF2F0995663a993A16929CeC5c39B039AB18Ef6'
-// const b_phdd_addr = '0xFfB8F22732e7fC4550a8Cda5DB03cCcCF082b357'
+// const b_xcc_address = '0xD98ebD2073b389558005683262B241749B1C5655'
+// const b_xch_address = '0xFdF2F0995663a993A16929CeC5c39B039AB18Ef6'
+// const b_hdd_address = '0xFfB8F22732e7fC4550a8Cda5DB03cCcCF082b357'
 
 const b_xaddresses = {
     'XCC': b_xcc_address,
     'XCH': b_xch_address,
     'HDD': b_hdd_address
 }
-
 async function switch_network() {
     try {
         await bsc.provider.send('wallet_switchEthereumChain', [{
@@ -317,15 +316,28 @@ function after_fee(mode, amount) {
     var fee = amount.mul(fees.rate).div(10000)
     if (fee.lt(fees.min)) fee = fees.min
     if (amount.lte(fee)) return false
-    const res = amount.sub(fee)
-    const maxamount = ethers.utils.parseUnits('446250000000000', bsc.decimals)
-    console.log(maxamount)
 
-    if (res.gte(maxamount)) {
-        console.log(maxamount)
-
-        return "maxcoin"
-    }
+    // const res = amount.sub(fee)
+    // if (coin == "XCC") {
+    //     const max = 446250000000000
+    //     console.log(max)
+    //     return max
+    // } else if (coin == "XCH") {
+    //     const max = 66666660000
+    //     console.log(max)
+    //     return max
+    // } else if (coin == "HDD") {
+    //     const max = 446250000000000
+    //     console.log(max)
+    //     return max
+    // } else {
+    //     false
+    // }
+    // const maxamount = ethers.utils.parseUnits(max, bsc.decimals)
+    // if (res.gte(maxamount)) {
+    //     console.log("maxamount", maxamount)
+    //     return "maxcoin"
+    // }
     return ethers.utils.formatUnits(amount.sub(fee), bsc.decimals)
 }
 
@@ -340,9 +352,6 @@ function get_contract_addr() {
 async function add_token(coin) {
     if (!bsc.provider) return false
     var img_name = 'p' + coin.toLowerCase() + '-logo.png'
-    console.log(img_name)
-    // const img_pre = 'https://app.plotbridge.net/img/'
-
     const added = await bsc.provider.send(
         'wallet_watchAsset', {
             type: 'ERC20',
@@ -350,9 +359,7 @@ async function add_token(coin) {
                 address: bsc.contract_addr,
                 symbol: 'P' + coin,
                 decimals: bsc.decimals,
-
                 image: "https://app.plotbridge.net/img/" + img_name
-
             }
         }
     )
@@ -367,6 +374,7 @@ function bsc_fees() {
         withdraw_fee_rate: bsc.withdraw_fee_rate
     }
 }
+
 
 async function get_bind_fee(rebind) {
     var fee = 0

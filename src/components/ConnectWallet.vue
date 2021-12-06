@@ -45,7 +45,11 @@ export default {
       try {
         const addr = await wops.connect(this.$store.state.coin, commit);
         if (!addr) {
-          this.$message(this.$t("connect-faild"));
+          if (!this.coin) {
+            this.$message(this.$t("no-coin"));
+          } else {
+            this.$message(this.$t("connect-faild"));
+          }
         }
       } catch (e) {
         if (e.code === -32601) {
@@ -69,6 +73,7 @@ export default {
   font-size: 30px;
   position: relative;
   top: 200px;
+  border: 1px solid #d1fcd1;
 }
 .connect-wallet > button:hover {
   background-color: #668b66;

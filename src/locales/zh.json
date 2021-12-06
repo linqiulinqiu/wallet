@@ -2,6 +2,8 @@
     "add-token":"添加代币",
     "pancake-swap":"在pancake上交易",
     "balance":"余额:",
+    "select-coin":"选择币种",
+    "no-coin":"未选择币种",
     "connect-wallet":"连接钱包",
     "deposit":"存入",
     "coin-total":"{coin} 总量:",
