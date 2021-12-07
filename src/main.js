@@ -21,14 +21,37 @@ Vue.use(VueClipboard)
 Vue.component('pulse-loader', PulseLoader)
 Vue.config.productionTip = false
 
-// function queryCoin() {
-//     console.log(location.pathname)
-//     console.log(location.hash.substr(1))
-// }
-// queryCoin()
+function queryCoin() {
+    var coinHash = location.hash.substr(1);
+    var curCoin = ""
+    if (coinHash == "XCC" || coinHash == "XCH" || coinHash == "HDD") {
+        curCoin = coinHash;
+    } else {
+        var sel = location.hash.substr(1);
+        if (sel == null) curCoin = "";
+        const coinMap = {
+            xch: "XCH",
+            xcc: "XCC",
+            hdd: "HDD",
+            chia: "XCH",
+            chives: "XCC",
+            HDDcoin: "HDD",
+            hddcoin: "HDD",
+        };
+        const coin = coinMap[sel.toLowerCase()];
+        if (!coin || coin.length == 0 || coin == null) {
+            curCoin = "";
+        } else {
+            curCoin = coin;
+        }
+    }
+    return curCoin
+}
+
+
 const store = new Vuex.Store({
     state: {
-        coin: "",
+        coin: queryCoin(),
         baddr: false,
         free_xins: -1,
         xbalance: -1,
