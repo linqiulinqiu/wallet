@@ -20,7 +20,7 @@
         </span>
       </div>
     </el-col>
-    <el-col :lg="2" :sm="4" :xs="6">
+    <el-col :lg="2" :sm="4" :xs="6" v-if="coin">
       <div @click="openPancakeLp" id="link-lp">
         <img
           id="pancake-lp"
