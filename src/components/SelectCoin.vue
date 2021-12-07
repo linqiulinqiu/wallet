@@ -27,7 +27,7 @@ export default {
       var curCoin = coinHash;
     } else {
       var sel = location.hash.substr(1);
-      // console.log("sel", sel);
+      if (sel == null) curCoin = "";
       const coinMap = {
         xch: "XCH",
         xcc: "XCC",
@@ -37,15 +37,11 @@ export default {
         HDDcoin: "HDD",
         hddcoin: "HDD",
       };
-      // console.log("coinmap", coinMap);
       const coin = coinMap[sel.toLowerCase()];
-      // console.log("coin2", coin);
-      if (!coin || coin.length == 0) {
-        curCoin = "XCH";
+      if (!coin || coin.length == 0 || coin == null) {
+        curCoin = "";
       } else {
-        // console.log("coin in coinmap", coin);
         curCoin = coin;
-        // console.log("curcoin=coin", curCoin);
       }
     }
     if (this.coin) curCoin = this.coin;
@@ -60,24 +56,6 @@ export default {
         this.connect_wallet(new_coin);
       }
     },
-    // queryCoin: function () {
-    //   console.log(location.hash.substr(1));
-    //   const curCoin = location.hash.substr(1);
-    //   for()
-    //   var sel = "xch";
-    //   const coinMap = {
-    //     xcc: "XCC",
-    //     hdd: "HDD",
-    //     xch: "XCH",
-    //     chia: "XCH",
-    //     chives: "XCC",
-    //     HDDcoin: "HDD",
-    //   };
-    //   const coin = coinMap[sel.toLowerCase()];
-    //   if (!coin || coin.length == 0) return "XCH";
-    //   // var coin = location.hash.substr(1);
-    //   return coin;
-    // },
   },
   methods: {
     connect_wallet: async function (coin) {

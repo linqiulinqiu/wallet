@@ -26,7 +26,7 @@
     "little-fee":"Bridging fee may apply",
     "little-refee":"Bind fee may apply",
     "max":"Max",
-    "no-coin":"No currency selected",
+    "no-coin":"Currency not selected",
     "no-connect":"Wallet Not Connected",
     "no-depositAddr":"No Deposit Address Available, Please wait a while",
     "obtain-deposit-address":"Obtain Deposit Address",
