@@ -22,7 +22,32 @@ export default {
     xbalance: "xbalance",
   }),
   data() {
-    var curCoin = location.hash.substr(1);
+    var coinHash = location.hash.substr(1);
+    if (coinHash == "XCC" || coinHash == "XCH" || coinHash == "HDD") {
+      var curCoin = coinHash;
+    } else {
+      var sel = location.hash.substr(1);
+      // console.log("sel", sel);
+      const coinMap = {
+        xch: "XCH",
+        xcc: "XCC",
+        hdd: "HDD",
+        chia: "XCH",
+        chives: "XCC",
+        HDDcoin: "HDD",
+        hddcoin: "HDD",
+      };
+      // console.log("coinmap", coinMap);
+      const coin = coinMap[sel.toLowerCase()];
+      // console.log("coin2", coin);
+      if (!coin || coin.length == 0) {
+        curCoin = "XCH";
+      } else {
+        // console.log("coin in coinmap", coin);
+        curCoin = coin;
+        // console.log("curcoin=coin", curCoin);
+      }
+    }
     if (this.coin) curCoin = this.coin;
     return {
       coinchg: curCoin,
@@ -36,7 +61,22 @@ export default {
       }
     },
     // queryCoin: function () {
-    //   console.log(location.query);
+    //   console.log(location.hash.substr(1));
+    //   const curCoin = location.hash.substr(1);
+    //   for()
+    //   var sel = "xch";
+    //   const coinMap = {
+    //     xcc: "XCC",
+    //     hdd: "HDD",
+    //     xch: "XCH",
+    //     chia: "XCH",
+    //     chives: "XCC",
+    //     HDDcoin: "HDD",
+    //   };
+    //   const coin = coinMap[sel.toLowerCase()];
+    //   if (!coin || coin.length == 0) return "XCH";
+    //   // var coin = location.hash.substr(1);
+    //   return coin;
     // },
   },
   methods: {
