@@ -3,6 +3,7 @@
     <p>{{ $t("rebind-newaddr") }}</p>
     <p>
       <el-input
+        maxlength="70"
         id="rebindInput"
         v-model="xwaddr"
         clearable

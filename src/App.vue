@@ -128,6 +128,11 @@ body {
   border: 1px solid #d1fcd1;
   font-size: 18px;
 }
+.el-select .el-input .el-select__caret {
+  color: #d1fcd1;
+  font-size: 16px;
+  font-weight: 600;
+}
 /* 页面主体部分 */
 
 .mainBody > .el-row {

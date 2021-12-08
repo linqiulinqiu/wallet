@@ -2,6 +2,7 @@
   <div id="WithdrawBurn">
     <div v-if="xwaddr">
       <el-input
+        maxlength="40"
         id="withdraw-amount"
         size="middle"
         suffix-icon="el-icon-edit"

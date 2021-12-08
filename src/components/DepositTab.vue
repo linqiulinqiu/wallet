@@ -5,6 +5,7 @@
       <div id="exchange">
         {{ $t("deposit") }}
         <el-input
+          maxlength="40"
           v-model="deposit_amount"
           size="middle"
           suffix-icon="el-icon-edit"
