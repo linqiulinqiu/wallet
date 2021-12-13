@@ -49,5 +49,7 @@
     "trade":"在BSC钱包上添加代币",
     "contact-us":"联系我们",
     "pool-info":"交易对信息",
-    "token-info":"代币信息"
+    "token-info":"代币信息",
+    "exchange-coin":"兑换"
+
 }
