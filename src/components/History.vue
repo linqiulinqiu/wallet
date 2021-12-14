@@ -6,17 +6,15 @@
 
       <div id="banner">
         <ul id="banner-top">
-          <li v-for="node of history" :key="node.address">
-            <p>adress:{{ node.address }}</p>
-            balance:{{ node.balance }}
-            <p>update at:{{ node.time }}</p>
+          <li v-for="item of history" :key="item.address">
+            <p>address:{{ item.address }}</p>
+            balance:{{ item.balance }}
+            <p>update at:{{ item.time }}</p>
           </li>
         </ul>
       </div>
       <ul id="banner-bottom">
-        <li v-for="node of history" :key="node.address">
-          {{ node.index }}
-        </li>
+        <li v-for="item of history" :key="item.address"></li>
       </ul>
     </el-col>
     <div>balnce:</div>
@@ -30,32 +28,18 @@ export default {
   components: {},
   computed: mapState({}),
   data() {
+    var history = [];
+    for (var i = 0; i <= 100; i++) {
+      var item = {};
+      item.address = "address" + i;
+      item.balance = "balance" + i;
+      item.time = "time" + i;
+      history.push(item[i]);
+    }
     return {
-      history: [
-        {
-          address: "addr 4",
-          balance: "balance 4",
-          time: "time 4",
-        },
-        {
-          address: "addr 1",
-          balance: "balance 1",
-          time: "time 1",
-        },
-        {
-          address: "addr 2",
-          balance: "balance 2",
-          time: "time 2",
-        },
-        {
-          address: "addr 3",
-          balance: "balance 3",
-          time: "time 3",
-        },
-      ],
+      history: [],
     };
   },
-  methods: {},
 };
 </script>
 <style>
@@ -66,7 +50,7 @@ export default {
   width: 610px;
   height: 320px;
   border: olive 1px solid;
-  overflow: hidden;
+  /* overflow: hidden; */
   margin: 0 auto;
   position: relative;
 }

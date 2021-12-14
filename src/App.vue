@@ -1,36 +1,31 @@
 <template>
   <div id="app">
-    <el-container>
-      <Mnemonic />
-    </el-container>
+    <Mnemonic />
+    <Send />
   </div>
 </template>
+
 <script>
-import { mapState } from "vuex";
+import HelloWorld from "./components/HelloWorld";
 import Mnemonic from "./components/Mnemonic.vue";
+import Send from "./components/Send.vue";
 
 export default {
   name: "App",
-  components: { Mnemonic },
-
-  computed: mapState({}),
+  components: {
+    Send,
+    Mnemonic,
+  },
 };
 </script>
 
 <style>
 #app {
-  font-family: "Courier New", Courier monospace !important;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-}
-/* ul li {
-  list-style: none;
-} */
-.aa {
-  height: 400px;
-  margin-top: 50px;
-  border: 1px solid #000;
-  padding: 20px;
+  color: #2c3e50;
+  margin-top: 60px;
 }
 </style>
