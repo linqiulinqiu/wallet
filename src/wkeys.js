@@ -1,4 +1,3 @@
-const { puzzle_hash_to_address } = require('chia-utils')
 const {mnemonicToSeedSync,generateMnemonic } = require('bip39')
 const loadBls = require('@chiamine/bls-signatures')
 

@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import Mnemonic from "./components/Mnemonic.vue";
 import History from "./components/History.vue";
+import Mnemonic from "./components/Mnemonic.vue";
 import Send from "./components/Send.vue";
 
 export default {
@@ -21,7 +21,8 @@ export default {
     Mnemonic,
   },
 };
-</script>
+</script>,
+    History
 
 <style>
 #app {
