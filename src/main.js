@@ -13,13 +13,13 @@ Vue.use(ElementUI)
 
 const store = new Vuex.Store({
   state: {
-    mnemonic: 'mnemonic',
+    mnemonic: "null",
   },
   strict: process.env.NODE_ENV !== 'production',
 
   mutations: {
-    setMnemonic(state, mnemonic) {
-      state.mnemonic = mnemonic
+    setMnemonic(state, words) {
+      state.mnemonic = words
     },
   }
 })

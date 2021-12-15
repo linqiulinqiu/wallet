@@ -1,12 +1,13 @@
 <template>
   <div id="app">
-    <Mnemonic />
-    <Send />
+    <el-col id="main">
+      <Mnemonic />
+      <Send />
+    </el-col>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
 import Mnemonic from "./components/Mnemonic.vue";
 import Send from "./components/Send.vue";
 
@@ -27,5 +28,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+#main {
+  width: 700px;
+  margin: 50px auto;
 }
 </style>
