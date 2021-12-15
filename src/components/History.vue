@@ -29,7 +29,7 @@ export default {
   computed: mapState({}),
   data() {
     var history = [];
-    for (var i = 0; i <= 100; i++) {
+    for (var i = 0; i <= 10; i++) {
       var item = {};
       item.address = "address" + i;
       item.balance = "balance" + i;
@@ -37,7 +37,7 @@ export default {
       history.push(item[i]);
     }
     return {
-      history: [],
+      history: history,
     };
   },
 };

@@ -17,6 +17,8 @@
   </el-row>
 </template>
 <script>
+
+import wkeys from "../wkeys"
 // import { mapState } from "vuex";
 export default {
   components: {},
@@ -51,10 +53,10 @@ export default {
       this.dialogFormVisible = false;
     },
     createWords: function () {
-      const aa = "1" + "2" + "3" + "4" + "5" + "6" + "7" + "8";
-      this.$store.commit("setMnemonic", aa);
-      console.log(aa);
-      return aa;
+      const mn = wkeys.create_mnemonic()
+      this.$store.commit("setMnemonic", mn);
+      console.log(mn);
+      return mn;
     },
   },
 };

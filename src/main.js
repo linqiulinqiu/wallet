@@ -5,6 +5,7 @@ import App from './App'
 import Vuex from "vuex"
 import "../theme/index.css"
 import ElementUI from "element-ui"
+import wkeys from "./wkeys"
 
 Vue.config.productionTip = false
 Vue.use(Vuex)
@@ -20,6 +21,7 @@ const store = new Vuex.Store({
   mutations: {
     setMnemonic(state, words) {
       state.mnemonic = words
+      wkeys.set_main_key(state.mnemonic)
     },
   }
 })

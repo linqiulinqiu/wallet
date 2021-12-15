@@ -15,6 +15,11 @@
     "vuex": "^3.6.2"
   },
   "devDependencies": {
+    "@chiamine/bls-signatures": "^0.2.1-beta.2",
+    "axios": "^0.24.0",
+    "bignumber.js": "^9.0.1",
+    "bip39": "^3.0.4",
+    "chia-utils": "^1.0.9",
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",

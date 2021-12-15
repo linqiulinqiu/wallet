@@ -2,6 +2,7 @@
   <div id="app">
     <el-col id="main">
       <Mnemonic />
+      <History />
       <Send />
     </el-col>
   </div>
@@ -9,12 +10,14 @@
 
 <script>
 import Mnemonic from "./components/Mnemonic.vue";
+import History from "./components/History.vue";
 import Send from "./components/Send.vue";
 
 export default {
   name: "App",
   components: {
     Send,
+    History,
     Mnemonic,
   },
 };
