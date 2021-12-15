@@ -5,19 +5,24 @@
       <el-button id="banner-next">&gt;</el-button>
 
       <div id="banner">
-        <ul id="banner-top">
-          <li v-for="item of history" :key="item.address">
-            <p>address:{{ item.address }}</p>
-            balance:{{ item.balance }}
-            <p>update at:{{ item.time }}</p>
-          </li>
-        </ul>
+        <div>
+          <ul id="banner-top">
+            <li v-for="item of history" :key="item.address">
+              <p>address:{{ item.address }}</p>
+              balance:{{ item.balance }}
+              <p>update at:{{ item.time }}</p>
+            </li>
+          </ul>
+        </div>
+
+        <div id="banner-bottom">
+          <ul>
+            <li v-for="item of history" :key="item.address"></li>
+          </ul>
+        </div>
       </div>
-      <ul id="banner-bottom">
-        <li v-for="item of history" :key="item.address"></li>
-      </ul>
     </el-col>
-    <div>balnce:</div>
+    <div>Total Balnce:</div>
   </el-row>
 </template>
 <script>
@@ -37,7 +42,13 @@ export default {
       history.push(item[i]);
     }
     return {
-      history: [],
+      history: [
+        {
+          address: item.address,
+          balance: item.balance,
+          time: item.time,
+        },
+      ],
     };
   },
 };
@@ -78,7 +89,7 @@ export default {
 }
 #banner-buttom {
   position: absolute;
-  bottom: 10px;
+  bottom: -20px;
 }
 #banner-bottom li {
   list-style-type: none;
