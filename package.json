@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@chiamine/bls-signatures": "^0.2.1-beta.2",
+    "axios": "^0.24.0",
     "bip39": "^3.0.4",
     "chia-utils": "^1.0.5",
     "clipboard": "^2.0.8",

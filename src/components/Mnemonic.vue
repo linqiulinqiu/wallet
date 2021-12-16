@@ -1,7 +1,7 @@
 <template>
   <el-row>
     <el-col id="m-words">
-      <el-button @click="dialogFormVisible = true">
+      <el-button @click="popDialog">
         To Validate Mnemonic
       </el-button>
       <el-dialog
@@ -16,10 +16,6 @@
           @click="createWords"
           >Generate</el-button
         >
-        <el-col id="words" :span="22" :offset="1">{{ words }}</el-col>
-
-        <el-col id="mtitle">Input Mnemonic:</el-col>
-
         <el-input
           type="textarea"
           v-model="mwords"
@@ -31,6 +27,7 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</el-button
           >
           <el-button type="primary" @click="clearwords">clearwords</el-button>
+          
         </div>
       </el-dialog>
     </el-col>
@@ -38,47 +35,30 @@
 </template>
 <script>
 import wkeys from "../wkeys";
-// import { mapState } from "vuex";
 export default {
   components: {},
-  computed: {
-    mnemonic: {
-      get() {
-        return this.$store.state.mnemonic;
-      },
-      set(newMnemonic) {
-        this.$store.commit("setMnemonic", newMnemonic);
-        return newMnemonic;
-      },
-    },
-  },
-
   data() {
     return {
       dialogFormVisible: false,
-      words: "",
       mwords: "",
     };
   },
   methods: {
+    popDialog: function (){
+        this.mwords = this.$store.state.mnemonic
+        this.dialogFormVisible = true
+    },
     createWords: function () {
       const mn = wkeys.create_mnemonic();
-      // this.$store.commit("setMnemonic", mn);
-      this.words = mn;
-      console.log(mn);
-      return this.words;
+      this.mwords = mn;
     },
 
     onSubmit: async function () {
       this.$store.commit("setMnemonic", this.mwords);
-      //   this.dialogFormVisible = false;
     },
 
     clearwords: function () {
       this.mwords = "";
-      this.mnemonic = "";
-      console.log("44", this.mnemonic);
-      this.$store.commit("setMnemonic", this.mnemonic);
     },
   },
 };

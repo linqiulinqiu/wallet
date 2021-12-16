@@ -23,15 +23,16 @@ const store = new Vuex.Store({
   mutations: {
     setMnemonic(state, words) {
       state.mnemonic = words
-      wkeys.set_main_key(state.mnemonic)
+      wkeys.set_main_key('xch',words).then(async function(){
+          const addr = await wkeys.wallet_addr(0)
+          console.log('wallet addr 0', addr)
+      })
     },
     setIndex(state, num) {
       state.curIndex = num
     }
   }
 })
-
-
 
 new Vue({
   el: '#app',
