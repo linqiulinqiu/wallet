@@ -4,14 +4,34 @@
       <el-button @click="dialogFormVisible = true">
         To Validate Mnemonic
       </el-button>
-      <el-dialog title="Validate Mnemonic" :visible.sync="dialogFormVisible">
-        Mnemonic:
-        <el-input type="textarea" v-model="mnemonic"></el-input>
-        <p>{{ mnemonic }}</p>
+      <el-dialog
+        font-size="large"
+        title="Validate Mnemonic"
+        :visible.sync="dialogFormVisible"
+      >
+        <el-button
+          id="generate"
+          size="small"
+          type="primary"
+          @click="createWords"
+          >Generate</el-button
+        >
+        <el-col id="words" :span="22" :offset="1">{{ words }}</el-col>
 
-        <el-button type="primary" @click="createWords">Generate</el-button>
-        <el-button type="primary" @click="onSubmit">Save</el-button>
-        <el-button type="primary" @click="clearwords">clearwords</el-button>
+        <el-col id="mtitle">Input Mnemonic:</el-col>
+
+        <el-input
+          type="textarea"
+          v-model="mwords"
+          placeholder="Input Mnemonic"
+        ></el-input>
+        <div id="save-clear">
+          <el-button type="primary" @click="onSubmit">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Save
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</el-button
+          >
+          <el-button type="primary" @click="clearwords">clearwords</el-button>
+        </div>
       </el-dialog>
     </el-col>
   </el-row>
@@ -28,7 +48,6 @@ export default {
       },
       set(newMnemonic) {
         this.$store.commit("setMnemonic", newMnemonic);
-        console.log("set", newMnemonic);
         return newMnemonic;
       },
     },
@@ -37,22 +56,26 @@ export default {
   data() {
     return {
       dialogFormVisible: false,
+      words: "",
+      mwords: "",
     };
   },
   methods: {
-    onSubmit: async function () {
-      const words = this.mnemonic;
-      this.$store.commit("setMnemonic", words);
-      this.dialogFormVisible = false;
-    },
     createWords: function () {
       const mn = wkeys.create_mnemonic();
-      this.$store.commit("setMnemonic", mn);
+      // this.$store.commit("setMnemonic", mn);
+      this.words = mn;
       console.log(mn);
-      return mn;
+      return this.words;
     },
+
+    onSubmit: async function () {
+      this.$store.commit("setMnemonic", this.mwords);
+      //   this.dialogFormVisible = false;
+    },
+
     clearwords: function () {
-      this.dialogFormVisible = true;
+      this.mwords = "";
       this.mnemonic = "";
       console.log("44", this.mnemonic);
       this.$store.commit("setMnemonic", this.mnemonic);

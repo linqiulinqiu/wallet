@@ -9,9 +9,10 @@
 </template>
 
 <script>
-import History from "./components/History.vue";
+// import History from "./components/History.vue";
 import Mnemonic from "./components/Mnemonic.vue";
 import Send from "./components/Send.vue";
+import History from "./components/History.vue";
 
 export default {
   name: "App",
