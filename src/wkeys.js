@@ -83,7 +83,7 @@ async function wallet_addr(idx){
         const from = wallet_addrs.length
         const pks = wallet_pks(from, from+10)
         const xaddrs = await pk2addrs(pks)
-        wallet_addrs = wallet_addrs.append(xaddrs)
+        wallet_addrs = wallet_addrs.concat(xaddrs)
     }
     return wallet_addrs[idx]
 }
