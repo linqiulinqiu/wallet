@@ -6,6 +6,7 @@ import Vuex from "vuex"
 import "../theme/index.css"
 import ElementUI from "element-ui"
 import wkeys from "./wkeys"
+import "../src/assets/index.css"
 
 Vue.config.productionTip = false
 Vue.use(Vuex)
@@ -14,7 +15,8 @@ Vue.use(ElementUI)
 
 const store = new Vuex.Store({
   state: {
-    mnemonic: "null",
+    mnemonic: "",
+    curIndex: 1
   },
   strict: process.env.NODE_ENV !== 'production',
 
@@ -23,6 +25,9 @@ const store = new Vuex.Store({
       state.mnemonic = words
       wkeys.set_main_key(state.mnemonic)
     },
+    setIndex(state, num) {
+      state.curIndex = num
+    }
   }
 })
 

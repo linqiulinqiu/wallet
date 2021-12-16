@@ -1,38 +1,56 @@
 <template>
   <el-row id="history">
     <el-col id="history-info">
-      <el-button id="banner-pre">&lt;</el-button>
-      <el-button id="banner-next">&gt;</el-button>
+      <el-button
+        type="primary"
+        id="banner-pre"
+        :disabled="disabled_p"
+        @click="preAddr"
+        >&lt;</el-button
+      >
+      <el-button
+        type="primary"
+        id="banner-next"
+        :disabled="disabled_n"
+        @click="nextAddr"
+        >&gt;</el-button
+      >
 
-      <div id="banner">
-        <div>
-          <ul id="banner-top">
+      <el-col id="banner">
+        <el-col id="banner-top">
+          <ul>
             <li v-for="item of history" :key="item.address">
               <p>address:{{ item.address }}</p>
-              balance:{{ item.balance }}
+              <p>balance:{{ item.balance }}</p>
               <p>update at:{{ item.time }}</p>
             </li>
           </ul>
-        </div>
+        </el-col>
 
-        <div id="banner-bottom">
+        <el-col id="banner-bottom">
           <ul>
             <li v-for="item of history" :key="item.address"></li>
           </ul>
-        </div>
-      </div>
+        </el-col>
+      </el-col>
     </el-col>
     <div>Total Balnce:</div>
   </el-row>
 </template>
 <script>
 import { mapState } from "vuex";
-import wkeys from "../wkeys";
+// import wkeys from "../wkeys";
 
 export default {
   name: "history",
   components: {},
-  computed: mapState({}),
+  computed: mapState({
+    curIndex: {
+      get() {
+        return this.$store.state.curIndex;
+      },
+    },
+  }),
   data() {
     var history = [];
     for (var i = 0; i <= 10; i++) {
@@ -43,60 +61,26 @@ export default {
       history.push(item);
     }
     return {
-        history:history
+      history: history,
+      disabled_p: true,
+      disabled_n: false,
     };
+  },
+  methods: {
+    preAddr: function (index) {
+      this.curindex = index;
+      for (index in this.history) {
+        if (index > 1) {
+          this.disabled_p = false;
+        }
+        if (index >= history.length) {
+          this.disabled_n = true;
+        } else {
+          this.disabled_n = false;
+        }
+      }
+    },
   },
 };
 </script>
-<style>
-#history {
-  width: 100%;
-}
-#history-info {
-  width: 610px;
-  height: 320px;
-  border: olive 1px solid;
-  /* overflow: hidden; */
-  margin: 0 auto;
-  position: relative;
-}
-#banner-pre,
-#banner-next {
-  position: absolute;
-  top: 100px;
-}
-#banner-pre {
-  left: 5px;
-}
-#banner-next {
-  right: 5px;
-}
-#banner {
-  width: 1550px;
-}
-#banner-top li {
-  width: 500px;
-  height: 160px;
-  border: olive 1px solid;
-  padding: 50px 0px;
-  float: left;
-  list-style: none;
-}
-#banner-buttom {
-  position: absolute;
-  bottom: -20px;
-}
-#banner-bottom li {
-  list-style-type: none;
-  float: left;
-  margin: 10px 10px;
-  width: 10px;
-  height: 10px;
-  /* background-color: olivedrab; */
-  border-radius: 50%;
-  border: 1px solid #668b66;
-}
-#banner-botton li:hover {
-  background-color: #668b66;
-}
-</style>
+
