@@ -39,7 +39,7 @@
 </template>
 <script>
 import { mapState } from "vuex";
-// import wkeys from "../wkeys";
+import wkeys from "../wkeys";
 
 export default {
   name: "history",
@@ -73,6 +73,11 @@ export default {
         if (index > 1) {
           this.disabled_p = false;
         }
+      }
+    },
+    nextAddr: function (index) {
+      this.curindex = index;
+      for (index in this.history) {
         if (index >= history.length) {
           this.disabled_n = true;
         } else {

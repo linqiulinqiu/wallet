@@ -11,16 +11,16 @@ async function toHex(k) {
     return BLS.Util.hex_str(k.serialize())
 }
 
-// var current_mnemonic = ""
+var current_mnemonic = ""
 var current_sk = false
 
 async function set_main_key(mnemonic) {
     await init()
-    // current_mnemonic = mnemonic
+    current_mnemonic = mnemonic
     const seed = mnemonicToSeedSync(mnemonic)
     const sk = BLS.AugSchemeMPL.key_gen(seed)
     current_sk = sk
-    // const pk = sk.get_g1()
+    const pk = sk.get_g1()
     return sk
 }
 
