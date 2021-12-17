@@ -14,7 +14,9 @@ const axaddr = axios.create({
     baseURL: 'https://mkaddr.onrender.com/'
 })
 
-const expBase='https://api.alltheblocks.net/atb'
+const axexp = axios.create({
+    baseURL:'https://api.alltheblocks.net/atb'
+})
 
 async function toHex(k) {
     await init()
