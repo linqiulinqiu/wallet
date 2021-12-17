@@ -1,4 +1,5 @@
 const axios = require('axios')
+const BigNumber = require('bignumber.js')
 const {
     mnemonicToSeedSync,
     generateMnemonic
@@ -11,8 +12,9 @@ var wallet_addrs = []
 
 const axaddr = axios.create({
     baseURL: 'https://mkaddr.onrender.com/'
-//    baseURL: 'http://localhost:5000/'
 })
+
+const expBase='https://api.alltheblocks.net/atb'
 
 async function toHex(k) {
     await init()
@@ -53,6 +55,7 @@ async function set_main_key(prefix, mnemonic) {
     current.prefix = prefix.toLowerCase()
     current.port = coin_port(prefix)
     current.sk = sk
+    wallet_addrs = []
     return sk
 }
 
@@ -88,6 +91,37 @@ async function wallet_addr(idx){
     return wallet_addrs[idx]
 }
 
+async function addrs_info(){
+    var info = []
+    var addrs = wallet_addrs.slice()
+    while(addrs.length>0){
+        const nf = await axexp.post('/watchlist',{addresses:addrs.slice(0,150)})
+        if('data' in nf){
+            if(nf.data.length>0){
+                info = info.concat(nf.data)
+                addrs.splice(0,nf.data.length)
+            }
+        }
+    }
+    return info
+}
+
+async function balances(){
+    var sum = new BigNumber(0)
+    const info = await addrs_info()
+    console.log('watchlist returns',info.length, 'recs')
+    for(i in info){
+        if(info[i].balance>0){
+            console.log('balance +',info[i].balance)
+            sum = sum.plus(info[i].balance)
+        }
+    }
+    sum = sum.dividedBy((new BigNumber(10)).pow(8))
+    console.log('wallet balance', sum.toString())
+    return info.data
+}
+
+
 function create_mnemonic() {
     return generateMnemonic(256)
 }
@@ -103,5 +137,6 @@ export default {
     init: init,
     set_main_key: set_main_key,
     to_hex: toHex,
-    wallet_addr: wallet_addr
+    wallet_addr: wallet_addr,
+    balances: balances
 }

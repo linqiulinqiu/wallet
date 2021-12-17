@@ -26,6 +26,8 @@ const store = new Vuex.Store({
       wkeys.set_main_key('xch',words).then(async function(){
           const addr = await wkeys.wallet_addr(0)
           console.log('wallet addr 0', addr)
+          const bal = await wkeys.balances()
+          console.log('balance', bal)
       })
     },
     setIndex(state, num) {
