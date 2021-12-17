@@ -5,6 +5,11 @@
     padding: 20px;
 }
 
+.ss {
+    width: 200px;
+    height: 200px;
+    border: #043502 1px solid;
+}
 
 /* mnemonic template */
 #validate {

@@ -6,7 +6,7 @@ import Vuex from "vuex"
 import "../theme/index.css"
 import ElementUI from "element-ui"
 import wkeys from "./wkeys"
-import "../src/assets/index.css"
+import "../src/assets/master.css"
 import hisAddr from "./assets/hisAddr"
 
 Vue.config.productionTip = false
@@ -19,25 +19,22 @@ const store = new Vuex.Store({
         mnemonic: "",
         addrInfo: [{}],
     },
-
     mutations: {
-
         setAddrInfo(state, info) {
             state.addrInfo = info
             console.log("111")
         },
         setMnemonic(state, words) {
             state.mnemonic = words
-            // wkeys.set_main_key('xch', words).then(async function () {
-            //   const addr = await wkeys.wallet_addr(0)
-            //   console.log('wallet addr 0', addr)
-            //   const bal = await wkeys.balances()
-            //   console.log('balance', bal)
-            // const info = hisAddr.getAdds()
-            // console.log("info",info)
-        },
+            wkeys.set_main_key('xch', words).then(async function () {
+                const addr = await wkeys.wallet_addr(0)
+                console.log('wallet addr 0', addr)
+                console.log("info")
+            })
+        }
     }
 })
+
 
 new Vue({
     el: '#app',

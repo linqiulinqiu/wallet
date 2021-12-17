@@ -11,7 +11,7 @@
     </el-carousel> -->
     <div>
       <el-button @click="getadd">Get Addr</el-button>
-      <div v-if="aaa">
+      <div v-if="aaa" class="ss">
         <div v-for="item in addrInfo" :key="item.address">
           {{ item.address }}
         </div>
@@ -29,9 +29,10 @@ export default {
         return this.$store.state.addrInfo;
       },
       set(info) {
+        console.log("222");
+
         info = hisAddr.getAdds();
         this.$store.commit("setAddrInfo", info);
-        console.log("222");
       },
     },
   },
@@ -51,10 +52,12 @@ export default {
   },
   methods: {
     getadd: async function () {
-      const bb = await hisAddr.getAdds();
-      this.$store.commit("setAddrInfo", bb);
       this.aaa = true;
-      // console.log(1111);
+
+      const bb = await hisAddr.getAdds();
+      console.log("generate addr", bb);
+      this.$store.commit("setAddrInfo", bb);
+      console.log(1111);
     },
   },
 };
