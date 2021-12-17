@@ -1,19 +1,43 @@
 <template>
-  <el-carousel trigger="click" height="350px" :autoplay="false">
-    <el-carousel-item v-for="(item, index) in history" :key="index">
-      <el-col id="banner">
-        <p>address:{{ item.address }}</p>
-        <p>balance:{{ item.balance }}</p>
-        <p>update at:{{ item.time }}</p>
-      </el-col>
-    </el-carousel-item>
-  </el-carousel>
+  <el-col>
+    <!-- <el-carousel trigger="click" height="350px" :autoplay="false">
+      <el-carousel-item v-for="(item, index) in history" :key="index">
+        <el-col id="banner">
+          <p>address:{{ addrInfo }}</p>
+          <p>balance:{{ addrInfo }}</p>
+          <p>update at:{{ item.time }}</p>
+        </el-col>
+      </el-carousel-item>
+    </el-carousel> -->
+    <div>
+      <el-button @click="getadd">Get Addr</el-button>
+      <div v-if="aaa">
+        <div v-for="item in addrInfo" :key="item.address">
+          {{ item.address }}
+        </div>
+      </div>
+    </div>
+  </el-col>
 </template>
 <script>
+import hisAddr from "../assets/hisAddr.js";
 export default {
+  computed: {
+    addrInfo: {
+      get() {
+        console.log("000");
+        return this.$store.state.addrInfo;
+      },
+      set(info) {
+        info = hisAddr.getAdds();
+        this.$store.commit("setAddrInfo", info);
+        console.log("222");
+      },
+    },
+  },
   data() {
     var history = [];
-    for (var i = 0; i <= 10; i++) {
+    for (var i = 0; i <= 9; i++) {
       var item = {};
       item.address = "address" + i;
       item.balance = "balance" + i;
@@ -22,9 +46,16 @@ export default {
     }
     return {
       history: history,
-      disabled_p: true,
-      disabled_n: false,
+      aaa: false,
     };
+  },
+  methods: {
+    getadd: async function () {
+      const bb = await hisAddr.getAdds();
+      this.$store.commit("setAddrInfo", bb);
+      this.aaa = true;
+      // console.log(1111);
+    },
   },
 };
 </script>
