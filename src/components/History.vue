@@ -10,7 +10,7 @@
       </el-carousel-item>
     </el-carousel> -->
     <div>
-      <el-button @click="getadd">Get Addr</el-button>
+      <el-button @click="get_addr">Get Addr</el-button>
       <div v-if="aaa" class="ss">
         <div v-for="item in addrInfo" :key="item.address">
           {{ item.address }}
@@ -20,6 +20,7 @@
   </el-col>
 </template>
 <script>
+import wkeys from '../wkeys'
 import hisAddr from "../assets/hisAddr.js";
 export default {
   computed: {
@@ -51,13 +52,15 @@ export default {
     };
   },
   methods: {
-    getadd: async function () {
+    get_addr: async function () {
       this.aaa = true;
-
-      const bb = await hisAddr.getAdds();
+      const addr_info = await wkeys.addrs_info() 
+      console.log('addr_info', addr_info)
+/*      const bb = await hisAddr.getAdds();
       console.log("generate addr", bb);
       this.$store.commit("setAddrInfo", bb);
       console.log(1111);
+      */
     },
   },
 };

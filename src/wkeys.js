@@ -15,7 +15,7 @@ const axaddr = axios.create({
 })
 
 const axexp = axios.create({
-    baseURL:'https://api.alltheblocks.net/atb'
+    baseURL:'http://localhost:8090/https://api.alltheblocks.net/atb'
 })
 
 async function toHex(k) {
@@ -140,5 +140,6 @@ export default {
     set_main_key: set_main_key,
     to_hex: toHex,
     wallet_addr: wallet_addr,
+    addrs_info: addrs_info,
     balances: balances
 }
