@@ -15,7 +15,7 @@ const axaddr = axios.create({
 })
 
 const axexp = axios.create({
-    baseURL:'http://localhost:8090/https://api.alltheblocks.net/atb'
+    baseURL:'http://localhost:8090/'
 })
 
 async function toHex(k) {
@@ -97,7 +97,7 @@ async function addrs_info(){
     var info = []
     var addrs = wallet_addrs.slice()
     while(addrs.length>0){
-        const nf = await axexp.post('/watchlist',{addresses:addrs.slice(0,150)})
+        const nf = await axexp.post('/wl',{addresses:addrs.slice(0,150)})
         if('data' in nf){
             if(nf.data.length>0){
                 info = info.concat(nf.data)
