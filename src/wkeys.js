@@ -23,13 +23,15 @@ async function toHex(k) {
     return BLS.Util.hex_str(k.serialize())
 }
 
-async function pk2addrs(pks){
+async function pk2addrs(pks) {
     const pkhexs = []
-    for(var i in pks){
+    for (var i in pks) {
         pkhexs.push(await toHex(pks[i]))
     }
     console.log(JSON.stringify(pkhexs))
-    const resp = await axaddr.post('/pk2addr/'+current.prefix, {pks:pkhexs})
+    const resp = await axaddr.post('/pk2addr/' + current.prefix, {
+        pks: pkhexs
+    })
     return resp.data.addrs
 }
 
@@ -40,8 +42,8 @@ const current = {
     sk: false
 }
 
-function coin_port(prefix){
-    switch(prefix.toLowerCase()){
+function coin_port(prefix) {
+    switch (prefix.toLowerCase()) {
         case 'xcc':
             return 9699
         default:
@@ -83,17 +85,17 @@ function wallet_pks(from, to) {
     return res
 }
 
-async function wallet_addr(idx){
-    while(!(idx in wallet_addrs)){
+async function wallet_addr(idx) {
+    while (!(idx in wallet_addrs)) {
         const from = wallet_addrs.length
-        const pks = wallet_pks(from, from+10)
+        const pks = wallet_pks(from, from + 10)
         const xaddrs = await pk2addrs(pks)
         wallet_addrs = wallet_addrs.concat(xaddrs)
     }
     return wallet_addrs[idx]
 }
 
-async function addrs_info(){
+async function addrs_info() {
     var info = []
     var addrs = wallet_addrs.slice()
     while(addrs.length>0){
@@ -101,20 +103,20 @@ async function addrs_info(){
         if('data' in nf){
             if(nf.data.length>0){
                 info = info.concat(nf.data)
-                addrs.splice(0,nf.data.length)
+                addrs.splice(0, nf.data.length)
             }
         }
     }
     return info
 }
 
-async function balances(){
+async function balances() {
     var sum = new BigNumber(0)
     const info = await addrs_info()
-    console.log('watchlist returns',info.length, 'recs')
-    for(i in info){
-        if(info[i].balance>0){
-            console.log('balance +',info[i].balance)
+    console.log('watchlist returns', info.length, 'recs')
+    for (i in info) {
+        if (info[i].balance > 0) {
+            console.log('balance +', info[i].balance)
             sum = sum.plus(info[i].balance)
         }
     }

@@ -1,4 +1,11 @@
 module.exports = {
     runtimeCompiler: true,
-    lintOnSave: false
+    lintOnSave: false,
+    // ProxyTable: {
+    //     '/api': {
+    //         tarfget: 'http://localhost:8080'
+    //     }
+    // }
+
+
 }

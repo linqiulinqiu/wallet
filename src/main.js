@@ -18,12 +18,11 @@ const store = new Vuex.Store({
     state: {
         mnemonic: "",
         addrInfo: [{}],
-        balance: -1
+        addrVisible: false
     },
     mutations: {
         setAddrInfo(state, info) {
             state.addrInfo = info
-            console.log("111")
         },
         setMnemonic(state, words) {
             state.mnemonic = words
@@ -32,8 +31,8 @@ const store = new Vuex.Store({
                 console.log('wallet addr 0', addr)
             })
         },
-        setBalance(state,bal){
-            state.balance = bal
+        setAddrVisible(state, boolean) {
+            state.addrVisible = boolean
         }
     }
 })
