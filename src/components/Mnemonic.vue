@@ -1,9 +1,7 @@
 <template>
   <el-row>
     <el-col id="m-words">
-      <el-button @click="popDialog">
-        To Validate Mnemonic
-      </el-button>
+      <el-button @click="popDialog"> To Validate Mnemonic </el-button>
       <el-dialog
         font-size="large"
         title="Validate Mnemonic"
@@ -17,6 +15,8 @@
           >Generate</el-button
         >
         <el-input
+          :autosize="{ minRows: 2, maxRows: 4 }"
+          clearable
           type="textarea"
           v-model="mwords"
           placeholder="Input Mnemonic"
@@ -27,7 +27,6 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</el-button
           >
           <el-button type="primary" @click="clearwords">clearwords</el-button>
-          
         </div>
       </el-dialog>
     </el-col>
@@ -44,9 +43,9 @@ export default {
     };
   },
   methods: {
-    popDialog: function (){
-        this.mwords = this.$store.state.mnemonic
-        this.dialogFormVisible = true
+    popDialog: function () {
+      this.mwords = this.$store.state.mnemonic;
+      this.dialogFormVisible = true;
     },
     createWords: function () {
       const mn = wkeys.create_mnemonic();
@@ -55,6 +54,7 @@ export default {
 
     onSubmit: async function () {
       this.$store.commit("setMnemonic", this.mwords);
+      this.$store.commit("setAddrVisible", true);
     },
 
     clearwords: function () {
