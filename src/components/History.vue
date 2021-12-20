@@ -1,7 +1,7 @@
 <template>
   <el-col v-if="this.$store.state.addrVisible">
     <div>
-      <el-button @click="getadd">Get Addr</el-button>
+      <el-button @click="get_addr">Get Addr</el-button>
       <div v-if="aaa">
         <el-carousel trigger="click" height="350px" :autoplay="false">
           <el-carousel-item v-for="(item, index) in addrInfo" :key="index">
@@ -17,7 +17,7 @@
   </el-col>
 </template>
 <script>
-import wkeys from '../wkeys'
+import wkeys from "../wkeys";
 import hisAddr from "../assets/hisAddr.js";
 export default {
   computed: {
