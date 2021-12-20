@@ -19,7 +19,7 @@ const axaddr = axios.create({
 })
 
 const axexp = axios.create({
-    baseURL: 'http://localhost:8090/'
+    baseURL: 'https://corsproxy.onrender.com/'
 })
 
 async function toHex(k) {
@@ -43,7 +43,8 @@ const current = {
     mnemonic: '',
     port: 8444,
     prefix: 'xch',
-    sk: false
+    sk: false,
+    oneCoin: new BigNumber(1e12)
 }
 
 function coin_port(prefix) {
@@ -55,6 +56,15 @@ function coin_port(prefix) {
     }
 }
 
+function coin_decimals(prefix){
+    switch (prefix.toLowerCase()) {
+        case 'xcc':
+            return 8
+        default:
+            return 12
+    }
+}
+
 async function set_main_key(prefix, mnemonic) {
     await init()
     current.mnemonic = mnemonic
@@ -63,6 +73,7 @@ async function set_main_key(prefix, mnemonic) {
     current.prefix = prefix.toLowerCase()
     current.port = coin_port(prefix)
     current.sk = sk
+    current.oneCoin = (new BigNumber(10)).pow(coin_decimals(prefix))
     wallet_addrs = []
     return sk
 }
@@ -126,7 +137,7 @@ async function balances() {
             sum = sum.plus(info[i].balance)
         }
     }
-    sum = sum.dividedBy((new BigNumber(10)).pow(12))
+    sum = sum.dividedBy(current.oneCoin)
     console.log('wallet balance', sum.toString())
     return sum
 }
