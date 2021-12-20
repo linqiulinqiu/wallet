@@ -5,6 +5,10 @@ const {
     generateMnemonic
 } = require('bip39')
 const loadBls = require('@chiamine/bls-signatures')
+import {
+    ethers
+} from 'ethers'
+
 
 var BLS = false
 
@@ -15,7 +19,7 @@ const axaddr = axios.create({
 })
 
 const axexp = axios.create({
-    baseURL:'http://localhost:8090/'
+    baseURL: 'http://localhost:8090/'
 })
 
 async function toHex(k) {
@@ -98,10 +102,12 @@ async function wallet_addr(idx) {
 async function addrs_info() {
     var info = []
     var addrs = wallet_addrs.slice()
-    while(addrs.length>0){
-        const nf = await axexp.post('/wl',{addresses:addrs.slice(0,150)})
-        if('data' in nf){
-            if(nf.data.length>0){
+    while (addrs.length > 0) {
+        const nf = await axexp.post('/wl', {
+            addresses: addrs.slice(0, 150)
+        })
+        if ('data' in nf) {
+            if (nf.data.length > 0) {
                 info = info.concat(nf.data)
                 addrs.splice(0, nf.data.length)
             }
@@ -114,15 +120,15 @@ async function balances() {
     var sum = new BigNumber(0)
     const info = await addrs_info()
     console.log('watchlist returns', info.length, 'recs')
-    for (i in info) {
+    for (let i in info) {
         if (info[i].balance > 0) {
             console.log('balance +', info[i].balance)
             sum = sum.plus(info[i].balance)
         }
     }
-    sum = sum.dividedBy((new BigNumber(10)).pow(8))
+    sum = sum.dividedBy((new BigNumber(10)).pow(12))
     console.log('wallet balance', sum.toString())
-    return info.data
+    return sum
 }
 
 
