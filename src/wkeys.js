@@ -144,5 +144,6 @@ export default {
     set_main_key: set_main_key,
     to_hex: toHex,
     wallet_addr: wallet_addr,
+    addrs_info: addrs_info,
     balances: balances
 }

@@ -17,6 +17,7 @@
   </el-col>
 </template>
 <script>
+import wkeys from '../wkeys'
 import hisAddr from "../assets/hisAddr.js";
 export default {
   computed: {
@@ -38,7 +39,7 @@ export default {
     };
   },
   methods: {
-    getadd: async function () {
+    get_addr: async function () {
       this.aaa = true;
       const bb = await hisAddr.getAdds();
       this.$store.commit("setAddrInfo", bb);
