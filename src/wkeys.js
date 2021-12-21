@@ -5,10 +5,6 @@ const {
     generateMnemonic
 } = require('bip39')
 const loadBls = require('@chiamine/bls-signatures')
-import {
-    ethers
-} from 'ethers'
-
 
 var BLS = false
 

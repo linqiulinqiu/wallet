@@ -24,7 +24,7 @@ const store = new Vuex.Store({
         coin: "xch",
         addrInfo: [{}],
         addrVisible: false,
-        xaddr: ""
+        user: {}
     },
     mutations: {
         setCoin(state, coin) {
@@ -46,8 +46,8 @@ const store = new Vuex.Store({
         setAddrVisible(state, boolean) {
             state.addrVisible = boolean
         },
-        setXaddr(state, xaddr) {
-            state.xaddr = xaddr
+        setUser(state, payload) {
+            state.user = payload
         },
 
     }
