@@ -41,24 +41,20 @@ export default {
       bal: 0,
     };
   },
-  // watch:{
-  //   addrChange: function (){
-  //     info = wkeys.addrs_info()
-  //     this.addrInfo =
-  //   }
+  // watch: {
+  //   addrInfo: {
+  //     function() {
+  //       console.log("watch addrinfo", this.$store.state.addrInfo);
+  //       return this.$store.state.addrInfo;
+  //     },
+  //     deep: true,
+  //   },
   // },
   methods: {
     get_addr: async function () {
       this.addr_banner = true;
       const addr_info = await wkeys.addrs_info();
       this.bal = await wkeys.balances();
-      // for (let i in addr_info) {
-      //   if (addr_info[i].balance > 0) {
-      //     addr_info[i].balance = addr_info[i].balance.dividedBy(
-      //       new BigNumber(10).pow(12)
-      //     );
-      //   }
-      // }
       this.$store.commit("setAddrInfo", addr_info);
     },
   },

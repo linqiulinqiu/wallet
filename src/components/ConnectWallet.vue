@@ -4,46 +4,48 @@
       >Connect Wallet</el-button
     >
     <p v-if="xaddr">
-        <el-button @click="encode">Encode</el-button>
-        <el-button @click="decode">Decode</el-button>
-        <span>{{ xaddr }}</span>
+      <el-button @click="encode">Encode</el-button>
+      <el-button @click="decode">Decode</el-button>
+      <span>{{ xaddr }}</span>
     </p>
+    <el-col v-if="xaddr"> <SelectCoin /></el-col>
   </el-col>
 </template>
 <script>
 import { mapState } from "vuex";
-import wops from '../wallet';
-import {
-    mnemonicToEntropy,
-    entropyToMnemonic,
-} from 'bip39'
+import wops from "../wallet";
+import { mnemonicToEntropy, entropyToMnemonic } from "bip39";
+import SelectCoin from "./SelectCoin.vue";
 export default {
+  components: { SelectCoin },
   computed: mapState({
     xaddr: "xaddr",
+    mnemonic: "mnemonic",
+    coin: "coin",
   }),
   data() {
     return {
-      secret: ""
+      secret: "",
     };
   },
+
   methods: {
     connect: function () {
-      wops.connect(this.$store.commit)
+      wops.connect(this.$store.commit);
     },
     encode: async function () {
-      const mn = this.$store.state.mnemonic
-      console.log('mnemonic from', mn)
-      const enc = await wops.enc_data(mnemonicToEntropy(mn))
-      console.log('encoded mnemonic', enc)
-      this.secret = enc
+      const mn = this.$store.state.mnemonic;
+      console.log("mnemonic from", mn);
+      const enc = await wops.enc_data(mnemonicToEntropy(mn));
+      console.log("encoded mnemonic", enc);
+      this.secret = enc;
     },
     decode: async function () {
-      const en = this.secret
-      console.log('encoded =', en)
-      const dec = entropyToMnemonic(await wops.dec_data(en))
-      console.log('decoded mnemonic', dec)
-    }
+      const en = this.secret;
+      console.log("encoded =", en);
+      const dec = entropyToMnemonic(await wops.dec_data(en));
+      console.log("decoded mnemonic", dec);
+    },
   },
 };
-
 </script>

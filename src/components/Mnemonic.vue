@@ -44,7 +44,7 @@ export default {
   methods: {
     popDialog: function () {
       this.mwords = this.$store.state.mnemonic;
-//      this.mwords = window.localStorage.getItem("addr_mn");
+      //      this.mwords = window.localStorage.getItem("addr_mn");
       this.dialogFormVisible = true;
     },
     handleClose(done) {
@@ -69,9 +69,9 @@ export default {
         }
       }
       this.mwords = mn.join(" ");
- //     window.localStorage.setItem("addr_mn", this.mwords);
+      //     window.localStorage.setItem("addr_mn", this.mwords);
       this.$store.commit("setMnemonic", this.mwords);
-      this.$store.commit("setAddrVisible", true);
+      // this.$store.commit("setAddrVisible", true);
     },
 
     clearwords: function () {

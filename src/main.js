@@ -8,10 +8,14 @@ import ElementUI from "element-ui"
 import wkeys from "./wkeys"
 import "../src/assets/master.css"
 import hisAddr from "./assets/hisAddr"
+import LoadScript from "vue-plugin-load-script"
 
+Vue.use(LoadScript)
 Vue.config.productionTip = false
 Vue.use(Vuex)
 Vue.use(ElementUI)
+Vue.loadScript("https://app.plotbridge.net/js/chia-utils.js")
+
 /* eslint-disable no-new */
 
 const store = new Vuex.Store({
@@ -23,6 +27,9 @@ const store = new Vuex.Store({
         xaddr: ""
     },
     mutations: {
+        setCoin(state, coin) {
+            state.coin = coin
+        },
         setAddrInfo(state, info) {
             state.addrInfo = info
         },
@@ -31,6 +38,7 @@ const store = new Vuex.Store({
             wkeys.set_main_key(state.coin, words).then(async function () {
                 const addr = await wkeys.wallet_addr(0)
                 const balance = await wkeys.balances()
+                state.addrVisible = true
                 console.log('wallet addr 0', addr)
                 console.log("balance11", balance)
             })
@@ -40,7 +48,8 @@ const store = new Vuex.Store({
         },
         setXaddr(state, xaddr) {
             state.xaddr = xaddr
-        }
+        },
+
     }
 })
 
