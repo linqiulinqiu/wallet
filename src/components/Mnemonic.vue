@@ -4,7 +4,7 @@
       <el-button @click="popDialog"> The Mnemonic </el-button>
       <el-dialog
         font-size="large"
-        title="Validate Mnemonic"
+        title="Mnemonic"
         :visible.sync="dialogFormVisible"
         :before-close="handleClose"
       >
@@ -15,6 +15,7 @@
           @click="createWords"
           >Generate</el-button
         >
+        <span v-if="dirty">*</span>
         <el-input
           :autosize="{ minRows: 2, maxRows: 4 }"
           clearable
@@ -41,18 +42,27 @@ export default {
       mwords: "",
     };
   },
+  computed: {
+      dirty: function () {
+          if (this.mwords == this.$store.state.mnemonic) return false;
+          return true;
+      }
+  },
   methods: {
     popDialog: function () {
       this.mwords = this.$store.state.mnemonic;
-      //      this.mwords = window.localStorage.getItem("addr_mn");
       this.dialogFormVisible = true;
     },
     handleClose(done) {
-      this.$confirm("确认退出？")
-        .then((_) => {
-          done();
-        })
-        .catch((_) => {});
+        if(this.dirty){
+          this.$confirm("确认退出？")
+            .then((_) => {
+              done();
+            })
+            .catch((_) => {});
+        }else{
+            done()
+        }
     },
     createWords: function () {
       const mn = wkeys.create_mnemonic();
@@ -69,9 +79,7 @@ export default {
         }
       }
       this.mwords = mn.join(" ");
-      //     window.localStorage.setItem("addr_mn", this.mwords);
       this.$store.commit("setMnemonic", this.mwords);
-      // this.$store.commit("setAddrVisible", true);
     },
 
     clearwords: function () {
