@@ -4,9 +4,9 @@
       <el-button @click="get_addr">Get Addr</el-button>
       <div v-if="addr_banner">
         <el-carousel trigger="click" height="350px" :autoplay="false">
-          <el-carousel-item v-for="(item, index) in addrInfo" :key="index">
+          <el-carousel-item v-for="item in addrInfo" :key="item.address">
             <el-col id="banner">
-              <p>address:{{ item.address }}</p>
+              <p>{{ item.address }}</p>
               <p>balance:{{ item.balance / 1e12 }}</p>
               <!-- <p>update at:{{ item.time }}</p> -->
             </el-col>
