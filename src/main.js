@@ -17,6 +17,7 @@ Vue.use(ElementUI)
 const store = new Vuex.Store({
     state: {
         mnemonic: "",
+        coin: "xch",
         addrInfo: [{}],
         addrVisible: false
     },
@@ -26,7 +27,7 @@ const store = new Vuex.Store({
         },
         setMnemonic(state, words) {
             state.mnemonic = words
-            wkeys.set_main_key('xch', words).then(async function () {
+            wkeys.set_main_key(state.coin, words).then(async function () {
                 const addr = await wkeys.wallet_addr(0)
                 const balance = await wkeys.balances()
                 console.log('wallet addr 0', addr)
