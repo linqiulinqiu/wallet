@@ -30,17 +30,23 @@ export default {
       },
       set(info) {
         console.log("222");
-        info = wkeys.addrs_info();
+        // info = wkeys.addrs_info();
         this.$store.commit("setAddrInfo", info);
       },
     },
   },
   data() {
     return {
-      addr_banner: false,
+      addr_banner: true,
       bal: 0,
     };
   },
+  // watch:{
+  //   addrChange: function (){
+  //     info = wkeys.addrs_info()
+  //     this.addrInfo =
+  //   }
+  // },
   methods: {
     get_addr: async function () {
       this.addr_banner = true;

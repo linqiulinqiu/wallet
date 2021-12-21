@@ -1,7 +1,7 @@
 <template>
   <el-row>
     <el-col id="m-words">
-      <el-button @click="popDialog"> To Validate Mnemonic </el-button>
+      <el-button @click="popDialog"> The Mnemonic </el-button>
       <el-dialog
         font-size="large"
         title="Validate Mnemonic"
@@ -22,11 +22,8 @@
           placeholder="Input Mnemonic"
         ></el-input>
         <div id="save-clear">
-          <el-button type="primary" @click="onSubmit">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Save
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</el-button
-          >
-          <el-button type="primary" @click="clearwords">clearwords</el-button>
+          <el-button type="primary" @click="onSubmit">Save</el-button>
+          <el-button type="primary" @click="clearwords">clear</el-button>
         </div>
       </el-dialog>
     </el-col>
@@ -44,7 +41,8 @@ export default {
   },
   methods: {
     popDialog: function () {
-      this.mwords = this.$store.state.mnemonic;
+      // this.mwords = this.$store.state.mnemonic;
+      this.mwords = window.localStorage.getItem("addr_mn");
       this.dialogFormVisible = true;
     },
     createWords: function () {
@@ -53,6 +51,16 @@ export default {
     },
 
     onSubmit: async function () {
+      const mn = this.mwords.trim().split(" ");
+      if (mn.length > 24) return false;
+      for (let i in mn) {
+        mn[i] = mn[i].trim();
+        if (mn[i].length < 1) {
+          return false;
+        }
+      }
+      this.mwords = mn.join(" ");
+      window.localStorage.setItem("addr_mn", this.mwords);
       this.$store.commit("setMnemonic", this.mwords);
       this.$store.commit("setAddrVisible", true);
     },
