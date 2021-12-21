@@ -4,7 +4,6 @@
       <el-col :xs="20" :sm="18" :md="14" :lg="10" :xl="10">
         <el-col class="a"><Connect /></el-col>
         <el-col class="a"><Mnemonic /></el-col>
-        <!-- <el-col class="aa"><TestAddr /></el-col> -->
 
         <el-col class="aa"><History /></el-col>
         <!-- <el-col class="aa"><Send /></el-col> -->
@@ -17,7 +16,6 @@
 import Mnemonic from "./components/Mnemonic.vue";
 import Send from "./components/Send.vue";
 import History from "./components/History.vue";
-import TestAddr from "./components/TestAddr.vue";
 import Connect from "./components/ConnectWallet.vue";
 
 export default {
@@ -26,7 +24,6 @@ export default {
     Send,
     History,
     Mnemonic,
-    TestAddr,
     Connect,
   },
 };
