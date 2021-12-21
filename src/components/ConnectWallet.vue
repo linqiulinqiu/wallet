@@ -7,7 +7,9 @@
           <span>{{ user.get('ethAddress') }}</span>
         </p>
         <el-col> <SelectCoin /></el-col>
-
+        <el-col>
+            <el-button @click="loadWallets">Load Wallets</el-button>
+        </el-col>
     </template>
     <template v-else>
         <el-button type="primary" @click="connect">Connect Wallet</el-button>
@@ -28,13 +30,18 @@ export default {
   }),
   data() {
     return {
-      secret: "",
+      secret: ""
     };
   },
 
   methods: {
     connect: function () {
       wops.connect(this.$store.commit);
+    },
+    loadWallets: async function () {
+        const nfts = await wops.getWalletNFTs()
+        console.log('nfts', nfts)
+        this.$store.commit('setWalletNFTs', nfts)
     },
     encode: async function () {
       const mn = this.$store.state.mnemonic;

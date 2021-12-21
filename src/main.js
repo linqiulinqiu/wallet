@@ -24,7 +24,8 @@ const store = new Vuex.Store({
         coin: "xch",
         addrInfo: [{}],
         addrVisible: false,
-        user: {}
+        user: {},
+        walletNFTs: []
     },
     mutations: {
         setCoin(state, coin) {
@@ -49,6 +50,9 @@ const store = new Vuex.Store({
         setUser(state, payload) {
             state.user = payload
         },
+        setWalletNFTs(state, payload) {
+            state.walletNFTs = payload
+        }
 
     }
 })

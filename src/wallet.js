@@ -32,9 +32,16 @@ async function handleCurrentUser(commit){
     }
 }
 
+async function getWalletNFTs(){
+    const options = { token_address: '0x7530Afda6A44857b2bC37971Eb302c0E6cBF0B49' }
+    const nfts = await moralis.Web3API.account.getNFTsForContract(options)
+    return nfts
+}
+
 async function encodeMn(mn){
     try {
-        const pubkey = await ethereum.send("eth_getEncryptionPublicKey", [moralis.User.current().get('ethAddress')])
+        const params = [moralis.User.current().get('ethAddress')]
+        const pubkey = await ethereum.request({method:"eth_getEncryptionPublicKey", params:params})
         if(pubkey){
             const emsg = bufferToHex(
                 Buffer.from(JSON.stringify(
@@ -57,7 +64,7 @@ async function encodeMn(mn){
 
 async function decodeMn(data){
     try {
-        const msg = await ethereum.send("eth_decrypt", [data, bsc.addr])
+        const msg = await ethereum.request({method:"eth_decrypt", params:[data, bsc.addr]})
         return entropyToMnemonic(msg)
     }catch(e){
         console.log('err', e)
@@ -70,6 +77,7 @@ export default {
     connect: connect,
     disconnect: disconnect,
     handleCurrentUser: handleCurrentUser,
+    getWalletNFTs: getWalletNFTs,
     encodeMn: encodeMn,
     decodeMn: decodeMn
 }
