@@ -6,6 +6,7 @@
         font-size="large"
         title="Validate Mnemonic"
         :visible.sync="dialogFormVisible"
+        :before-close="handleClose"
       >
         <el-button
           id="generate"
@@ -25,6 +26,7 @@
           <el-button type="primary" @click="onSubmit">Save</el-button>
           <el-button type="primary" @click="clearwords">clear</el-button>
         </div>
+        <div>点击空白部分退出</div>
       </el-dialog>
     </el-col>
   </el-row>
@@ -44,6 +46,13 @@ export default {
       // this.mwords = this.$store.state.mnemonic;
       this.mwords = window.localStorage.getItem("addr_mn");
       this.dialogFormVisible = true;
+    },
+    handleClose(done) {
+      this.$confirm("确认退出？")
+        .then((_) => {
+          done();
+        })
+        .catch((_) => {});
     },
     createWords: function () {
       const mn = wkeys.create_mnemonic();
