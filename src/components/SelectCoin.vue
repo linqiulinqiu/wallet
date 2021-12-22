@@ -15,10 +15,13 @@
         id="HDD"
       ></el-option>
     </el-select>
+    <el-button @click="getAddr_hash">getAddr_hash</el-button>
+    <p>Address:{{ x_addr }}</p>
   </el-col>
 </template>
 <script>
 import { mapState } from "vuex";
+import wkeys from "../wkeys";
 export default {
   computed: mapState({
     coin: "coin",
@@ -29,15 +32,21 @@ export default {
   data() {
     return {
       coinchg: this.coin,
+      x_addr: "none",
     };
   },
   watch: {
     coinchg: function (new_coin) {
       this.$store.commit("setCoin", new_coin);
-      console.log(this.coin);
       //   if (this.baddr) {
       // this.connect_wallet(new_coin);
       //   }
+    },
+  },
+  methods: {
+    getAddr_hash: async function () {
+      this.x_addr = await wkeys.to_puzzl_hash();
+      console.log("X_addr", this.x_addr);
     },
   },
 };

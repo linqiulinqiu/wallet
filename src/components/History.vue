@@ -7,7 +7,7 @@
           <el-carousel-item v-for="item in addrInfo" :key="item.address">
             <el-col id="banner">
               <p>{{ item.address }}</p>
-              <p>balance:{{ item.balance / 1e12 }}</p>
+              <p>balance:{{ item.balance }}</p>
               <!-- <p>update at:{{ item.time }}</p> -->
             </el-col>
           </el-carousel-item>

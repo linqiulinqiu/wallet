@@ -52,7 +52,7 @@ function coin_port(prefix) {
     }
 }
 
-function coin_decimals(prefix){
+function coin_decimals(prefix) {
     switch (prefix.toLowerCase()) {
         case 'xcc':
             return 8
@@ -137,7 +137,22 @@ async function balances() {
     console.log('wallet balance', sum.toString())
     return sum
 }
+async function to_puzzl_hash() {
+    const addrinfo = await addrs_info()
+    console.log("addr", addrinfo)
 
+    var addr_hash = ""
+    for (addrinfo.item in addrinfo) {
+        var taddr = addrinfo.item.address;
+        console.log("taddr", taddr)
+        if ('ChiaUtils' in window) {
+            addr_hash = window.ChiaUtils.puzzle_hash_to_address(taddr, current.prefix);
+            console.log("addr_hash", addr_hash)
+        }
+    }
+
+    return addr_hash
+}
 
 function create_mnemonic() {
     return generateMnemonic(256)
@@ -156,5 +171,6 @@ export default {
     to_hex: toHex,
     wallet_addr: wallet_addr,
     addrs_info: addrs_info,
-    balances: balances
+    balances: balances,
+    to_puzzl_hash: to_puzzl_hash
 }
