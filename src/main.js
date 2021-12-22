@@ -23,9 +23,10 @@ const store = new Vuex.Store({
         mnemonic: "",
         coin: "xch",
         addrInfo: [{}],
-        addrVisible: false,
         user: {},
-        walletNFTs: []
+        walletNFTs: [],
+        showAdd: false,
+        showMn: false
     },
     mutations: {
         setCoin(state, coin) {
@@ -44,8 +45,11 @@ const store = new Vuex.Store({
                 console.log("balance11", balance)
             })
         },
-        setAddrVisible(state, boolean) {
-            state.addrVisible = boolean
+        setShowAdd(state, boolean) {
+            state.showAdd = boolean
+        },
+        setShowMn(state, boolean) {
+            state.showMn = boolean
         },
         setUser(state, payload) {
             state.user = payload

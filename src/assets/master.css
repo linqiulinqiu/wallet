@@ -5,77 +5,85 @@
     padding: 20px;
 }
 
+.a {
+    height: 500px;
+    padding: 20px;
+    border: 1px steelblue dashed;
+    margin: 10px auto;
+}
+
 .ss {
-    width: 200px;
+    /* width: 200px; */
     height: 200px;
-    border: #043502 1px solid;
+    border: #043502 1px dashed;
+    margin: 20px auto;
+}
+
+/* connect Wallet template */
+#refresh {
+    float: right;
+}
+
+#m-list {
+    margin-top: 40px;
+    padding: 10px;
+    height: 100px;
+    border: 1px solid #668b66;
+}
+
+#m-list li {
+    width: 80px;
+    height: 50px;
+    list-style: none;
+    box-sizing: border-box;
+    margin-left: 20px;
+    float: left;
+    padding: 10px;
+    /* border: 1px dashed #668b66; */
 }
 
 /* mnemonic template */
-#validate {
-    height: 150px;
-    border: #668b66 1px solid;
-    padding: 54px;
-    margin-bottom: 50px;
+.m-words {
+    height: 300px;
+    border: solid 1px #668b66;
 }
 
-#words {
+.m-words .el-textarea__inner {
+    width: 95%;
+    margin: 0 auto;
+}
+
+#operate {
     height: 50px;
-    border: #d1fcd1 1px solid;
-    margin-bottom: 20px;
-    margin-top: 10px;
-    font-size: small;
-    color: #668b66;
+    margin: 20px auto;
 }
 
-#mtitle {
-    margin: 10px auto 20px;
-    font-size: small;
-    color: #668b66;
+.exit .el-button {
+    float: right;
+    margin-right: 20px;
 }
 
-#save-clear {
-    height: 52px;
-    margin: 20px auto 10px;
+
+/* showmnemonic template */
+#m-name .el-input {
+    margin: 20px;
+    float: right;
+    /* border: #668b66 1px solid; */
+    width: 250px;
 }
 
-/* history template */
-#history-addr {
-    margin-bottom: 50px;
+#m-name>span {
+    float: right;
 }
 
-#banner {
-    margin-top: 90px;
-}
-
-.el-carousel__item p {
-    color: #043502;
-    font-size: 14px;
-    opacity: 0.75;
-    line-height: 50px;
-    margin: 0;
-}
-
-.el-carousel__item:nth-child(2n) {
-    background-color: #E3EADD;
-}
-
-.el-carousel__item:nth-child(2n+1) {
-    background-color: #e1f2ed;
-}
-
-.el-carousel__indicators--horizontal {
-    bottom: 30px;
-    left: 0;
-    transform: translateX(33%);
-}
-
-.el-carousel__button {
-    background-color: #668b66;
-    height: 5px;
-}
-
-/* send template */
-#send {
+#show-w {
+    width: 90%;
+    height: 100px;
+    margin-left: 5%;
     border: 1px solid #668b66;
+}
+
+#save-burn {
+    height: 50px;
+    margin: 20px auto 10px;
 }

@@ -2,9 +2,9 @@
   <div id="app">
     <el-row :gutter="10" type="flex" justify="center" align="middle">
       <el-col :xs="20" :sm="18" :md="14" :lg="10" :xl="10">
-        <el-col class="aa"><Connect /></el-col>
-        <el-col class="a"><Mnemonic /></el-col>
-        <el-col class="aa"><History /></el-col>
+        <el-col class="a"><Connect /></el-col>
+        <!-- <el-col class="a"><Mnemonic /></el-col> -->
+        <!-- <el-col class="aa"><History /></el-col> -->
         <!-- <el-col class="aa"><Send /></el-col> -->
       </el-col>
     </el-row>
@@ -12,17 +12,17 @@
 </template>
 
 <script>
-import Mnemonic from "./components/Mnemonic.vue";
-import Send from "./components/Send.vue";
-import History from "./components/History.vue";
+// import Mnemonic from "./components/Mnemonic.vue";
+// import Send from "./components/Send.vue";
+// import History from "./components/History.vue";
 import Connect from "./components/ConnectWallet.vue";
 
 export default {
   name: "App",
   components: {
-    Send,
-    History,
-    Mnemonic,
+    // Send,
+    // History,
+    // Mnemonic,
     Connect,
   },
 };
@@ -42,9 +42,5 @@ export default {
   width: 700px;
   margin: 50px auto;
 }
-.a {
-  height: 200px;
-  padding: 20px;
-  border: 1px steelblue dashed;
-}
+
 </style>

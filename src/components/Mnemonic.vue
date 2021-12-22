@@ -1,74 +1,71 @@
 <template>
   <el-row>
-    <el-col id="m-words">
-      <el-button @click="popDialog"> The Mnemonic </el-button>
-      <el-dialog
-        font-size="large"
-        title="Mnemonic"
-        :visible.sync="dialogFormVisible"
-        :before-close="handleClose"
-      >
-        <el-button
-          id="generate"
-          size="small"
-          type="primary"
-          @click="createWords"
-          >Generate</el-button
-        >
-        <span v-if="dirty">*</span>
-        <el-input
-          :autosize="{ minRows: 2, maxRows: 4 }"
-          clearable
-          type="textarea"
-          v-model="mwords"
-          placeholder="Input Mnemonic"
-        ></el-input>
-        <div id="save-clear">
-          <el-button type="primary" @click="onSubmit">Save</el-button>
-          <el-button type="primary" @click="clearwords">clear</el-button>
-        </div>
-        <div>点击空白部分退出</div>
-      </el-dialog>
+    <el-col class="m-words">
+      <span v-if="dirty">*</span>
+      <h5>Mnemonic</h5>
+      <el-input
+        :autosize="{ minRows: 3, maxRows: 4 }"
+        type="textarea"
+        v-model="mwords"
+        placeholder="Input Mnemonic"
+        maxlength="256"
+        show-word-limit
+      ></el-input>
+      <el-col id="operate">
+        <el-button type="primary" @click="createWords">Generate</el-button>
+        <el-button type="primary" @click="clearwords">Clear</el-button>
+        <el-button type="primary" @click="onSubmit">Mint</el-button>
+      </el-col>
+      <el-col class="exit"> <el-button @click="exitM">Exit</el-button></el-col>
     </el-col>
   </el-row>
 </template>
 <script>
+import { mapState } from "vuex";
+
 import wkeys from "../wkeys";
 export default {
   components: {},
   data() {
     return {
-      dialogFormVisible: false,
       mwords: "",
     };
   },
-  computed: {
-      dirty: function () {
-          if (this.mwords == this.$store.state.mnemonic) return false;
-          return true;
-      }
-  },
-  methods: {
-    popDialog: function () {
-      this.mwords = this.$store.state.mnemonic;
-      this.dialogFormVisible = true;
+  computed: mapState({
+    user: "user",
+    mnemonic: "mnemonic",
+    coin: "coin",
+    loggedIn: (state) => Object.keys(state.user).length > 0,
+    showAdd: false,
+    showMn: false,
+    dirty: function () {
+      if (this.mwords == this.$store.state.mnemonic) return false;
+      return true;
     },
-    handleClose(done) {
-        if(this.dirty){
-          this.$confirm("确认退出？")
-            .then((_) => {
-              done();
-            })
-            .catch((_) => {});
-        }else{
-            done()
-        }
+  }),
+  data() {
+    return {
+      mwords: "",
+    };
+  },
+  // computed: mapState({
+  //   user: "user",
+  //   mnemonic: "mnemonic",
+  //   coin: "coin",
+  //   loggedIn: (state) => Object.keys(state.user).length > 0,
+  //   // dirty: function () {
+  //   //   if (this.mwords == this.$store.state.mnemonic) return false;
+  //   //   return true;
+  //   // },
+  // }),
+  methods: {
+    exitM: function () {
+      this.$store.commit("setShowAdd", false);
     },
     createWords: function () {
       const mn = wkeys.create_mnemonic();
       this.mwords = mn;
     },
-
     onSubmit: async function () {
       const mn = this.mwords.trim().split(" ");
       if (mn.length > 24) return false;
@@ -85,6 +82,21 @@ export default {
     clearwords: function () {
       this.mwords = "";
     },
+    // popDialog: function () {
+    //   this.mwords = this.$store.state.mnemonic;
+    //   this.dialogFormVisible = true;
+    // },
+    // handleClose(done) {
+    //   if (this.dirty) {
+    //     this.$confirm("确认退出？")
+    //       .then((_) => {
+    //         done();
+    //       })
+    //       .catch((_) => {});
+    //   } else {
+    //     done();
+    //   }
+    // },
   },
 };
 </script>
