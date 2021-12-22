@@ -26,7 +26,8 @@ const store = new Vuex.Store({
         user: {},
         walletNFTs: [],
         showAdd: false,
-        showMn: false
+        showMn: false,
+        showWa: false
     },
     mutations: {
         setCoin(state, coin) {
@@ -47,6 +48,9 @@ const store = new Vuex.Store({
         },
         setShowAdd(state, boolean) {
             state.showAdd = boolean
+        },
+        setShowWa(state, boolean) {
+            state.showWa = boolean
         },
         setShowMn(state, boolean) {
             state.showMn = boolean

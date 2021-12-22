@@ -3,21 +3,18 @@
     <el-row :gutter="10" type="flex" justify="center" align="middle">
       <el-col :xs="20" :sm="18" :md="14" :lg="10" :xl="10">
         <el-col class="a"><Connect /></el-col>
-        <el-col class="a"><Wallet-info /></el-col>
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
-import WalletInfo from "./components/WalletInfo.vue";
 import Connect from "./components/ConnectWallet.vue";
 
 export default {
   name: "App",
   components: {
     Connect,
-    WalletInfo,
   },
 };
 </script>,

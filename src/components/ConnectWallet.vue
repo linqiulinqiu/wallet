@@ -29,7 +29,7 @@
           </ul>
         </el-col>
         <el-col v-if="this.$store.state.showAdd"><Mnemonic /></el-col>
-        <el-col v-if="this.$store.state.showMn"><ShowMnemonic /> </el-col>
+        <el-col v-if="this.$store.state.showWa"><WalletInfo /> </el-col>
       </el-col>
     </template>
     <template v-else>
@@ -41,10 +41,10 @@
 import { mapState } from "vuex";
 import wops from "../wallet";
 import Mnemonic from "./Mnemonic.vue";
-import ShowMnemonic from "./ShowMnemonic.vue";
+import WalletInfo from "./WalletInfo.vue";
 
 export default {
-  components: { Mnemonic, ShowMnemonic },
+  components: { Mnemonic, WalletInfo },
   computed: mapState({
     user: "user",
     mnemonic: "mnemonic",
@@ -65,7 +65,7 @@ export default {
       console.log("addNFT", this.$store.state.showAdd);
     },
     openNFT: function () {
-      this.$store.commit("setShowMn", true);
+      this.$store.commit("setShowWa", true);
       console.log("openNFT", this.showMn);
     },
     connect: function () {
