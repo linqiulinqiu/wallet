@@ -194,11 +194,6 @@
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "client",
-				"type": "address"
-			},
-			{
 				"internalType": "string",
 				"name": "itemName",
 				"type": "string"

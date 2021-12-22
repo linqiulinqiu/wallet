@@ -3,6 +3,7 @@
     <el-col class="m-words">
       <span v-if="dirty">*</span>
       <h5>Mnemonic</h5>
+      <el-input v-model="wname" maxlength="20" minlength="3" placeholder="Wallet Name"></el-input>
       <el-input
         :autosize="{ minRows: 3, maxRows: 4 }"
         type="textarea"
@@ -14,7 +15,7 @@
       <el-col id="operate">
         <el-button type="primary" @click="createWords">Generate</el-button>
         <el-button type="primary" @click="clearwords">Clear</el-button>
-        <el-button type="primary" @click="onSubmit">Mint</el-button>
+        <el-button type="primary" @click="mintToken">Mint</el-button>
       </el-col>
       <el-col class="exit"> <el-button @click="exitM">Exit</el-button></el-col>
     </el-col>
@@ -22,13 +23,14 @@
 </template>
 <script>
 import { mapState } from "vuex";
-
+import wops from "../wallet";
 import wkeys from "../wkeys";
 export default {
   components: {},
   data() {
     return {
       mwords: "",
+      wname: ""
     };
   },
   computed: mapState({
@@ -43,21 +45,6 @@ export default {
       return true;
     },
   }),
-  data() {
-    return {
-      mwords: "",
-    };
-  },
-  // computed: mapState({
-  //   user: "user",
-  //   mnemonic: "mnemonic",
-  //   coin: "coin",
-  //   loggedIn: (state) => Object.keys(state.user).length > 0,
-  //   // dirty: function () {
-  //   //   if (this.mwords == this.$store.state.mnemonic) return false;
-  //   //   return true;
-  //   // },
-  // }),
   methods: {
     exitM: function () {
       this.$store.commit("setShowAdd", false);
@@ -66,7 +53,7 @@ export default {
       const mn = wkeys.create_mnemonic();
       this.mwords = mn;
     },
-    onSubmit: async function () {
+    mintToken: async function () {
       const mn = this.mwords.trim().split(" ");
       if (mn.length > 24) return false;
       for (let i in mn) {
@@ -76,27 +63,15 @@ export default {
         }
       }
       this.mwords = mn.join(" ");
-      this.$store.commit("setMnemonic", this.mwords);
+      if(!this.wname||this.wname.length<3||this.wname.length>20) return false
+      console.log("mint token with", this.wname, this.mwords)
+      await wops.mintWalletNFT(this.wname, this.mwords)
+//      this.$store.commit("setMnemonic", this.mwords);
     },
 
     clearwords: function () {
       this.mwords = "";
     },
-    // popDialog: function () {
-    //   this.mwords = this.$store.state.mnemonic;
-    //   this.dialogFormVisible = true;
-    // },
-    // handleClose(done) {
-    //   if (this.dirty) {
-    //     this.$confirm("确认退出？")
-    //       .then((_) => {
-    //         done();
-    //       })
-    //       .catch((_) => {});
-    //   } else {
-    //     done();
-    //   }
-    // },
   },
 };
 </script>

@@ -6,7 +6,9 @@ import {
 } from 'ethers'
 
 import nftABI from './nft-abi.json'
-const nftContractAddr = '0xd48c20D85E952E991f9639E2c88f1D01D97a2D02'
+const nftContract = {
+    address: '0x9D3Ad767916bebDc0b1d5Af4476326D32823bCb5'
+}
 
 import moralis from 'moralis'
 moralis.start({
@@ -14,10 +16,13 @@ moralis.start({
     appId: process.env.VUE_APP_MORALIS_APP_ID,
 })
 
+
 async function connect(commit) {
     const user = await moralis.Web3.authenticate({signingMessage:'XWallet Login'})
     if(user){
         commit('setUser', user)
+        nftContract.web3 = await moralis.enableWeb3();
+        nftContract.obj = new web3.eth.Contract(nftABI, nftContract.address);
         return true
     }
     return false
@@ -39,6 +44,24 @@ async function getWalletNFTs(){
     const options = { token_address: nftContractAddr }
     const nfts = await moralis.Web3API.account.getNFTsForContract(options)
     return nfts
+}
+
+async function mintWalletNFT(name,mn){
+    const ekey = await encodeMn(mn)
+    const options = {
+        chain: 'bsc testnet',
+        address: nftContract.address,
+        abi: nftABI,
+        function_name: 'getMintFee',
+        params: {}
+    }
+    const fee = await moralis.executeFunction(options)
+    options.params.value = fee
+    options.function_name = 'mintItem'
+    options.params.itemName = name
+    options.params.xkey = ekey
+    const receipt = await moralis.executeFunction(options)
+    console.log('mint receipt', receipt)
 }
 
 async function encodeMn(mn){
@@ -67,7 +90,8 @@ async function encodeMn(mn){
 
 async function decodeMn(data){
     try {
-        const msg = await ethereum.request({method:"eth_decrypt", params:[data, bsc.addr]})
+        const params = [data, moralis.User.current().get('ethAddress')]
+        const msg = await ethereum.request({method:"eth_decrypt", params:params})
         return entropyToMnemonic(msg)
     }catch(e){
         console.log('err', e)
@@ -81,6 +105,7 @@ export default {
     disconnect: disconnect,
     handleCurrentUser: handleCurrentUser,
     getWalletNFTs: getWalletNFTs,
+    mintWalletNFT: mintWalletNFT,
     encodeMn: encodeMn,
     decodeMn: decodeMn
 }
