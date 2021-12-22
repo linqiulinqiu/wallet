@@ -5,6 +5,9 @@ import {
     ethers
 } from 'ethers'
 
+import nftABI from './nft-abi.json'
+const nftContractAddr = '0xd48c20D85E952E991f9639E2c88f1D01D97a2D02'
+
 import moralis from 'moralis'
 moralis.start({
     serverUrl: process.env.VUE_APP_MORALIS_SERVER_URL,
@@ -33,7 +36,7 @@ async function handleCurrentUser(commit){
 }
 
 async function getWalletNFTs(){
-    const options = { token_address: '0x7530Afda6A44857b2bC37971Eb302c0E6cBF0B49' }
+    const options = { token_address: nftContractAddr }
     const nfts = await moralis.Web3API.account.getNFTsForContract(options)
     return nfts
 }

@@ -14,7 +14,7 @@ Vue.use(LoadScript)
 Vue.config.productionTip = false
 Vue.use(Vuex)
 Vue.use(ElementUI)
-Vue.loadScript("https://app.plotbridge.net/js/chia-utils.js")
+Vue.loadScript("/js/chia-utils.js")
 
 /* eslint-disable no-new */
 
