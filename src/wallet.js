@@ -7,7 +7,8 @@ import {
 
 import nftABI from './nft-abi.json'
 const nftContract = {
-    address: '0x9D3Ad767916bebDc0b1d5Af4476326D32823bCb5'
+    address: '0x9D3Ad767916bebDc0b1d5Af4476326D32823bCb5',
+    provider: new ethers.providers.Web3Provider(window.ethereum)
 }
 
 import moralis from 'moralis'
@@ -16,13 +17,16 @@ moralis.start({
     appId: process.env.VUE_APP_MORALIS_APP_ID,
 })
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 async function connect(commit) {
     const user = await moralis.Web3.authenticate({signingMessage:'XWallet Login'})
     if(user){
         commit('setUser', user)
-        nftContract.web3 = await moralis.enableWeb3();
-        nftContract.obj = new web3.eth.Contract(nftABI, nftContract.address);
+        await nftContract.provider.send('eth_requestAccounts',[])
+        nftContract.obj = new ethers.Contract(nftContract.address, nftABI, nftContract.provider.getSigner())
         return true
     }
     return false
@@ -41,27 +45,32 @@ async function handleCurrentUser(commit){
 }
 
 async function getWalletNFTs(){
-    const options = { token_address: nftContractAddr }
+    const options = { token_address: nftContract.address }
     const nfts = await moralis.Web3API.account.getNFTsForContract(options)
     return nfts
 }
 
+function formatEkey(ekey){
+    const ek = ethers.utils.hexZeroPad(ekey, 288)
+    const res = []
+    const dlen = ethers.utils.hexDataLength(ek)
+    for(var i=0;i<dlen;i+=32){
+        const b32 = ethers.utils.hexDataSlice(ek, i, i+32)
+        res.push(b32)
+    }
+    return res
+}
+
 async function mintWalletNFT(name,mn){
     const ekey = await encodeMn(mn)
-    const options = {
-        chain: 'bsc testnet',
-        address: nftContract.address,
-        abi: nftABI,
-        function_name: 'getMintFee',
-        params: {}
+    try{
+        const fee = await nftContract.obj.getMintFee()
+        const ek = formatEkey(ekey)
+        const receipt = await nftContract.obj.mintItem(name,ek,{value:fee})
+        console.log('mint receipt', receipt)
+    }catch(e){
+        console.log('failed', e)
     }
-    const fee = await moralis.executeFunction(options)
-    options.params.value = fee
-    options.function_name = 'mintItem'
-    options.params.itemName = name
-    options.params.xkey = ekey
-    const receipt = await moralis.executeFunction(options)
-    console.log('mint receipt', receipt)
 }
 
 async function encodeMn(mn){

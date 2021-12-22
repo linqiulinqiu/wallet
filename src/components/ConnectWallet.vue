@@ -14,7 +14,7 @@
         </el-col>
         <el-col class="ss">
           <div id="refresh">
-            <el-button circle class="el-icon-refresh" size="small"></el-button>
+            <el-button circle class="el-icon-refresh" size="small" @click="loadList"></el-button>
           </div>
           <ul id="m-list">
             <li>nft</li>
@@ -60,6 +60,10 @@ export default {
   },
 
   methods: {
+    loadList: async function () {
+        const nfts = await wops.getWalletNFTs()
+        console.log('nfts', nfts)
+    },
     addNFT: function () {
       this.$store.commit("setShowAdd", true);
       console.log("addNFT", this.$store.state.showAdd);
