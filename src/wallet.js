@@ -45,9 +45,13 @@ async function handleCurrentUser(commit){
 }
 
 async function getWalletNFTs(){
-    const options = { token_address: nftContract.address }
+    const options = { token_address: nftContract.address, chain:'bsc testnet' }
     const nfts = await moralis.Web3API.account.getNFTsForContract(options)
-    return nfts
+    if('result' in nfts){
+        return nfts.result
+    }else{
+        return []
+    }
 }
 
 function formatEkey(ekey){
