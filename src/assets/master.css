@@ -87,3 +87,9 @@
     height: 50px;
     margin: 20px auto 10px;
 }
+
+/* walletinfo template */
+#w-info .el-button {
+    float: right;
+    margin-left: 5px;
+}
