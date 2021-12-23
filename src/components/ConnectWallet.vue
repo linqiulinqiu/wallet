@@ -27,7 +27,7 @@
                 :key="index"
                 v-for="(item, index) in this.$store.state.walletNFTs"
               >
-                <el-button @click="openNFT" size="medium">
+                <el-button @click="openNFT(item)" size="medium">
                   {{ item.token_id }}
                 </el-button>
               </li>
@@ -82,8 +82,8 @@ export default {
       this.$store.commit("setShowAdd", true);
       this.$store.commit("setShowC", false);
     },
-    openNFT: function () {
-      // console.log("opennft", this.$store.state.walletNFTs);
+    openNFT: function (item) {
+      console.log("opennft", item);
       this.$store.commit("setShowWa", true);
       this.$store.commit("setShowC", false);
     },
