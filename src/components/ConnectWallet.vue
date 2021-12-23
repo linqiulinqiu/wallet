@@ -27,7 +27,9 @@
                 :key="index"
                 v-for="(item, index) in this.$store.state.walletNFTs"
               >
-                <el-button @click="openNFT">{{ item.token_id }}</el-button>
+                <el-button @click="openNFT" size="medium">
+                  {{ item.token_id }}
+                </el-button>
               </li>
             </ul>
             <el-button
