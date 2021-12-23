@@ -24,14 +24,14 @@
           <div id="m-list">
             <ul
               v-for="item in this.$store.state.walletNFTs"
-              :key="item.token_address"
+              :key="item.token_id"
+              @click="openNFT"
             >
               <li>
                 <el-button>{{ item.token_id }}</el-button>
               </li>
             </ul>
           </div>
-          <el-button size="small" @click="openNFT">Open</el-button>
           <el-button
             size="small"
             class="el-icon-plus"
