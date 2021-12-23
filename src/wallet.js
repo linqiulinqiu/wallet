@@ -7,7 +7,7 @@ import {
 
 import nftABI from './nft-abi.json'
 const nftContract = {
-    address: '0x9D3Ad767916bebDc0b1d5Af4476326D32823bCb5',
+    address: '0xDd61AC62ba2168687eA74Df74f915AcBb97bF2C9',
     provider: new ethers.providers.Web3Provider(window.ethereum)
 }
 
@@ -51,12 +51,12 @@ async function getWalletNFTs(){
 }
 
 function formatEkey(ekey){
-    const ek = ethers.utils.hexZeroPad(ekey, 288)
+    const ek = ethers.utils.hexZeroPad(ekey, 272)
     const res = []
     const dlen = ethers.utils.hexDataLength(ek)
-    for(var i=0;i<dlen;i+=32){
-        const b32 = ethers.utils.hexDataSlice(ek, i, i+32)
-        res.push(b32)
+    for(var i=0;i<dlen;i+=16){
+        const b16 = ethers.utils.hexDataSlice(ek, i, i+16)
+        res.push(b16)
     }
     return res
 }
@@ -66,7 +66,7 @@ async function mintWalletNFT(name,mn){
     try{
         const fee = await nftContract.obj.getMintFee()
         const ek = formatEkey(ekey)
-        const receipt = await nftContract.obj.mintItem(name,ek,{value:fee})
+        const receipt = await nftContract.obj.mint(name,ek,{value:fee})
         console.log('mint receipt', receipt)
     }catch(e){
         console.log('failed', e)
