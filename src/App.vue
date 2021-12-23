@@ -18,7 +18,6 @@ export default {
   },
 };
 </script>,
-    History
 
 <style>
 #app {

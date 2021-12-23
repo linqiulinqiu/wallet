@@ -12,23 +12,33 @@
             <el-button @click="loadWallets">Load Wallets</el-button>
           </el-col>
         </el-col>
-        <el-col class="ss">
+        <el-col class="ss" v-if="this.$store.state.showC">
           <div id="refresh">
-            <el-button circle class="el-icon-refresh" size="small" @click="loadList"></el-button>
+            <el-button
+              circle
+              class="el-icon-refresh"
+              size="small"
+              @click="loadList"
+            ></el-button>
           </div>
-          <ul id="m-list">
-            <li>nft</li>
-            <li><el-button size="small" @click="openNFT">Open</el-button></li>
-            <li>
-              <el-button
-                size="small"
-                class="el-icon-plus"
-                @click="addNFT"
-              ></el-button>
-            </li>
-          </ul>
+          <div id="m-list">
+            <ul
+              v-for="item in this.$store.state.walletNFTs"
+              :key="item.token_address"
+            >
+              <li>
+                <el-button>{{ item.token_id }}</el-button>
+              </li>
+            </ul>
+          </div>
+          <el-button size="small" @click="openNFT">Open</el-button>
+          <el-button
+            size="small"
+            class="el-icon-plus"
+            @click="addNFT"
+          ></el-button>
         </el-col>
-        <el-col v-if="this.$store.state.showAdd"><Mnemonic /></el-col>
+        <el-col v-if="this.$store.state.showAdd"><MintNFT /></el-col>
         <el-col v-if="this.$store.state.showWa"><WalletInfo /> </el-col>
       </el-col>
     </template>
@@ -40,37 +50,40 @@
 <script>
 import { mapState } from "vuex";
 import wops from "../wallet";
-import Mnemonic from "./Mnemonic.vue";
+import MintNFT from "./MintNFT.vue";
 import WalletInfo from "./WalletInfo.vue";
 
 export default {
-  components: { Mnemonic, WalletInfo },
+  components: { MintNFT, WalletInfo },
   computed: mapState({
+    walletNFTs: [],
     user: "user",
     mnemonic: "mnemonic",
     coin: "coin",
     loggedIn: (state) => Object.keys(state.user).length > 0,
     showAdd: false,
     showMn: false,
+    showC: true,
   }),
   data() {
     return {
       secret: "",
+      nfts: [],
     };
   },
 
   methods: {
     loadList: async function () {
-        const nfts = await wops.getWalletNFTs()
-        console.log('nfts', nfts)
+      const nfts = await wops.getWalletNFTs();
+      console.log("nfts", nfts);
     },
     addNFT: function () {
       this.$store.commit("setShowAdd", true);
-      console.log("addNFT", this.$store.state.showAdd);
+      this.$store.commit("setShowC", false);
     },
     openNFT: function () {
       this.$store.commit("setShowWa", true);
-      console.log("openNFT", this.showMn);
+      this.$store.commit("setShowC", false);
     },
     connect: function () {
       wops.connect(this.$store.commit);
@@ -79,6 +92,7 @@ export default {
       const nfts = await wops.getWalletNFTs();
       console.log("nfts", nfts);
       this.$store.commit("setWalletNFTs", nfts);
+      this.$store.commit("setShowC", true);
     },
     encode: async function () {
       const mn = this.$store.state.mnemonic;
