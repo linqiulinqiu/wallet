@@ -2,16 +2,7 @@
   <el-col class="m-words">
     <el-col id="m-name">
       <p>
-        <span> name:</span>
-        <el-input
-          size="small"
-          maxlength="20"
-          minlength="1"
-          v-model="mName"
-          :disabled="disabled"
-          :placeholder="mnName"
-        ></el-input>
-        <el-button size="small" @click="editName">Edit</el-button>
+        name: <span>{{ wname }}</span>
       </p>
     </el-col>
     <el-col id="show-w" :span="22" :offset="2">{{ mnemonic }}</el-col>
@@ -32,17 +23,12 @@ export default {
   }),
   data() {
     return {
-      mName: "",
       disabled: true,
     };
   },
   methods: {
     exitS: function () {
       this.$store.commit("setShowMn", false);
-    },
-    editName: function () {
-      this.disabled = false;
-      this.$store.commit("setMnName", this.mName);
     },
   },
 };

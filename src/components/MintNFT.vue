@@ -70,9 +70,8 @@ export default {
       this.mwords = mn.join(" ");
       if (!this.wname || this.wname.length < 3 || this.wname.length > 20)
         return false;
-      console.log("mint token with", this.wname, this.mwords);
+      console.log("mint token with =", this.wname, this.mwords);
       await wops.mintWalletNFT(this.wname, this.mwords);
-      //      this.$store.commit("setMnemonic", this.mwords);
     },
 
     clearwords: function () {

@@ -21,19 +21,24 @@
               @click="loadList"
             ></el-button>
           </div>
-          <ul id="m-list">
-            <li>nft</li>
-            <li><el-button size="small" @click="openNFT">Open</el-button></li>
-            <li>
-              <el-button
-                size="small"
-                class="el-icon-plus"
-                @click="addNFT"
-              ></el-button>
-            </li>
-          </ul>
+          <div id="m-list">
+            <ul
+              v-for="item in this.$store.state.walletNFTs"
+              :key="item.token_address"
+            >
+              <li>
+                <el-button>{{ item.token_id }}</el-button>
+              </li>
+            </ul>
+          </div>
+          <el-button size="small" @click="openNFT">Open</el-button>
+          <el-button
+            size="small"
+            class="el-icon-plus"
+            @click="addNFT"
+          ></el-button>
         </el-col>
-        <el-col v-if="this.$store.state.showAdd"><Mnemonic /></el-col>
+        <el-col v-if="this.$store.state.showAdd"><MintNFT /></el-col>
         <el-col v-if="this.$store.state.showWa"><WalletInfo /> </el-col>
       </el-col>
     </template>
@@ -45,12 +50,13 @@
 <script>
 import { mapState } from "vuex";
 import wops from "../wallet";
-import Mnemonic from "./Mnemonic.vue";
+import MintNFT from "./MintNFT.vue";
 import WalletInfo from "./WalletInfo.vue";
 
 export default {
-  components: { Mnemonic, WalletInfo },
+  components: { MintNFT, WalletInfo },
   computed: mapState({
+    walletNFTs: [],
     user: "user",
     mnemonic: "mnemonic",
     coin: "coin",
@@ -62,6 +68,7 @@ export default {
   data() {
     return {
       secret: "",
+      nfts: [],
     };
   },
 
