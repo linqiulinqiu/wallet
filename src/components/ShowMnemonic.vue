@@ -1,9 +1,19 @@
 <template>
   <el-col class="m-words">
     <el-col id="m-name">
-      <span> name:</span>
-      <el-input size="small" maxlength="20" minlength="1"></el-input
-    ></el-col>
+      <p>
+        <span> name:</span>
+        <el-input
+          size="small"
+          maxlength="20"
+          minlength="1"
+          v-model="mName"
+          :disabled="disabled"
+          :placeholder="mnName"
+        ></el-input>
+        <el-button size="small" @click="editName">Edit</el-button>
+      </p>
+    </el-col>
     <el-col id="show-w" :span="22" :offset="2">{{ mnemonic }}</el-col>
     <el-col id="save-burn">
       <el-button type="primary">Save</el-button>
@@ -18,11 +28,21 @@ export default {
   computed: mapState({
     mnemonic: "mnemonic",
     showMn: false,
+    mnName: "mnName",
   }),
+  data() {
+    return {
+      mName: "",
+      disabled: true,
+    };
+  },
   methods: {
     exitS: function () {
       this.$store.commit("setShowMn", false);
-      console.log("showMn", this.$store.state.showMn);
+    },
+    editName: function () {
+      this.disabled = false;
+      this.$store.commit("setMnName", this.mName);
     },
   },
 };

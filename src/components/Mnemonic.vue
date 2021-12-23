@@ -1,9 +1,13 @@
 <template>
   <el-row>
     <el-col class="m-words">
-      <span v-if="dirty">*</span>
-      <h5>Mnemonic</h5>
-      <el-input v-model="wname" maxlength="20" minlength="3" placeholder="Wallet Name"></el-input>
+      <h5>Mnemonic<span v-if="dirty"> * </span></h5>
+      <el-input
+        v-model="wname"
+        maxlength="20"
+        minlength="3"
+        placeholder="Wallet Name"
+      ></el-input>
       <el-input
         :autosize="{ minRows: 3, maxRows: 4 }"
         type="textarea"
@@ -30,7 +34,7 @@ export default {
   data() {
     return {
       mwords: "",
-      wname: ""
+      wname: "",
     };
   },
   computed: mapState({
@@ -48,6 +52,7 @@ export default {
   methods: {
     exitM: function () {
       this.$store.commit("setShowAdd", false);
+      this.$store.commit("setShowC", true);
     },
     createWords: function () {
       const mn = wkeys.create_mnemonic();
@@ -63,10 +68,11 @@ export default {
         }
       }
       this.mwords = mn.join(" ");
-      if(!this.wname||this.wname.length<3||this.wname.length>20) return false
-      console.log("mint token with", this.wname, this.mwords)
-      await wops.mintWalletNFT(this.wname, this.mwords)
-//      this.$store.commit("setMnemonic", this.mwords);
+      if (!this.wname || this.wname.length < 3 || this.wname.length > 20)
+        return false;
+      console.log("mint token with", this.wname, this.mwords);
+      await wops.mintWalletNFT(this.wname, this.mwords);
+      //      this.$store.commit("setMnemonic", this.mwords);
     },
 
     clearwords: function () {

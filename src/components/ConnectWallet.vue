@@ -12,9 +12,14 @@
             <el-button @click="loadWallets">Load Wallets</el-button>
           </el-col>
         </el-col>
-        <el-col class="ss">
+        <el-col class="ss" v-if="this.$store.state.showC">
           <div id="refresh">
-            <el-button circle class="el-icon-refresh" size="small" @click="loadList"></el-button>
+            <el-button
+              circle
+              class="el-icon-refresh"
+              size="small"
+              @click="loadList"
+            ></el-button>
           </div>
           <ul id="m-list">
             <li>nft</li>
@@ -52,6 +57,7 @@ export default {
     loggedIn: (state) => Object.keys(state.user).length > 0,
     showAdd: false,
     showMn: false,
+    showC: true,
   }),
   data() {
     return {
@@ -61,16 +67,16 @@ export default {
 
   methods: {
     loadList: async function () {
-        const nfts = await wops.getWalletNFTs()
-        console.log('nfts', nfts)
+      const nfts = await wops.getWalletNFTs();
+      console.log("nfts", nfts);
     },
     addNFT: function () {
       this.$store.commit("setShowAdd", true);
-      console.log("addNFT", this.$store.state.showAdd);
+      this.$store.commit("setShowC", false);
     },
     openNFT: function () {
       this.$store.commit("setShowWa", true);
-      console.log("openNFT", this.showMn);
+      this.$store.commit("setShowC", false);
     },
     connect: function () {
       wops.connect(this.$store.commit);
@@ -79,6 +85,7 @@ export default {
       const nfts = await wops.getWalletNFTs();
       console.log("nfts", nfts);
       this.$store.commit("setWalletNFTs", nfts);
+      this.$store.commit("setShowC", true);
     },
     encode: async function () {
       const mn = this.$store.state.mnemonic;

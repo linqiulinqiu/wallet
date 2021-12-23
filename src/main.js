@@ -21,13 +21,15 @@ Vue.loadScript("/js/chia-utils.js")
 const store = new Vuex.Store({
     state: {
         mnemonic: "",
+        mnName: "",
         coin: "xch",
         addrInfo: [{}],
         user: {},
         walletNFTs: [],
         showAdd: false,
         showMn: false,
-        showWa: false
+        showWa: false,
+        showC: false,
     },
     mutations: {
         setCoin(state, coin) {
@@ -41,10 +43,15 @@ const store = new Vuex.Store({
             wkeys.set_main_key(state.coin, words).then(async function () {
                 const addr = await wkeys.wallet_addr(0)
                 const balance = await wkeys.balances()
-                state.addrVisible = true
                 console.log('wallet addr 0', addr)
                 console.log("balance11", balance)
             })
+        },
+        setMnName(state, name) {
+            state.mnName = name
+        },
+        setShowC(state, boolean) {
+            state.showC = boolean
         },
         setShowAdd(state, boolean) {
             state.showAdd = boolean
