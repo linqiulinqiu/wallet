@@ -19,7 +19,7 @@ export default {
   computed: mapState({
     mnemonic: "mnemonic",
     showMn: false,
-    mnName: "mnName",
+    wname: "",
   }),
   data() {
     return {

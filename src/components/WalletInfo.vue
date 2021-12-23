@@ -11,9 +11,24 @@
         <el-button size="mini" type="primary" @click="showMn">info</el-button>
       </el-col>
       <p>Receive Address:</p>
-      <el-col class="ss"> </el-col>
+      <el-row class="sss" type="flex" align="middle">
+        <el-col :span="3"
+          ><el-button
+            size="mini"
+            class="el-icon-document-copy el-icon-document-checked"
+          ></el-button
+        ></el-col>
+        <el-col :span="18" class="s">
+          <p>address</p>
+          <p>balance</p>
+        </el-col>
+        <el-col :span="3">
+          <el-button size="mini" class="el-icon-back"></el-button>
+          <el-button size="mini" class="el-icon-right"></el-button>
+        </el-col>
+      </el-row>
       <el-col>
-        <p>Acount Balance: <span>{{}}</span></p>
+        <p>Account Balance: <span>{{}}</span></p>
         <p>Spendable: <span>{{}}</span></p>
       </el-col>
       <el-col v-if="false">
@@ -30,10 +45,14 @@
 
 <script>
 import ShowMnemonic from "./ShowMnemonic.vue";
+import { mapState } from "vuex";
 export default {
   components: {
     ShowMnemonic,
   },
+  computed: mapState({
+    walletNFTs: [],
+  }),
   methods: {
     showMn: function () {
       this.$store.commit("setShowMn", true);
