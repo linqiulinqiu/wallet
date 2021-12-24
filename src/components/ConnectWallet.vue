@@ -22,21 +22,22 @@
             ></el-button>
           </div>
           <div id="m-list">
-            <ul
-              v-for="item in this.$store.state.walletNFTs"
-              :key="item.token_id"
-              @click="openNFT"
-            >
-              <li>
-                <el-button>{{ item.token_id }}</el-button>
+            <ul>
+              <li
+                :key="index"
+                v-for="(item, index) in this.$store.state.walletNFTs"
+              >
+                <el-button @click="openNFT(item)" size="medium">
+                  {{ item.token_id }}
+                </el-button>
               </li>
             </ul>
+            <el-button
+              size="small"
+              class="el-icon-plus"
+              @click="addNFT"
+            ></el-button>
           </div>
-          <el-button
-            size="small"
-            class="el-icon-plus"
-            @click="addNFT"
-          ></el-button>
         </el-col>
         <el-col v-if="this.$store.state.showAdd"><MintNFT /></el-col>
         <el-col v-if="this.$store.state.showWa"><WalletInfo /> </el-col>
@@ -81,7 +82,8 @@ export default {
       this.$store.commit("setShowAdd", true);
       this.$store.commit("setShowC", false);
     },
-    openNFT: function () {
+    openNFT: function (item) {
+      console.log("opennft", item);
       this.$store.commit("setShowWa", true);
       this.$store.commit("setShowC", false);
     },
