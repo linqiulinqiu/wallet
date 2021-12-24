@@ -66,6 +66,7 @@ export default {
     showMn: false,
     showC: true,
   }),
+
   data() {
     return {
       secret: "",
@@ -76,6 +77,7 @@ export default {
   methods: {
     loadList: async function () {
       const nfts = await wops.getWalletNFTs();
+      this.$store.commit("setWalletNFTs", nfts);
       console.log("nfts", nfts);
     },
     addNFT: function () {
