@@ -6,7 +6,9 @@
         v-model="wname"
         maxlength="20"
         minlength="3"
+        show-word-limit
         placeholder="Wallet Name"
+        clearable
       ></el-input>
       <el-input
         :autosize="{ minRows: 3, maxRows: 4 }"
@@ -68,12 +70,18 @@ export default {
         }
       }
       this.mwords = mn.join(" ");
-      if (!this.wname || this.wname.length < 3 || this.wname.length > 20){
-        this.$message('please input  wallet name')
-      }
+      if (!this.wname) {
+        this.$message("Please ensure that the wallet name is correct");
         return false;
-      console.log("mint token with =", this.wname, this.mwords);
-      await wops.mintWalletNFT(this.wname, this.mwords);
+      } else if (this.wname.length < 3) {
+        this.$message(
+          "Please ensure that the wallet name is correctPlease enter more than three characters for the name"
+        );
+        return false;
+      } else {
+        console.log("mint token with =", this.wname, this.mwords);
+        await wops.mintWalletNFT(this.wname, this.mwords);
+      }
     },
 
     clearwords: function () {
