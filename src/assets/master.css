@@ -19,12 +19,6 @@
     margin: 20px auto;
 }
 
-.s p {
-    /* width: 200px; */
-    height: 30px;
-    border: #043502 1px dashed;
-    margin: 11px 0px;
-}
 
 .ss {
     /* width: 200px; */
@@ -121,5 +115,32 @@
 
 #br .el-button:nth-child(2) {
     margin-left: 0px;
-
 }
+
+
+
+.el-carousel__item p {
+    color: #475669;
+    font-size: 12px;
+    opacity: 0.75;
+    line-height: 40px;
+    margin: 0;
+}
+
+.el-carousel__item:nth-child(2n) {
+    background-color: #cedcf0;
+}
+
+.el-carousel__item:nth-child(2n+1) {
+    background-color: #d3dce6;
+}
+
+.el-carousel__button {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.el-carousel__indicators--horizontal {}
+
+.el-carousel__indicators {}

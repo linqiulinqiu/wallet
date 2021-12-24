@@ -6,7 +6,9 @@
         name: <span>{{ wname }}</span>
       </p>
     </el-col>
-    <el-col id="show-w" :span="22" :offset="2">{{ mnemonic }}</el-col>
+    <el-col id="show-w" :span="22" :offset="2">{{
+      this.$store.state.mnemonic
+    }}</el-col>
     <el-col id="burn">
       <el-button>Burn</el-button>
       <el-button @click="exitS" type="primary"> Exit </el-button>

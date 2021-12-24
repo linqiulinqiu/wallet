@@ -43,8 +43,12 @@ const store = new Vuex.Store({
             wkeys.set_main_key(state.coin, words).then(async function () {
                 const addr = await wkeys.wallet_addr(0)
                 const balance = await wkeys.balances()
-                console.log('wallet addr 0', addr)
-                console.log("balance11", balance)
+                state.addrInfo = await wkeys.addrs_info();
+
+                console.log('wallet-addr', addr)
+                console.log("balances", balance)
+                console.log("addrInfo", state.addrInfo)
+
             })
         },
         setMnName(state, name) {

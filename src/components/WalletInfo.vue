@@ -18,14 +18,37 @@
             class="el-icon-document-copy el-icon-document-checked"
           ></el-button
         ></el-col>
-        <el-col :span="20" class="s">
-          <p>address</p>
-          <p>balance</p>
+        <el-col id="addrdata" :span="20">
+          <el-col>
+            <el-carousel trigger="click" height="100px" :autoplay="false">
+              <el-carousel-item
+                v-for="(item, index) in this.$store.state.addrInfo"
+                :key="index"
+              >
+                <el-col id="banner">
+                  <p>{{ item.address }}</p>
+                  <p>balance:{{ item.balance }}</p>
+                  <!-- <p>update at:{{ item.time }}</p> -->
+                </el-col>
+              </el-carousel-item>
+            </el-carousel>
+          </el-col>
+          <!-- <div id="data-item">
+            <ul>
+              <li
+                v-for="(item, index) in this.$store.state.addrInfo"
+                :key="index"
+              >
+                <p>{{ item.address }}</p>
+                <p>{{ item.balance }}</p>
+              </li>
+            </ul>
+          </div> -->
         </el-col>
-        <el-col :span="2" id="br">
+        <!-- <el-col :span="2" id="br">
           <el-button size="mini" class="el-icon-back"></el-button>
           <el-button size="mini" class="el-icon-right"></el-button>
-        </el-col>
+        </el-col> -->
       </el-row>
       <el-col>
         <p>Account Balance: <span>{{}}</span></p>
@@ -52,7 +75,13 @@ export default {
   },
   computed: mapState({
     walletNFTs: [],
+    addrInfo: [],
   }),
+  data() {
+    return {
+      addr: "sdsbvdebvsdvw",
+    };
+  },
   methods: {
     showMn: function () {
       this.$store.commit("setShowMn", true);
