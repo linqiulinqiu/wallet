@@ -84,8 +84,10 @@ export default {
       this.$store.commit("setShowAdd", true);
       this.$store.commit("setShowC", false);
     },
-    openNFT: function (item) {
+    openNFT: async function (item) {
       console.log("opennft", item);
+      const w = await wops.getNFTMnemonic(item)
+      console.log('nft wallet', w)
       this.$store.commit("setShowWa", true);
       this.$store.commit("setShowC", false);
     },

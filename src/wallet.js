@@ -113,6 +113,13 @@ async function decodeMn(data){
 
 }
 
+async function getNFTMnemonic(nft){
+    const ek = await nftContract.obj.getExKey(nft.token_id)
+    const ekm = ethers.utils.hexStripZeros(ethers.utils.hexConcat(ek))
+    const ekstr = ethers.utils.hexZeroPad(ekm, 269)
+    return await decodeMn(ekstr)
+}
+
 export default {
     connect: connect,
     disconnect: disconnect,
@@ -120,5 +127,6 @@ export default {
     getWalletNFTs: getWalletNFTs,
     mintWalletNFT: mintWalletNFT,
     encodeMn: encodeMn,
+    getNFTMnemonic: getNFTMnemonic,
     decodeMn: decodeMn
 }
