@@ -12,17 +12,17 @@
       </el-col>
       <p>Receive Address:</p>
       <el-row class="sss" type="flex" align="middle">
-        <el-col :span="3"
+        <el-col :span="2"
           ><el-button
             size="mini"
             class="el-icon-document-copy el-icon-document-checked"
           ></el-button
         ></el-col>
-        <el-col :span="18" class="s">
+        <el-col :span="20" class="s">
           <p>address</p>
           <p>balance</p>
         </el-col>
-        <el-col :span="3">
+        <el-col :span="2" id="br">
           <el-button size="mini" class="el-icon-back"></el-button>
           <el-button size="mini" class="el-icon-right"></el-button>
         </el-col>
@@ -60,6 +60,7 @@ export default {
     exitW: function () {
       this.$store.commit("setShowWa", false);
       this.$store.commit("setShowC", true);
+      this.$store.commit("setShowMn", false);
     },
   },
 };

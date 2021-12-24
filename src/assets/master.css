@@ -46,14 +46,10 @@
 }
 
 #m-list li {
-    width: 80px;
-    height: 50px;
     list-style: none;
     box-sizing: border-box;
-    margin-left: 20px;
     float: left;
-    padding: 10px;
-    /* border: 1px dashed #668b66; */
+    padding: 5px;
 }
 
 /* mint template */
@@ -89,6 +85,10 @@
 
 /* showmnemonic template */
 
+#m-name p {
+    text-align: left;
+    margin-left: 5%;
+}
 
 #m-name .el-input {
     margin: 20px;
@@ -108,7 +108,7 @@
     border: 1px solid #668b66;
 }
 
-#save-burn {
+#burn {
     height: 50px;
     margin: 20px auto 10px;
 }
@@ -117,4 +117,9 @@
 #w-info .el-button {
     float: right;
     margin-left: 5px;
+}
+
+#br .el-button:nth-child(2) {
+    margin-left: 0px;
+
 }
