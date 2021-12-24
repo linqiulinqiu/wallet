@@ -7,7 +7,7 @@ import {
 
 import nftABI from './nft-abi.json'
 const nftContract = {
-    address: '0xDd61AC62ba2168687eA74Df74f915AcBb97bF2C9',
+    address: '0x9707dFD37F7130A0DE09eCB07FCf84D036cefbDa',
     provider: new ethers.providers.Web3Provider(window.ethereum)
 }
 
