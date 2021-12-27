@@ -2,18 +2,13 @@
   <el-col>
     <template v-if="loggedIn">
       <el-col>
-        <el-col class="ss">
-          <el-button @click="encode">Encode</el-button>
-          <el-button @click="decode">Decode</el-button>
-          <p>
-            <span>{{ user.get("ethAddress") }}</span>
-          </p>
-          <el-col>
-            <el-button @click="loadWallets">Load Wallets</el-button>
-          </el-col>
-        </el-col>
-        <el-col class="ss" v-if="this.$store.state.showC">
+        <el-col v-if="this.$store.state.showC">
           <div id="refresh">
+            <span>{{
+              user.get("ethAddress").substr(0, 6) +
+              "..." +
+              user.get("ethAddress").substr(-4, 4)
+            }}</span>
             <el-button
               circle
               class="el-icon-refresh"
@@ -21,6 +16,14 @@
               @click="loadList"
             ></el-button>
           </div>
+          <div class="as">
+            <img
+              class="as"
+              src="https://xwt-info.plotbridge.io/img/0000000000000000000000000000000000000000000000000000000000000004.svg"
+              alt=""
+            />
+          </div>
+
           <div id="m-list">
             <ul>
               <li
@@ -28,7 +31,11 @@
                 v-for="(item, index) in this.$store.state.walletNFTs"
               >
                 <el-button @click="openNFT(item)" size="medium">
-                  {{ item.token_id }}
+                  <span v-if="item.metadata == null">{{ item.token_id }}</span>
+                  <span v-else>
+                    <img class="as" :src="JSON.parse(item.metadata).image" />
+                    <!-- {{ JSON.parse(item.metadata).image }} -->
+                  </span>
                 </el-button>
               </li>
             </ul>
@@ -71,6 +78,7 @@ export default {
     return {
       secret: "",
       nfts: [],
+      imgUrl: "",
     };
   },
 
@@ -79,6 +87,11 @@ export default {
       const nfts = await wops.getWalletNFTs();
       this.$store.commit("setWalletNFTs", nfts);
       console.log("nfts", nfts);
+
+      // for (item in this.$store.state.walletNFTs) {
+      // const metadata = JSON.parse(this.$store.state.walletNFTs.metadata);
+      // console.log(metadata);
+      // }
     },
     addNFT: function () {
       this.$store.commit("setShowAdd", true);
@@ -86,33 +99,24 @@ export default {
     },
     openNFT: async function (item) {
       console.log("opennft", item);
+      // const obj = JSON.parse(item.metadata);
       const w = await wops.getNFTMnemonic(item);
       this.$store.commit("setMnemonic", w);
-      console.log("nft wallet", w);
       this.$store.commit("setShowWa", true);
       this.$store.commit("setShowC", false);
     },
-    connect: function () {
+    connect: async function () {
       wops.connect(this.$store.commit);
-    },
-    loadWallets: async function () {
       const nfts = await wops.getWalletNFTs();
       console.log("nfts", nfts);
       this.$store.commit("setWalletNFTs", nfts);
       this.$store.commit("setShowC", true);
-    },
-    encode: async function () {
-      const mn = this.$store.state.mnemonic;
-      console.log("mnemonic from", mn);
-      const enc = await wops.encodeMn(mn);
-      console.log("encoded mnemonic", enc);
-      this.secret = enc;
-    },
-    decode: async function () {
-      const en = this.secret;
-      console.log("encoded =", en);
-      const dec = await wops.decodeMn(en);
-      console.log("decoded mnemonic", dec);
+
+      // for (item in nfts) {
+      //   // let item = {};
+      //   const metadata = JSON.parse(item.metadata);
+      //   console.log(metadata);
+      // }
     },
   },
 };
