@@ -1,5 +1,6 @@
 <template>
   <el-col>
+    <div></div>
     <template v-if="loggedIn">
       <el-col>
         <el-col v-if="this.$store.state.showC">
@@ -17,11 +18,7 @@
             ></el-button>
           </div>
           <div class="as">
-            <img
-              class="as"
-              src="https://xwt-info.plotbridge.io/img/0000000000000000000000000000000000000000000000000000000000000004.svg"
-              alt=""
-            />
+            <svg v-html="imgurll"></svg>
           </div>
 
           <div id="m-list">
@@ -31,9 +28,10 @@
                 v-for="(item, index) in this.$store.state.walletNFTs"
               >
                 <el-button @click="openNFT(item)" size="medium">
+                  <span></span>
                   <span v-if="item.metadata == null">{{ item.token_id }}</span>
                   <span v-else>
-                    <img class="as" :src="JSON.parse(item.metadata).image" />
+                    <svg v-html="imgurll"></svg>
                     <!-- {{ JSON.parse(item.metadata).image }} -->
                   </span>
                 </el-button>
@@ -73,21 +71,47 @@ export default {
     showMn: false,
     showC: true,
   }),
-
+  watch: {
+    imgurll() {
+      this.imgurl(item);
+    },
+  },
   data() {
     return {
       secret: "",
       nfts: [],
-      imgUrl: "",
+      imgurll: "",
     };
   },
 
   methods: {
+    imgurl: async function (item) {
+      const meta = item.metadata;
+      const url = JSON.parse(meta).image;
+      const axios = require("axios");
+      const axurl = await axios.create({
+        baseURL: "https://xwt-info.plotbridge.io",
+      });
+
+      const img = await axurl.get(url.substr(30, url.length));
+      // .then(async function () {
+      const imgs = img.data.substr(137, img.data.length);
+      console.log("imgs", imgs);
+      this.imgurll = imgs;
+      console.log("imgurls", this.imgurll);
+
+      return this.imgurll;
+      // }
+      // })
+      // .catch((err) => console.log(err));
+
+      // });
+      // console.log("img", img.data);
+    },
     loadList: async function () {
       const nfts = await wops.getWalletNFTs();
       this.$store.commit("setWalletNFTs", nfts);
       console.log("nfts", nfts);
-
       // for (item in this.$store.state.walletNFTs) {
       // const metadata = JSON.parse(this.$store.state.walletNFTs.metadata);
       // console.log(metadata);
@@ -111,12 +135,6 @@ export default {
       console.log("nfts", nfts);
       this.$store.commit("setWalletNFTs", nfts);
       this.$store.commit("setShowC", true);
-
-      // for (item in nfts) {
-      //   // let item = {};
-      //   const metadata = JSON.parse(item.metadata);
-      //   console.log(metadata);
-      // }
     },
   },
 };
