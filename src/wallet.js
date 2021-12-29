@@ -7,7 +7,7 @@ import {
 
 import nftABI from './nft-abi.json'
 const nftContract = {
-    address: '0x9707dFD37F7130A0DE09eCB07FCf84D036cefbDa',
+    address: '0xf65E89500fE6d894565aCC2476439bB2aeB866d7',
     provider: new ethers.providers.Web3Provider(window.ethereum)
 }
 
@@ -27,6 +27,7 @@ async function connect(commit) {
         commit('setUser', user)
         await nftContract.provider.send('eth_requestAccounts',[])
         nftContract.obj = new ethers.Contract(nftContract.address, nftABI, nftContract.provider.getSigner())
+        console.log('nft contract obj', nftContract.obj)
         return true
     }
     return false
@@ -35,13 +36,6 @@ async function connect(commit) {
 async function disconnect(commit){
     await moralis.User.logOut()
     commit('setUser', {})
-}
-
-async function handleCurrentUser(commit){
-    const user = moralis.User.current()
-    if(user){
-        commit('setUser', user)
-    }
 }
 
 async function getWalletNFTs(){
@@ -66,7 +60,7 @@ function formatEkey(ekey){
 }
 
 async function mintWalletNFT(name,mn){
-    const ekey = await encodeMn(mn)
+    const ekey = await encodeMn(mn,false)
     try{
         const fee = await nftContract.obj.getMintFee()
         const ek = formatEkey(ekey)
@@ -77,9 +71,12 @@ async function mintWalletNFT(name,mn){
     }
 }
 
-async function encodeMn(mn){
+async function encodeMn(mn, addr){
     try {
-        const params = [moralis.User.current().get('ethAddress')]
+        const params = [addr]
+        if(!addr){
+            params[0] = moralis.User.current().get('ethAddress')
+        }
         const pubkey = await ethereum.request({method:"eth_getEncryptionPublicKey", params:params})
         if(pubkey){
             const emsg = bufferToHex(
@@ -120,13 +117,25 @@ async function getNFTMnemonic(nft){
     return await decodeMn(ekstr)
 }
 
+async function transferNFT(nft, toAddr){
+    const mn = await getNFTMnemonic(nft)
+    const ekey = await encodeMn(mn, toAddr)
+    const res = await nftContract.obj.transfer(toAddr, nft.token_id, ekey)
+    console.log('transfer receipt', res)
+}
+
+async function burnNFT(nft){
+    const res = await nftContract.obj.burn(nft.token_id)
+    console.log('burn recepit', res)
+}
+
 export default {
     connect: connect,
     disconnect: disconnect,
     handleCurrentUser: handleCurrentUser,
     getWalletNFTs: getWalletNFTs,
     mintWalletNFT: mintWalletNFT,
-    encodeMn: encodeMn,
     getNFTMnemonic: getNFTMnemonic,
-    decodeMn: decodeMn
+    transferNFT: transferNFT,
+    burnNFT: burnNFT
 }
