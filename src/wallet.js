@@ -132,7 +132,6 @@ async function burnNFT(nft){
 export default {
     connect: connect,
     disconnect: disconnect,
-    handleCurrentUser: handleCurrentUser,
     getWalletNFTs: getWalletNFTs,
     mintWalletNFT: mintWalletNFT,
     getNFTMnemonic: getNFTMnemonic,
