@@ -4,6 +4,9 @@
       <el-col>
         <el-col v-if="this.$store.state.showC">
           <div id="refresh">
+            <el-button @click="getkey(transAddr)" size="mini"
+              >Get Public Key</el-button
+            >
             <span>{{
               user.get("ethAddress").substr(0, 6) +
               "..." +
@@ -23,17 +26,6 @@
                 :key="index"
                 v-for="(item, index) in this.$store.state.walletNFTs"
               >
-                <el-dialog :visible.sync="showDialog" title="User">
-                  <el-button @click="openNFT(curNFT)" size="medium">
-                    Open
-                  </el-button>
-                  <el-button @click="removeNFT(curNFT)" size="medium"
-                    >Remove</el-button
-                  >
-                  <el-button @click="showTransfer = true" size="medium"
-                    >Transfer</el-button
-                  >
-                </el-dialog>
                 <el-button @click="dialogVisible(item)">{{
                   item.token_id
                 }}</el-button>
@@ -47,21 +39,34 @@
             ></el-button>
           </div>
           <el-col>
+            <el-dialog :visible.sync="showDialog" title="User">
+              <el-button @click="openNFT(curNFT)" size="medium">
+                Open
+              </el-button>
+              <el-button @click="removeNFT(curNFT)" size="medium"
+                >Remove</el-button
+              >
+              <el-button @click="showTransfer = true" size="medium"
+                >Transfer</el-button
+              >
+            </el-dialog>
             <el-dialog
               width="90%"
               :visible.sync="showTransfer"
               title="Transfer Wallet"
             >
               <p>
-                Transfer Address:<span
-                  >(Please ensure the address is correct!)</span
-                >
+                Transfer Address:
+                <span>( Please ensure the address is correct ! )</span>
               </p>
               <el-input
                 v-model="transAddr"
                 placeholder="Input Address"
               ></el-input>
-              <el-button @click="transNFT(curNFT, transAddr)">Sure</el-button>
+              <el-input v-model="pubkey"></el-input>
+              <el-button @click="transNFT(curNFT, transAddr, pubkey)"
+                >Sure</el-button
+              >
             </el-dialog>
           </el-col>
         </el-col>
@@ -97,6 +102,7 @@ export default {
       showDialog: false,
       showTransfer: false,
       transAddr: "",
+      pubkey: "",
     };
   },
 
@@ -104,6 +110,11 @@ export default {
     dialogVisible: function (item) {
       this.showDialog = true;
       this.$store.commit("setCurNFT", item);
+    },
+    getkey: async function (transAddr) {
+      transAddr = this.transAddr;
+      const pubkey = await wops.getPublicKey(transAddr);
+      this.$message(pubkey);
     },
     loadList: async function () {
       const nfts = await wops.getWalletNFTs();
@@ -114,21 +125,15 @@ export default {
       this.$store.commit("setShowAdd", true);
       this.$store.commit("setShowC", false);
     },
-    transNFT: async function (curNFT, transAddr) {
+    transNFT: async function (curNFT, transAddr, pubkey) {
+      this.showDialog = false;
       curNFT = this.$store.state.curNFT;
       transAddr = this.transAddr;
-      console.log("transAddr=", transAddr, typeof transAddr);
-      this.showDialog = false;
-      console.log("transfor NFT", curNFT.token_id);
+      pubkey = this.pubkey;
       if (transAddr != "") {
         try {
-          await wops.transferNFT(curNFT, transAddr);
+          await wops.transferNFT(curNFT, transAddr, pubkey);
         } catch (e) {
-          if (e.code == 32602) {
-            this.$message(
-              "Invalid parameters: must provide an Ethereum address."
-            );
-          }
           console.log("eeee", e);
         }
       } else {

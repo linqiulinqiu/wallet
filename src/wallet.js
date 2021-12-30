@@ -32,6 +32,7 @@ async function connect(commit) {
     const user = await moralis.Web3.authenticate({
         signingMessage: 'XWallet Login'
     })
+    console.log('user', user)
     if (user) {
         commit('setUser', user)
         await nftContract.provider.send('eth_requestAccounts', [])
@@ -74,9 +75,11 @@ function formatEkey(ekey) {
 
 async function mintWalletNFT(name, mn) {
     const ekey = await encodeMn(mn, false)
+    console.log("this ekey = ", ekey)
     try {
         const fee = await nftContract.obj.getMintFee()
         const ek = formatEkey(ekey)
+        console.log('mint params', fee, ek)
         const receipt = await nftContract.obj.mint(name, ek, {
             value: fee
         })
@@ -85,20 +88,26 @@ async function mintWalletNFT(name, mn) {
         console.log('failed', e)
     }
 }
-
-async function encodeMn(mn, addr) {
+async function getPublicKey(addr) {
     try {
         const params = [addr]
-        console.log('params', params, addr)
         if (!addr) {
             params[0] = moralis.User.current().get('ethAddress')
             console.log('params[0]', params[0])
         }
         const pubkey = await ethereum.request({
-            method: "eth_getEncryptionPublicKey",
+            method: 'eth_getEncryptionPublicKey',
             params: params
         })
-        console.log('pubkey', pubkey)
+        return pubkey
+    } catch (err) {
+        console.log('errrrrr', err)
+    }
+}
+async function encodeMn(mn, addr) {
+    try {
+        const pubkey = await getPublicKey(addr)
+        console.log('pubkey-en', pubkey)
         if (pubkey) {
             const emsg = bufferToHex(
                 Buffer.from(JSON.stringify(
@@ -143,10 +152,34 @@ async function getNFTMnemonic(nft) {
     const ekstr = ethers.utils.hexZeroPad(ekm, 269)
     return await decodeMn(ekstr)
 }
+async function getEkey(mn, pubkey) {
+    try {
+        if (pubkey) {
+            const emsg = bufferToHex(
+                Buffer.from(JSON.stringify(
+                        encrypt(
+                            pubkey, {
+                                data: mnemonicToEntropy(mn)
+                            },
+                            'x25519-xsalsa20-poly1305'
+                        )
+                    ),
+                    'utf8'
+                )
+            )
+            console.log('emsg', emsg)
+            return emsg
+        }
+    } catch (error) {
+        console.log('er666', e)
 
-async function transferNFT(nft, toAddr) {
+    }
+}
+async function transferNFT(nft, toAddr, pubkey) {
     const mn = await getNFTMnemonic(nft)
-    const ekey = await encodeMn(mn, toAddr)
+    // const ekey = await encodeMn(mn, addr)
+
+    const ekey = await getEkey(mn, pubkey)
     console.log('ekey = ', ekey, toAddr)
     const res = await nftContract.obj.transfer(toAddr, nft.token_id, ekey)
     console.log('transfer receipt', res)
@@ -164,5 +197,7 @@ export default {
     mintWalletNFT: mintWalletNFT,
     getNFTMnemonic: getNFTMnemonic,
     transferNFT: transferNFT,
-    burnNFT: burnNFT
+    burnNFT: burnNFT,
+    getPublicKey: getPublicKey,
+    getEkey: getEkey
 }
