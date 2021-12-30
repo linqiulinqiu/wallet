@@ -161,7 +161,7 @@ export default {
       this.$store.commit("setMnemonic", w);
     },
     connect: async function () {
-      wops.connect(this.$store.commit);
+      await wops.connect(this.$store.commit);
       const nfts = await wops.getWalletNFTs();
       console.log("nfts", nfts);
       this.$store.commit("setWalletNFTs", nfts);
