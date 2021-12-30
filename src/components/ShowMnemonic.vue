@@ -10,7 +10,7 @@
       this.$store.state.mnemonic
     }}</el-col>
     <el-col id="burn">
-      <el-button>Burn</el-button>
+      <el-button @click="burnNFT(item)">Burn</el-button>
       <el-button @click="exitS" type="primary"> Exit </el-button>
     </el-col>
     <el-col class="exit"></el-col>
@@ -18,6 +18,7 @@
 </template>
 <script>
 import { mapState } from "vuex";
+import wops from "../wallet";
 export default {
   computed: mapState({
     mnemonic: "mnemonic",
@@ -32,6 +33,9 @@ export default {
   methods: {
     exitS: function () {
       this.$store.commit("setShowMn", false);
+    },
+    burnNFT: function (item) {
+      console.log(this.$store.state.addrInfo);
     },
   },
 };

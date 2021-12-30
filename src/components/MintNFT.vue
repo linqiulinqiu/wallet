@@ -79,7 +79,6 @@ export default {
         );
         return false;
       } else {
-        console.log("mint token with =", this.wname, this.mwords);
         await wops.mintWalletNFT(this.wname, this.mwords);
       }
     },

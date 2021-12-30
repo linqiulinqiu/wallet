@@ -32,23 +32,8 @@
                 </el-col>
               </el-carousel-item>
             </el-carousel>
-          </el-col>
-          <!-- <div id="data-item">
-            <ul>
-              <li
-                v-for="(item, index) in this.$store.state.addrInfo"
-                :key="index"
-              >
-                <p>{{ item.address }}</p>
-                <p>{{ item.balance }}</p>
-              </li>
-            </ul>
-          </div> -->
+          </el-col>  
         </el-col>
-        <!-- <el-col :span="2" id="br">
-          <el-button size="mini" class="el-icon-back"></el-button>
-          <el-button size="mini" class="el-icon-right"></el-button>
-        </el-col> -->
       </el-row>
       <el-col>
         <p>Account Balance: <span>{{}}</span></p>
@@ -78,9 +63,7 @@ export default {
     addrInfo: [],
   }),
   data() {
-    return {
-      addr: "sdsbvdebvsdvw",
-    };
+    return {};
   },
   methods: {
     showMn: function () {

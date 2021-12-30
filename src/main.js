@@ -26,6 +26,7 @@ const store = new Vuex.Store({
         addrInfo: [{}],
         user: {},
         walletNFTs: [],
+        curNFT: {},
         showAdd: false,
         showMn: false,
         showWa: false,
@@ -44,12 +45,16 @@ const store = new Vuex.Store({
                 const addr = await wkeys.wallet_addr(0)
                 const balance = await wkeys.balances()
                 state.addrInfo = await wkeys.addrs_info();
-
+                state.showC = false
+                state.showWa = true
                 console.log('wallet-addr', addr)
                 console.log("balances", balance)
                 console.log("addrInfo", state.addrInfo)
 
             })
+        },
+        setCurNFT(state, curNFT) {
+            state.curNFT = curNFT
         },
         setMnName(state, name) {
             state.mnName = name
