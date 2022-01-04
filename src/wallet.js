@@ -14,7 +14,9 @@ import {
 
 import nftABI from './nft-abi.json'
 const nftContract = {
+    userAddr: '',
     address: '0xf65E89500fE6d894565aCC2476439bB2aeB866d7',
+    deployedAt: 15384995,
     provider: new ethers.providers.Web3Provider(window.ethereum)
 }
 
@@ -35,7 +37,11 @@ async function connect(commit) {
     console.log('user', user)
     if (user) {
         commit('setUser', user)
-        await nftContract.provider.send('eth_requestAccounts', [])
+        const acc = await nftContract.provider.send('eth_requestAccounts', [])
+        console.log('account', acc)
+        if(acc.length>0){
+            nftContract.userAddr = ethers.utils.getAddress(acc[0])
+        }
         nftContract.obj = new ethers.Contract(nftContract.address, nftABI, nftContract.provider.getSigner())
         console.log('nft contract obj', nftContract.obj)
         return true
@@ -48,18 +54,49 @@ async function disconnect(commit) {
     commit('setUser', {})
 }
 
+function fmtIdString(str,id){
+    return str.replace('{id}',id.toString())
+}
+
 async function getWalletNFTs() {
-    const options = {
-        token_address: nftContract.address,
-        chain: 'bsc testnet'
+    const endblock = await nftContract.provider.getBlockNumber()
+    const maxStep = 5000
+    var evts = []
+    const txsingle = nftContract.obj.filters.TransferSingle()
+    for(var i = nftContract.deployedAt; i< endblock; i+= maxStep){
+        const step_eb = Math.min(endblock, i+maxStep-1)
+        const txs = await nftContract.obj.queryFilter(txsingle, i, step_eb)
+        evts = evts.concat(txs)
     }
-    console.log('this option =', options)
-    const nfts = await moralis.Web3API.account.getNFTsForContract(options)
-    if ('result' in nfts) {
-        return nfts.result
-    } else {
-        return []
+    const ids = []
+    for(var idx in evts){
+        const e = evts[idx]
+        const id = e.args.id.toNumber()
+        if(e.args.to==nftContract.userAddr){
+            if(!(id in ids)){
+                ids[id] = 0
+            }
+            ids[id]++
+        }
+        if(e.args.from==nftContract.userAddr){
+            if(!(id in ids)){
+                ids[id] = 0
+            }
+            ids[id]--
+        }
     }
+    const list = []
+    for(i in ids){
+        const uri = fmtIdString(await nftContract.obj.uri(i),i)
+        const meta = await (await fetch(uri)).json()
+        list.push({
+            token_id: i,
+            uri: uri,
+            meta: meta
+        })
+    }
+    
+    return list
 }
 
 function formatEkey(ekey) {
